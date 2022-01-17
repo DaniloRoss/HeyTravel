@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Oq+2bDWAdYmEmd+1elZPnyIGCRRAnu/cguoTeQWeKc4Vqe14kzmShU0+cNnJxiCat2A3gXq6FgT2u7IZSejwJQ==",
+  "dgSpecHash": "sqTgNtftoeIWbWTkl/3OGXcOyoMQ3MPmPkRIPEH5o+IV/Eimrod0a2+1bI5B6xbNxATtisbc09YlkeMcf3rGZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rossi.17217\\Documents\\HeyTravel\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rossi.17217\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

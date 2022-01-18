@@ -2,7 +2,8 @@
   "runtimeOptions": {
     "additionalProbingPaths": [
       "C:\\Users\\testa.17135\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\testa.17135\\.nuget\\packages"
+      "C:\\Users\\testa.17135\\.nuget\\packages",
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ]
   }
 }

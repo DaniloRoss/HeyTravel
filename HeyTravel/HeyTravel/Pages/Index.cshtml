@@ -3,32 +3,40 @@
 @{
     ViewData["Title"] = "Home";
 }
+<style>
+    body, html {
+        height: 100%;
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_Home.jpg");
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .bg {
+        
+    }
+</style>
 
 <div class="text-center">
-    <h1 class="text-black-50">Benvenuti in HeyTravel, il sito migliore per il viaggio migliore</h1>
     <br />
-    <style>
-        body, html {
-            height: 100%;
-        }
+    <br />
+    <h1 class="text-black-50"><i>Benvenuti in HeyTravel, il sito migliore per il viaggio migliore</i></h1>
+    <br />
+    <br />
+    <br />
+    <h3 class="text-black-50"><i>Inserisci lo stato di destinazione</i></h3>
+    <br />
+    <form class="d-flex">
+        <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            @foreach(var item in eleNaz)
+            {
 
-        .bg {
-            /* The image used */
-            background-image: url("../wwwroot/images/HeyTravel_Foto_Home.jpg");
-            /* Full height */
-            height: 100%;
-            /* Center and scale the image nicely */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        
-    </style>
-    @*<img src="~/images/HeyTravel_Foto_Home.jpg" class="img-fluid" alt="Home" />*@
-        <br />
-        <br />
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
+            }
+        </select>
+        <button class="btn btn-outline-primary" type="submit"><b>Search</b></button>
+    </form>
+</div>

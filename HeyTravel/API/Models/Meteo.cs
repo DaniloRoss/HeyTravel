@@ -20,6 +20,7 @@ namespace API.Models
         public string Mese { get; set; }
         public decimal Min { get; set; }
         public decimal Max { get; set; }
+        public decimal Media { get; set; }
     }
 
     public class Precipitazioni

@@ -26,114 +26,105 @@ namespace API.Functions
                 link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";
             }
 
-            HtmlNodeCollection NodesCities;
-            HtmlNodeCollection NodesPrecipit;
-            HtmlNodeCollection NodesSole;
-            HtmlNodeCollection NodesMare;
-
+            HtmlNodeCollection NodesTabelle;
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
-            if(document==null)
-            {
-                return null;
-            }
-
-            NodesCities = document.DocumentNode.SelectNodes(".//table[contains(@class, 'cities')]");
-            NodesPrecipit = document.DocumentNode.SelectNodes(".//table[contains(@class, 'precipit')]");
-            NodesSole = document.DocumentNode.SelectNodes(".//table[contains(@class, 'sole')]");
-            NodesMare = document.DocumentNode.SelectNodes(".//table[contains(@class, 'mare')]");
 
             List<Meteo> eleMeteo = new List<Meteo>();
-            Meteo Meteo = new Meteo();
-            Meteo.Stato = char.ToUpper(stato[0])+stato.Substring(1);
-            if(NodesCities != null)
+            if (document==null)
             {
-                foreach (var tabellaCities in NodesCities)
-                {
-                    List<Temperature> eleTemperature = new List<Temperature>();
-                    Temperature Temperature = new Temperature();
+                return eleMeteo;
+            }
 
-                    string captionCities = tabellaCities.SelectSingleNode("//caption").InnerText.Trim();
-                    string MeteoCittaCities = captionCities.Substring(0, captionCities.IndexOf('-') - 1);
-                    Meteo.Citta = MeteoCittaCities;
-                    foreach (HtmlNode riga in tabellaCities.SelectNodes("//tr[contains(@class, 'min-table')]"))
-                    {
-                        Temperature.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
-                        Temperature.Min = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
-                        Temperature.Max = decimal.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
-                        eleTemperature.Add(Temperature);
-                    }
-                    Meteo.Temperature = eleTemperature;
+            NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+
+            if(NodesTabelle==null)
+            {
+                return eleMeteo;
+            }
+            
+            List<string> eleNomi = new List<string>();
+            foreach(var tabellaNomi in NodesTabelle)
+            {
+                string captionNome = tabellaNomi.SelectSingleNode(".//caption").InnerText.Trim();
+                string MeteoCittaNomi = captionNome.Substring(0, captionNome.IndexOf('-') - 1);
+                if(eleNomi.Where(p=>p==MeteoCittaNomi).Count()==0)
+                {
+                    eleNomi.Add(MeteoCittaNomi);
                 }
             }
-            if(NodesPrecipit != null)
+            foreach(string nomecitta in eleNomi) 
             {
-                foreach (var tabellaPrecipit in NodesPrecipit)
+                Meteo met = new Meteo();
+                met.Stato = stato;
+                met.Citta = nomecitta;
+                foreach (var tabella in NodesTabelle)
                 {
-                    List<Precipitazioni> elePrecipitazioni = new List<Precipitazioni>();
-                    Precipitazioni Precipitazioni = new Precipitazioni();
-
-                    string captionPrecipit = tabellaPrecipit.SelectSingleNode("//caption").InnerText.Trim();
-                    string MeteoCittaPrecipit = captionPrecipit.Substring(0, captionPrecipit.IndexOf('-') - 1);
-                    Meteo.Citta = MeteoCittaPrecipit;
-                    foreach (HtmlNode riga in tabellaPrecipit.SelectNodes("//tr[contains(@class, 'precipit-table')]"))
+                    string captionNome = tabella.SelectSingleNode(".//caption").InnerText.Trim();
+                    string MeteoCittaNomi = captionNome.Substring(0, captionNome.IndexOf('-') - 1);
+                    if(nomecitta==MeteoCittaNomi)
                     {
-                        Precipitazioni.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
-                        Precipitazioni.Quantità = int.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
-                        Precipitazioni.Giorni = int.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
-                        elePrecipitazioni.Add(Precipitazioni);
-                    }
-                    Meteo.Precipitazioni = elePrecipitazioni;
-                }
-            }
-            if (NodesSole != null)
-            {
-                foreach (var tabellaSole in NodesSole)
-                {
-                    List<OreSole> eleOreSole = new List<OreSole>();
-                    OreSole OreSole = new OreSole();
-
-                    string captionSole = tabellaSole.SelectSingleNode("//caption").InnerText.Trim();
-                    string MeteoCittaSole = captionSole.Substring(0, captionSole.IndexOf('-') - 1);
-                    Meteo.Citta = MeteoCittaSole;
-                    foreach (HtmlNode riga in tabellaSole.SelectNodes("//tr"))
-                    {
-                        if(riga.InnerHtml.StartsWith("<th scope=\"col\""))
+                        if(tabella.GetClasses().ToList()[0]=="cities")
                         {
-                            continue;
+                            List<Temperature> eleTemperature = new List<Temperature>();                            
+                            foreach (HtmlNode riga in tabella.SelectNodes(".//tr[contains(@class, 'min-table')]"))
+                            {
+                                Temperature Temperature = new Temperature();
+                                Temperature.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                                Temperature.Min = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                                Temperature.Max = decimal.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
+                                Temperature.Media = decimal.Parse(riga.ChildNodes[3].InnerText.Trim().ToString());
+                                eleTemperature.Add(Temperature);                                
+                            }
+                            met.Temperature = eleTemperature;
                         }
-                        OreSole.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
-                        OreSole.MediaGiornaliera = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
-                        OreSole.TotaleMese = int.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
-                        eleOreSole.Add(OreSole);
-                    }
-                    Meteo.OreSole = eleOreSole;
-                }
-            }
-            if (NodesMare != null)
-            {
-                foreach (var tabellaMare in NodesMare)
-                {
-                    List<Mare> eleMare = new List<Mare>();
-                    Mare Mare = new Mare();
-
-                    string captionMare = tabellaMare.SelectSingleNode("//caption").InnerText.Trim();
-                    string MeteoCittaMare = captionMare.Substring(0, captionMare.IndexOf('-') - 1);
-                    Meteo.Citta = MeteoCittaMare;
-                    foreach (HtmlNode riga in tabellaMare.SelectNodes("//tr"))
-                    {
-                        if (riga.InnerHtml.StartsWith("<th scope=\"col\""))
+                        if(tabella.GetClasses().ToList()[0] == "precipit")
                         {
-                            continue;
+                            List<Precipitazioni> elePrecipitazioni = new List<Precipitazioni>();
+                            foreach (HtmlNode riga in tabella.SelectNodes(".//tr[contains(@class, 'precipit-table')]"))
+                            {
+                                Precipitazioni Precipitazioni = new Precipitazioni();
+                                Precipitazioni.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                                Precipitazioni.Quantità = int.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                                Precipitazioni.Giorni = int.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
+                                elePrecipitazioni.Add(Precipitazioni);
+                            }
+                            met.Precipitazioni = elePrecipitazioni;                            
                         }
-                        Mare.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
-                        Mare.Temperatura = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
-                        eleMare.Add(Mare);
+                        if(tabella.GetClasses().ToList()[0] == "sole")
+                        {
+                            List<OreSole> eleOreSole = new List<OreSole>();          
+                            for(int i=2;i<40;i=i+3)
+                            {
+                                HtmlNode cella1 = tabella.ChildNodes[i];
+                                HtmlNode cella2 = tabella.ChildNodes[i+1];
+                                HtmlNode cella3 = tabella.ChildNodes[i+2];
+                                OreSole OreSole = new OreSole();
+                                OreSole.Mese = cella1.ChildNodes[0].InnerText.Trim().ToString();
+                                OreSole.MediaGiornaliera = decimal.Parse(cella2.InnerText.Trim().ToString());
+                                OreSole.TotaleMese = int.Parse(cella3.InnerText.Trim().ToString());
+                                eleOreSole.Add(OreSole);
+                            }
+                            met.OreSole = eleOreSole;
+                        }
+                        if(tabella.GetClasses().ToList()[0] == "mare")
+                        {
+                            List<Mare> eleMare = new List<Mare>();
+                            for (int i = 2; i < 27; i = i + 2)
+                            {
+                                Mare Mare = new Mare();
+                                HtmlNode cella1 = tabella.ChildNodes[i];
+                                HtmlNode cella2 = tabella.ChildNodes[i + 1];
+                                Mare.Mese = cella1.ChildNodes[0].InnerText.Trim().ToString();
+                                Mare.Temperatura = decimal.Parse(cella2.InnerText.Trim().ToString());
+                                eleMare.Add(Mare);
+                            }
+                            met.Mare = eleMare;
+                        }
                     }
-                    Meteo.Mare = eleMare;
                 }
-            }
-            eleMeteo.Add(Meteo);
+                eleMeteo.Add(met);
+            }            
             return eleMeteo;
         }
     }

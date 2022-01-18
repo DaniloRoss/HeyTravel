@@ -40,7 +40,6 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\M
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.AssemblyInfo.cs
@@ -57,3 +56,4 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\r
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.pdb
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.genruntimeconfig.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\HtmlAgilityPack.dll
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache

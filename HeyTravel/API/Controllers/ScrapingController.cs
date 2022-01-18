@@ -26,11 +26,17 @@ namespace API.Controllers
             return listameteo;
         }
 
-        [HttpGet("Covid/{stato}")]
-        public Covid DataCovid(string stato)
+        [HttpGet("Covid/casi/{stato}")]
+        public Casi DataCovid(string stato)
         {
-            Covid covid = scrapingRepository.DataCovid(stato);
+            Casi covid = scrapingRepository.DataCovid(stato);
             return covid;
+        }
+        [HttpGet("Covid/vaccini/{stato}")]
+        public Vaccini DataVaccini(string stato)
+        {
+            Vaccini vaccini = scrapingRepository.DataVaccini(stato);
+            return vaccini;
         }
     }
 }

@@ -25,5 +25,12 @@ namespace API.Controllers
             List<Meteo> listameteo = scrapingRepository.ExtractMeteo(stato, città).ToList();
             return listameteo;
         }
+
+        [HttpGet("Covid/{stato}")]
+        public Covid DataCovid(string stato)
+        {
+            Covid covid = scrapingRepository.DataCovid(stato);
+            return covid;
+        }
     }
 }

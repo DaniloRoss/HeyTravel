@@ -9,5 +9,6 @@ namespace API.Functions
     public interface IScrapingRepository
     {
         IEnumerable<Meteo> ExtractMeteo (string stato, string città);
+        Covid DataCovid(string stato);
     }
 }

@@ -19,10 +19,10 @@ namespace API.Controllers
             this.scrapingRepository = scrapingRepository;
         }
 
-        [HttpGet("Meteo/{stato}/{città?}")]
-        public List<Meteo> ExtractMeteo(string stato, string città)
+        [HttpGet("Meteo/{stato}/{citta}")]
+        public List<Meteo> ExtractMeteo(string stato, string citta)
         {
-            List<Meteo> listameteo = scrapingRepository.ExtractMeteo(stato, città).ToList();
+            List<Meteo> listameteo = scrapingRepository.ExtractMeteo(stato, citta).ToList();
             return listameteo;
         }
     }

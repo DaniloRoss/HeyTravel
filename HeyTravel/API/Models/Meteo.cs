@@ -8,7 +8,7 @@ namespace API.Models
     public class Meteo
     {
         public string Stato { get; set; }
-        public string Città { get; set; }
+        public string Citta { get; set; }
         public  List<Temperature> Temperature { get; set; }
         public List<Precipitazioni> Precipitazioni { get; set; }
         public List<OreSole> OreSole { get; set; }

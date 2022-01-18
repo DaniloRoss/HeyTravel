@@ -46,26 +46,94 @@ namespace API.Functions
             List<Meteo> eleMeteo = new List<Meteo>();
             Meteo Meteo = new Meteo();
             Meteo.Stato = char.ToUpper(stato[0])+stato.Substring(1);
-
-            foreach (var tabella in NodesCities)
+            if(NodesCities != null)
             {
-                List<Temperature> eleTemperature = new List<Temperature>();
-                Temperature Temperature = new Temperature();
-                
-                string caption=tabella.SelectSingleNode("//caption").InnerText.Trim();
-                string MeteoCitta = caption.Substring(0, caption.IndexOf('-') - 1);
-                Meteo.Citta = MeteoCitta;
-                foreach(HtmlNode riga in tabella.SelectNodes("//tr[contains(@class, 'min-table')]"))
+                foreach (var tabellaCities in NodesCities)
                 {
-                    Temperature.Mese = riga.SelectSingleNode("//th").InnerText.Trim().ToString();
-                    Temperature.Min = decimal.Parse(riga.SelectSingleNode("//td[1]").InnerText.Trim().ToString());
-                    Temperature.Max = decimal.Parse(riga.SelectSingleNode("//td[2]").InnerText.Trim().ToString());
-                    eleTemperature.Add(Temperature);
+                    List<Temperature> eleTemperature = new List<Temperature>();
+                    Temperature Temperature = new Temperature();
+
+                    string captionCities = tabellaCities.SelectSingleNode("//caption").InnerText.Trim();
+                    string MeteoCittaCities = captionCities.Substring(0, captionCities.IndexOf('-') - 1);
+                    Meteo.Citta = MeteoCittaCities;
+                    foreach (HtmlNode riga in tabellaCities.SelectNodes("//tr[contains(@class, 'min-table')]"))
+                    {
+                        Temperature.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                        Temperature.Min = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                        Temperature.Max = decimal.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
+                        eleTemperature.Add(Temperature);
+                    }
+                    Meteo.Temperature = eleTemperature;
                 }
-                Meteo.Temperature = eleTemperature;
+            }
+            if(NodesPrecipit != null)
+            {
+                foreach (var tabellaPrecipit in NodesPrecipit)
+                {
+                    List<Precipitazioni> elePrecipitazioni = new List<Precipitazioni>();
+                    Precipitazioni Precipitazioni = new Precipitazioni();
+
+                    string captionPrecipit = tabellaPrecipit.SelectSingleNode("//caption").InnerText.Trim();
+                    string MeteoCittaPrecipit = captionPrecipit.Substring(0, captionPrecipit.IndexOf('-') - 1);
+                    Meteo.Citta = MeteoCittaPrecipit;
+                    foreach (HtmlNode riga in tabellaPrecipit.SelectNodes("//tr[contains(@class, 'precipit-table')]"))
+                    {
+                        Precipitazioni.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                        Precipitazioni.Quantità = int.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                        Precipitazioni.Giorni = int.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
+                        elePrecipitazioni.Add(Precipitazioni);
+                    }
+                    Meteo.Precipitazioni = elePrecipitazioni;
+                }
+            }
+            if (NodesSole != null)
+            {
+                foreach (var tabellaSole in NodesSole)
+                {
+                    List<OreSole> eleOreSole = new List<OreSole>();
+                    OreSole OreSole = new OreSole();
+
+                    string captionSole = tabellaSole.SelectSingleNode("//caption").InnerText.Trim();
+                    string MeteoCittaSole = captionSole.Substring(0, captionSole.IndexOf('-') - 1);
+                    Meteo.Citta = MeteoCittaSole;
+                    foreach (HtmlNode riga in tabellaSole.SelectNodes("//tr"))
+                    {
+                        if(riga.InnerHtml.StartsWith("<th scope=\"col\""))
+                        {
+                            continue;
+                        }
+                        OreSole.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                        OreSole.MediaGiornaliera = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                        OreSole.TotaleMese = int.Parse(riga.ChildNodes[2].InnerText.Trim().ToString());
+                        eleOreSole.Add(OreSole);
+                    }
+                    Meteo.OreSole = eleOreSole;
+                }
+            }
+            if (NodesMare != null)
+            {
+                foreach (var tabellaMare in NodesMare)
+                {
+                    List<Mare> eleMare = new List<Mare>();
+                    Mare Mare = new Mare();
+
+                    string captionMare = tabellaMare.SelectSingleNode("//caption").InnerText.Trim();
+                    string MeteoCittaMare = captionMare.Substring(0, captionMare.IndexOf('-') - 1);
+                    Meteo.Citta = MeteoCittaMare;
+                    foreach (HtmlNode riga in tabellaMare.SelectNodes("//tr"))
+                    {
+                        if (riga.InnerHtml.StartsWith("<th scope=\"col\""))
+                        {
+                            continue;
+                        }
+                        Mare.Mese = riga.ChildNodes[0].InnerText.Trim().ToString();
+                        Mare.Temperatura = decimal.Parse(riga.ChildNodes[1].InnerText.Trim().ToString());
+                        eleMare.Add(Mare);
+                    }
+                    Meteo.Mare = eleMare;
+                }
             }
             eleMeteo.Add(Meteo);
-
             return eleMeteo;
         }
     }

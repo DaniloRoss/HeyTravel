@@ -70,7 +70,6 @@ C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.AssemblyInfo.cs
@@ -86,3 +85,4 @@ C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.pdb
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache

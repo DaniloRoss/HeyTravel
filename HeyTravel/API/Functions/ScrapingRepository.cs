@@ -27,10 +27,12 @@ namespace API.Functions
             }
 
             HtmlNodeCollection NodesTabelle;
+
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
 
             List<Meteo> eleMeteo = new List<Meteo>();
+
             if (document==null)
             {
                 return eleMeteo;
@@ -38,7 +40,7 @@ namespace API.Functions
 
             NodesTabelle = document.DocumentNode.SelectNodes(".//table");
 
-            if(NodesTabelle==null)
+            if(NodesTabelle==null || document.DocumentNode.SelectSingleNode("//span").InnerText.StartsWith("Errore"))
             {
                 return eleMeteo;
             }
@@ -53,10 +55,11 @@ namespace API.Functions
                     eleNomi.Add(MeteoCittaNomi);
                 }
             }
+
             foreach(string nomecitta in eleNomi) 
             {
                 Meteo met = new Meteo();
-                met.Stato = stato;
+                met.Stato = char.ToUpper(stato[0])+stato.Substring(1);
                 met.Citta = nomecitta;
                 foreach (var tabella in NodesTabelle)
                 {

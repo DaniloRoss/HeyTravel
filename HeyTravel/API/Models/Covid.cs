@@ -17,9 +17,9 @@ namespace API.Models
     public class Vaccini
     {
         public string Stato { get; set; }
-        public decimal Vaccinati { get; set; }
-        public decimal TotalmenteVaccinati { get; set; }
-        public int Totale { get; set; }
-        public decimal DosiAddizionali { get; set; }
+        public int Vaccinati { get; set; }
+        public int DosiTotali { get; set; }
+        public int NuoveDosi { get; set; }
+        public decimal PercentualeVaccini { get; set; }
     }
 }

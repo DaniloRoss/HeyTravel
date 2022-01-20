@@ -17,24 +17,25 @@
     }
 
     .bg {
-        
     }
 </style>
 
 <div class="text-center">
     <br />
     <br />
-    <h1 class="text-black-50"><i>Benvenuti in HeyTravel, il sito migliore per il viaggio migliore</i></h1>
+    <h1 class="text-black-50"><i>Benvenuto in HeyTravel, il miglior sito per il miglior viaggio</i></h1>
     <br />
     <br />
     <br />
-    <h3 class="text-black-50"><i>Inserisci lo stato di destinazione</i></h3>
+    <h3 class="text-black-50"><i>Inserire lo stato di destinazione</i></h3>
     <br />
     <form class="d-flex">
-        <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            @foreach(var item in eleNaz)
+        <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">   
+            @foreach (var item in Model.EleNazioni)
             {
-
+                <option>
+                    @item.ToString()
+                </option>
             }
         </select>
         <button class="btn btn-outline-primary" type="submit"><b>Search</b></button>

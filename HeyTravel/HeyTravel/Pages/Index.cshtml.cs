@@ -11,6 +11,8 @@ namespace HeyTravel.Pages
 {
     public class IndexModel : PageModel
     {
+        public List<string> EleNazioni = new List<string>();
+        
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -18,9 +20,19 @@ namespace HeyTravel.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            foreach (var line in System.IO.File.ReadLines("EleNaz.txt"))
+            {
+                EleNazioni.Add(line);
+            }
 
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            return Page();
         }
     }
 }

@@ -1,15 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 
 namespace API.Functions
 {
     public class ScrapingRepository : IScrapingRepository
     {
+        public async Task<string> Translate(string text, string target, string source)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri("https://google-translate1.p.rapidapi.com/language/translate/v2"),
+                Headers =
+            {
+                { "x-rapidapi-host", "google-translate1.p.rapidapi.com" },
+                { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
+            },
+                Content = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "q", $"{text}" },
+                { "target", $"{target}" },
+                { "source", $"{source}" },
+            }),
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<RootTranslation>(body.Result).data.translations[0].translatedText;
+                return result;
+            }           
+        }
+
         public IEnumerable<Meteo> ExtractMeteo (string stato, string citta)
         {
             string link=default(string);
@@ -132,11 +162,12 @@ namespace API.Functions
             return eleMeteo;
         }
 
-        public Casi DataCovid(string stato)
+        public async Task<Casi> DataCovid(string stato)
         {
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
+            stato = await Translate(stato, "en", "it");
             decimal casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
             decimal giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
             decimal popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));

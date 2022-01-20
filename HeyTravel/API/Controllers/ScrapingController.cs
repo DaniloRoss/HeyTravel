@@ -27,9 +27,9 @@ namespace API.Controllers
         }
 
         [HttpGet("Covid/casi/{stato}")]
-        public Casi DataCovid(string stato)
+        public async Task<Casi> DataCovid(string stato)
         {
-            Casi covid = scrapingRepository.DataCovid(stato);
+            Casi covid = await scrapingRepository.DataCovid(stato);
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]

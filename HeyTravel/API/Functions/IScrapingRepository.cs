@@ -8,8 +8,9 @@ namespace API.Functions
 {
     public interface IScrapingRepository
     {
+        Task<string> Translate(string text, string target, string source);
         IEnumerable<Meteo> ExtractMeteo (string stato, string città);
-        Casi DataCovid(string stato);
+        Task<Casi> DataCovid(string stato);
         Vaccini DataVaccini(string stato);
     }
 }

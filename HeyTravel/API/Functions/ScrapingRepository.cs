@@ -12,6 +12,11 @@ namespace API.Functions
 {
     public class ScrapingRepository : IScrapingRepository
     {
+        /// <summary>
+        /// Metodo che dato in input uno stato, restituisce il suo codice ISO a due caratteri
+        /// </summary>
+        /// <param name="stato">Stato in Inglese di cui estrarre il codice a due caratteri</param>
+        /// <returns></returns>
         public string ExtractCountryCode(string stato)
         {
             string statoInput;
@@ -20,22 +25,23 @@ namespace API.Functions
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
 
-            stato = char.ToUpper(stato[0]) + stato.Substring(1);
+            stato = stato.ToLower();
             statoInput = stato;
 
-            if(stato=="Russia")
+            if(stato=="russia")
             {
-                statoInput = "Russian Federation";
+                statoInput = "russian federation";
             }
             foreach(var tabella in document.DocumentNode.SelectNodes(".//table"))
             {
-                string idTab = tabella.GetClasses().ToList()[0];
+                string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if(string.Compare(split[2], statoInput.Substring(1,1)) < 0 || string.Compare(split[2], statoInput.Substring(1, 1)) == 0 || string.Compare(split[3], statoInput.Substring(1, 1)) > 0 || string.Compare(split[3], statoInput.Substring(1, 1)) == 0)
+                if(string.Compare(split[2].ToLower(), statoInput.Substring(0,1)) > 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0 
+                    || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
                 {
                     foreach(var riga in tabella.SelectNodes(".//tr"))
                     {
-                        if(riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim()==statoInput)
+                        if(riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower()==statoInput)
                         {
                             return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
 
@@ -73,7 +79,47 @@ namespace API.Functions
                 return result;
             }           
         }
+        /// <summary>
+        /// Metodo che dato in input uno stato, estrae le prime 20 città per popolazione
+        /// </summary>
+        /// <param name="stato">Stato in Italiano da cui estrarre le città</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
+        {
+            string statotradotto, codicestato;
 
+            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();            
+
+            if (stato.Contains("avorio"))
+            {
+                statotradotto = await Translate(stato, "en", "fr");
+            }
+            else
+            {
+                statotradotto = await Translate(stato, "en", "it");
+            }
+
+            codicestato = ExtractCountryCode(statotradotto);
+            
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
+                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
+                return result;
+            }
+        }
         public IEnumerable<Meteo> ExtractMeteo (string stato, string citta)
         {
             string link=default(string);

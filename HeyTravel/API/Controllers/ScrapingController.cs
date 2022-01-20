@@ -18,7 +18,13 @@ namespace API.Controllers
         {
             this.scrapingRepository = scrapingRepository;
         }
-
+        [HttpGet("MiglioriCitta/{stato}")]
+        public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
+        {
+            List<Citta> listacitta = new List<Citta>();
+            listacitta = await scrapingRepository.ExtractBestCitiesPerCountry(stato) as List<Citta>;
+            return listacitta;
+        }
         [HttpGet("Meteo/{stato}/{citta}")]
         public List<Meteo> ExtractMeteo(string stato, string citta)
         {

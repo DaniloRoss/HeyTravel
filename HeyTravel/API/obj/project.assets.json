@@ -288,19 +288,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {}
+    "C:\\Users\\stroppa.17218\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+      "projectPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\stroppa.17218\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\stroppa.17218\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

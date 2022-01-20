@@ -12,6 +12,40 @@ namespace API.Functions
 {
     public class ScrapingRepository : IScrapingRepository
     {
+        public string ExtractCountryCode(string stato)
+        {
+            string statoInput;
+            string link = "https://www.nationsonline.org/oneworld/country_code_list.htm";
+
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument document = web?.Load(link);
+
+            stato = char.ToUpper(stato[0]) + stato.Substring(1);
+            statoInput = stato;
+
+            if(stato=="Russia")
+            {
+                statoInput = "Russian Federation";
+            }
+            foreach(var tabella in document.DocumentNode.SelectNodes(".//table"))
+            {
+                string idTab = tabella.GetClasses().ToList()[0];
+                string[] split = idTab.Split('-');
+                if(string.Compare(split[2], statoInput.Substring(1,1)) < 0 || string.Compare(split[2], statoInput.Substring(1, 1)) == 0 || string.Compare(split[3], statoInput.Substring(1, 1)) > 0 || string.Compare(split[3], statoInput.Substring(1, 1)) == 0)
+                {
+                    foreach(var riga in tabella.SelectNodes(".//tr"))
+                    {
+                        if(riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim()==statoInput)
+                        {
+                            return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                        }
+                    }
+                }
+            }
+            return null;
+
+        }
         public async Task<string> Translate(string text, string target, string source)
         {
             var client = new HttpClient();

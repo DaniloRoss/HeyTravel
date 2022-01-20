@@ -12,6 +12,13 @@ namespace API.Functions
 {
     public class ScrapingRepository : IScrapingRepository
     {
+        /// <summary>
+        /// Funzione che consulta l'API di Google Translate
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="target"></param>
+        /// <param name="source"></param>
+        /// <returns>Testo tradotto</returns>
         public async Task<string> Translate(string text, string target, string source)
         {
             var client = new HttpClient();
@@ -162,6 +169,11 @@ namespace API.Functions
             return eleMeteo;
         }
 
+        /// <summary>
+        /// Funzione he estrae i dati dei casi di Covid19 in base al paese
+        /// </summary>
+        /// <param name="stato"></param>
+        /// <returns>Dati su contagi</returns>
         public async Task<Casi> DataCovid(string stato)
         {
             decimal casiattivi = default;
@@ -180,7 +192,7 @@ namespace API.Functions
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
                 percentuale = (casiattivi / popolazione) * 100;
             }
-            catch
+            catch (NullReferenceException)
             {
                 Casi error = new Casi();
                 return error;
@@ -188,6 +200,12 @@ namespace API.Functions
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             return casi;            
         }
+
+        /// <summary>
+        /// Funzione che estrae i dati delle vaccinazioni n base al paese
+        /// </summary>
+        /// <param name="stato"></param>
+        /// <returns>Dati sulle vaccinazioni</returns>
         public Vaccini DataVaccini(string stato)
         {
             int nuovedosi = default;
@@ -210,7 +228,7 @@ namespace API.Functions
                     nuovedosi = 0;
                 }
             }
-            catch
+            catch (NullReferenceException)
             {
                 Vaccini error = new Vaccini();
                 return error;
@@ -218,6 +236,27 @@ namespace API.Functions
             decimal perc = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[4].InnerText.Trim().Replace("/n", null).Replace("%", null));
             Vaccini vaccini = new Vaccini { Stato = stato, Vaccinati = (int)vaccinati, DosiTotali = dositot, NuoveDosi = nuovedosi, PercentualeVaccini = perc };
             return vaccini;
+        }
+
+        public async Task<string> CovidMap()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://covid19-data.p.rapidapi.com/geojson-ww"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "covid19-data.p.rapidapi.com" },
+                    { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return body;
+            }
         }
     }
 }

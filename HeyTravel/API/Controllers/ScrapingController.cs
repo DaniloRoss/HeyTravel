@@ -38,5 +38,11 @@ namespace API.Controllers
             Vaccini vaccini = scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
+        [HttpGet("Covid/map/")]
+        public async Task<string> CovidMap()
+        {
+            var map = await scrapingRepository.CovidMap();
+            return map;
+        }
     }
 }

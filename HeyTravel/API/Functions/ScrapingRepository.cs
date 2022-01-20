@@ -164,33 +164,56 @@ namespace API.Functions
 
         public async Task<Casi> DataCovid(string stato)
         {
+            decimal casiattivi = default;
+            decimal giornalieri = default;
+            decimal popolazione = default;
+            decimal percentuale = default;
+
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            stato = await Translate(stato, "en", "it");
-            decimal casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal percentuale = (casiattivi/popolazione)*100;
+            var statoen = await Translate(stato, "en", "it");
+            try
+            {
+                casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                percentuale = (casiattivi / popolazione) * 100;
+            }
+            catch
+            {
+                Casi error = new Casi();
+                return error;
+            }
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             return casi;            
         }
         public Vaccini DataVaccini(string stato)
         {
             int nuovedosi = default;
+            int vaccinati = default;
+            int dositot = default;
             string UrlCovid = "https://news.google.com/covid19/map?hl=it&state=7&gl=IT&ceid=IT%3Ait";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            int vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
-            int dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
             try
             {
-                nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                try
+                {
+                    nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
 
+                }
+                catch
+                {
+                    nuovedosi = 0;
+                }
             }
             catch
             {
-                nuovedosi = 0;
+                Vaccini error = new Vaccini();
+                return error;
             }
             decimal perc = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[4].InnerText.Trim().Replace("/n", null).Replace("%", null));
             Vaccini vaccini = new Vaccini { Stato = stato, Vaccinati = (int)vaccinati, DosiTotali = dositot, NuoveDosi = nuovedosi, PercentualeVaccini = perc };

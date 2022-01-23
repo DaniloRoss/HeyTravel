@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {}
+    "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
+    "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+        "projectUniqueName": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
         "projectName": "HeyTravel",
-        "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
-        "packagesPath": "C:\\Users\\brozzoni.17118\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
+        "projectPath": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+        "packagesPath": "C:\\Users\\brozz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\brozzoni.17118\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brozz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +43,10 @@
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.4, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -86,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

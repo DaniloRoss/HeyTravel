@@ -1,6 +1,7 @@
 using HeyTravel.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -30,10 +31,15 @@ namespace HeyTravel
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddRazorPages();
+
+            services.Configure<CookiePolicyOptions>(options => { /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ options.CheckConsentNeeded = context => true; /*requires using Microsoft.AspNetCore.Http;*/ options.MinimumSameSitePolicy = SameSiteMode.None; });
+
+                services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +59,8 @@ namespace HeyTravel
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCookiePolicy();
 
             app.UseRouting();
 

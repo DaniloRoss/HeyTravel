@@ -655,19 +655,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\brozz\\.nuget\\packages\\": {}
+    "C:\\Users\\Testa.17135\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\Testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\brozz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\brozz\\Desktop\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+      "projectPath": "C:\\Users\\Testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\Testa.17135\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\brozz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Testa.17135\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -720,7 +720,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

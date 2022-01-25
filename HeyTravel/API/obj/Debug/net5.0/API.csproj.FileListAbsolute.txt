@@ -117,7 +117,6 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.ge
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\HtmlAgilityPack.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Newtonsoft.Json.dll
-C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\appsettings.json
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\API.exe
@@ -149,3 +148,4 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.pdb
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache

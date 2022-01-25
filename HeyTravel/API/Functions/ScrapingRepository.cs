@@ -13,45 +13,12 @@ namespace API.Functions
     public class ScrapingRepository : IScrapingRepository
     {
         /// <summary>
-        /// Metodo che dato in input uno stato, restituisce il suo codice ISO a due caratteri
+        /// Funzione che consulta l'API di Google Translate
         /// </summary>
-        /// <param name="stato">Stato in Inglese di cui estrarre il codice a due caratteri</param>
-        /// <returns></returns>
-        public string ExtractCountryCode(string stato)
-        {
-            string statoInput;
-            string link = "https://www.nationsonline.org/oneworld/country_code_list.htm";
-
-            HtmlWeb web = new HtmlWeb();
-            HtmlDocument document = web?.Load(link);
-
-            stato = stato.ToLower();
-            statoInput = stato;
-
-            if(stato=="russia")
-            {
-                statoInput = "russian federation";
-            }
-            foreach(var tabella in document.DocumentNode.SelectNodes(".//table"))
-            {
-                string idTab = tabella.GetAttributeValue("id", null);
-                string[] split = idTab.Split('-');
-                if(string.Compare(split[2].ToLower(), statoInput.Substring(0,1)) > 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0 
-                    || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
-                {
-                    foreach(var riga in tabella.SelectNodes(".//tr"))
-                    {
-                        if(riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower()==statoInput)
-                        {
-                            return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
-
-                        }
-                    }
-                }
-            }
-            return null;
-
-        }
+        /// <param name="text"></param>
+        /// <param name="target"></param>
+        /// <param name="source"></param>
+        /// <returns>Testo tradotto</returns>
         public async Task<string> Translate(string text, string target, string source)
         {
             var client = new HttpClient();
@@ -79,47 +46,7 @@ namespace API.Functions
                 return result;
             }           
         }
-        /// <summary>
-        /// Metodo che dato in input uno stato, estrae le prime 20 città per popolazione
-        /// </summary>
-        /// <param name="stato">Stato in Italiano da cui estrarre le città</param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
-        {
-            string statotradotto, codicestato;
 
-            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();            
-
-            if (stato.Contains("avorio"))
-            {
-                statotradotto = await Translate(stato, "en", "fr");
-            }
-            else
-            {
-                statotradotto = await Translate(stato, "en", "it");
-            }
-
-            codicestato = ExtractCountryCode(statotradotto);
-            
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
-                Headers =
-                {
-                    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
-                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-                },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-                return result;
-            }
-        }
         public IEnumerable<Meteo> ExtractMeteo (string stato, string citta)
         {
             string link=default(string);
@@ -242,39 +169,94 @@ namespace API.Functions
             return eleMeteo;
         }
 
+        /// <summary>
+        /// Funzione he estrae i dati dei casi di Covid19 in base al paese
+        /// </summary>
+        /// <param name="stato"></param>
+        /// <returns>Dati su contagi</returns>
         public async Task<Casi> DataCovid(string stato)
         {
+            decimal casiattivi = default;
+            decimal giornalieri = default;
+            decimal popolazione = default;
+            decimal percentuale = default;
+
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            stato = await Translate(stato, "en", "it");
-            decimal casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{stato}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
-            decimal percentuale = (casiattivi/popolazione)*100;
+            var statoen = await Translate(stato, "en", "it");
+            try
+            {
+                casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                percentuale = (casiattivi / popolazione) * 100;
+            }
+            catch (NullReferenceException)
+            {
+                Casi error = new Casi();
+                return error;
+            }
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             return casi;            
         }
+
+        /// <summary>
+        /// Funzione che estrae i dati delle vaccinazioni n base al paese
+        /// </summary>
+        /// <param name="stato"></param>
+        /// <returns>Dati sulle vaccinazioni</returns>
         public Vaccini DataVaccini(string stato)
         {
             int nuovedosi = default;
+            int vaccinati = default;
+            int dositot = default;
             string UrlCovid = "https://news.google.com/covid19/map?hl=it&state=7&gl=IT&ceid=IT%3Ait";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            int vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
-            int dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
             try
             {
-                nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
+                try
+                {
+                    nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
 
+                }
+                catch
+                {
+                    nuovedosi = 0;
+                }
             }
-            catch
+            catch (NullReferenceException)
             {
-                nuovedosi = 0;
+                Vaccini error = new Vaccini();
+                return error;
             }
             decimal perc = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[4].InnerText.Trim().Replace("/n", null).Replace("%", null));
             Vaccini vaccini = new Vaccini { Stato = stato, Vaccinati = (int)vaccinati, DosiTotali = dositot, NuoveDosi = nuovedosi, PercentualeVaccini = perc };
             return vaccini;
+        }
+
+        public async Task<string> CovidMap()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://covid19-data.p.rapidapi.com/geojson-ww"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "covid19-data.p.rapidapi.com" },
+                    { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return body;
+            }
         }
     }
 }

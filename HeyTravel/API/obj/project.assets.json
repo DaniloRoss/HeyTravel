@@ -9,6 +9,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http/2.2.2": {
         "type": "package",
         "dependencies": {
@@ -298,6 +300,8 @@
         "lib/uap10.0/HtmlAgilityPack.dll",
         "lib/uap10.0/HtmlAgilityPack.pdb",
         "lib/uap10.0/HtmlAgilityPack.pri"
+      ]
+    },
     "Microsoft.AspNetCore.Http/2.2.2": {
       "sha512": "BAibpoItxI5puk7YJbIGj95arZueM8B8M5xT1fXBn3hb3L2G3ucrZcYXv1gXdaroLbntUs8qeV8iuBrpjQsrKw==",
       "type": "package",
@@ -740,8 +744,8 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "HtmlAgilityPack >= 1.11.40",
-      "Newtonsoft.Json >= 13.0.1",
       "Microsoft.AspNetCore.Http >= 2.2.2",
+      "Newtonsoft.Json >= 13.0.1",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -758,7 +762,7 @@
       "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\brozz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -788,12 +792,13 @@
             "target": "Package",
             "version": "[1.11.40, )"
           },
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[13.0.1, )"
           "Microsoft.AspNetCore.Http": {
             "target": "Package",
             "version": "[2.2.2, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -821,5 +826,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Si è verificato un problema durante la lettura del file di cache C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\project.nuget.cache: After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[7]', line 15, position 2."
+    }
+  ]
 }

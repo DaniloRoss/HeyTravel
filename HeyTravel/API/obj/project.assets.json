@@ -750,19 +750,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {}
+    "C:\\Users\\cereda.17119\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+      "projectPath": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\cereda.17119\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cereda.17119\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -826,13 +826,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Si è verificato un problema durante la lettura del file di cache C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\project.nuget.cache: After parsing a value an unexpected character was encountered: \". Path 'expectedPackageFiles[7]', line 15, position 2."
-    }
-  ]
+  }
 }

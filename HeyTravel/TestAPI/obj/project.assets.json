@@ -6444,19 +6444,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {}
+    "C:\\Users\\cereda.17119\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+      "projectUniqueName": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
       "projectName": "TestAPI",
-      "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
-      "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
+      "projectPath": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+      "packagesPath": "C:\\Users\\cereda.17119\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cereda.17119\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6470,8 +6470,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
+            "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\cereda.17119\\Desktop\\HeyTravel\\HeyTravel\\API\\API.csproj"
             }
           }
         }

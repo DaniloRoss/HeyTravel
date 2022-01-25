@@ -1,10 +1,75 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
+<style>
+    body, html {
+        height: 100%;
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_Home.jpg");
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .bg {
+    }
+</style>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br />
+    <br />
+    <br />
+    <h1 class="text-black-50"><i>Benvenuto in HeyTravel, il miglior sito per il miglior viaggio</i></h1>
+    <br />
+    <br />
+    <br />
 </div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <style>
+                .center {
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    -ms-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                }
+            </style>
+            <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
+            <form class="d-flex">
+                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    @foreach (var item in Model.EleNazioni)
+                    {
+                        <option>
+                            @item.ToString()
+                        </option>
+                    }
+                </select>
+            </form>
+            <br />
+            <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
+            <form class="d-flex">
+                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    @foreach (var item in Model.EleNazioni)
+                    {
+                        <option>
+                            @item.ToString()
+                        </option>
+                    }
+                </select>
+            </form>
+        </div>
+        <div class="center">
+            <input type="button" onclick="location.href='Home2'" class="btn btn-outline-primary" value="Search"/>
+        </div>
+    </div>
+</form>

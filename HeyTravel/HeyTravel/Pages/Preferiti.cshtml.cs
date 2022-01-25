@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HeyTravel.Pages
 {
+    [Authorize]
     public class PreferitiModel : PageModel
     {
-        [Authorize]
         public void OnGet()
         {
         }

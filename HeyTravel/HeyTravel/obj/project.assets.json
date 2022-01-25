@@ -6105,8 +6105,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\stroppa.17218\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\stroppa.17218\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -6117,9 +6116,6 @@
       "packagesPath": "C:\\Users\\stroppa.17218\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\stroppa.17218\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -6186,7 +6182,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

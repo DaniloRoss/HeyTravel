@@ -88,16 +88,17 @@ namespace API.Functions
         {
             string statotradotto, codicestato;
 
-            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();            
+            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
 
-            if (stato.Contains("avorio"))
-            {
-                statotradotto = await Translate(stato, "en", "fr");
-            }
-            else
-            {
-                statotradotto = await Translate(stato, "en", "it");
-            }
+            //if (stato.Contains("avorio"))
+            //{
+            //    statotradotto = await Translate(stato, "en", "fr");
+            //}
+            //else
+            //{
+            //    statotradotto = await Translate(stato, "en", "it");
+            //}
+            statotradotto = "Italy";
 
             codicestato = ExtractCountryCode(statotradotto);
             
@@ -117,7 +118,17 @@ namespace API.Functions
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-                return result;
+                foreach (var citta in result)
+                {
+                    string link = $"https://it.wikipedia.org/wiki/{citta.name}";
+                    HtmlWeb web = new HtmlWeb();
+                    HtmlDocument document = web?.Load(link);
+
+                    HtmlNode nodoAbitanti = document.DocumentNode.SelectSingleNode(".//a[contains(@title, 'Popolazione')]");
+                    string popolazione=nodoAbitanti.ParentNode.ParentNode.SelectSingleNode(".//td").InnerText.Trim();
+                    popolazione = popolazione.Replace("&#160;", "")?.Split("&")[0];
+                }
+                return null;
             }
         }
         public IEnumerable<Meteo> ExtractMeteo (string stato, string citta)

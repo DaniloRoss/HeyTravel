@@ -18,7 +18,7 @@ namespace API.Functions
         /// <summary>
         /// Metodo che dato in input uno stato, restituisce il suo codice ISO a due caratteri
         /// </summary>
-        /// <param name="stato">Stato in Inglese di cui estrarre il codice a due caratteri</param>
+        /// <param name="stato">Stato in Italiano di cui estrarre il codice a due caratteri</param>
         /// <returns></returns>
         public string ExtractCountryCode(string stato)
         {
@@ -35,6 +35,7 @@ namespace API.Functions
             {
                 statoInput = "russian federation";
             }
+            CountryTranslate(stato, "it");
             var lista = document.DocumentNode.SelectNodes(".//table");
             foreach (var tabella in lista)
             {
@@ -102,48 +103,53 @@ namespace API.Functions
         /// <returns>Traduzione dello stato</returns>
         public string CountryTranslate(string stato, string lingua)
         {
-            string translation = default;
-            string dir = Directory.GetCurrentDirectory();
-            string parent = Directory.GetParent(dir).ToString();
-            string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
-
-            if(lingua == "en")
+            try
             {
-                using (SqlConnection sqlcon = new SqlConnection(connstr))
-                {
-                    SqlDataReader rdr;
-                    sqlcon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                string translation = default;
+                string dir = Directory.GetCurrentDirectory();
+                string parent = Directory.GetParent(dir).ToString();
+                string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-                    sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
-                    rdr = sqlCommand.ExecuteReader();
-                    rdr.Read();
-                    translation = rdr.GetString(0);
-                    rdr.Close();
-                    sqlcon.Close();
+                if (lingua == "en")
+                {
+                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    {
+                        SqlDataReader rdr;
+                        sqlcon.Open();
+                        SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
+                        rdr = sqlCommand.ExecuteReader();
+                        rdr.Read();
+                        translation = rdr.GetString(0);
+                        rdr.Close();
+                        sqlcon.Close();
+                    }
                 }
+                if (lingua == "it")
+                {
+                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    {
+                        SqlDataReader rdr;
+                        sqlcon.Open();
+                        SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
+                        rdr = sqlCommand.ExecuteReader();
+                        rdr.Read();
+                        translation = rdr.GetString(0);
+                        rdr.Close();
+                        sqlcon.Close();
+                    }
+                }
+                return translation;
             }
-            if(lingua == "it")
+            catch
             {
-                using (SqlConnection sqlcon = new SqlConnection(connstr))
-                {
-                    SqlDataReader rdr;
-                    sqlcon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                    sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
-                    rdr = sqlCommand.ExecuteReader();
-                    rdr.Read();
-                    translation = rdr.GetString(0);
-                    rdr.Close();
-                    sqlcon.Close();
-                }
-            }
-                
-            
-            return translation;
+                return null;
+            }            
         }
 
         /// <summary>
@@ -159,14 +165,18 @@ namespace API.Functions
 
             if (stato.Contains("avorio"))
             {
-                //statotradotto = await CountryTranslate(stato, "en", "fr");
+                statotradotto = "Côte d'Ivoire";
             }
             else
             {
-                statotradotto = CountryTranslate(stato, "it");
+                statotradotto = CountryTranslate(stato, "en");
+                if (statotradotto == null)
+                {
+                    return null;
+                }
             }
 
-            codicestato = null;// ExtractCountryCode(statotradotto);
+            codicestato = ExtractCountryCode(statotradotto);
 
             var client = new HttpClient();
             var request = new HttpRequestMessage
@@ -181,34 +191,10 @@ namespace API.Functions
             };
             using (var response = await client.SendAsync(request))
             {
-                List<Citta> eleCitta = new List<Citta>();
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-                foreach (var citta in result)
-                {
-                    Citta cittaAdd = new Citta();
-                    string link = $"https://it.wikipedia.org/wiki/{citta.name}";
-                    HtmlWeb web = new HtmlWeb();
-                    HtmlDocument document = web?.Load(link);
-
-                    HtmlNode nodoAbitanti = document.DocumentNode.SelectSingleNode(".//a[contains(@title, 'Popolazione')]");
-                    string popolazione=nodoAbitanti.ParentNode.ParentNode.SelectSingleNode(".//td").InnerText.Trim();
-                    popolazione = popolazione.Replace("&#160;", "")?.Split("&")[0];
-                    cittaAdd.id = citta.id;
-                    cittaAdd.wikiDataId = citta.wikiDataId;
-                    cittaAdd.type = citta.type;
-                    cittaAdd.name = citta.name;
-                    cittaAdd.country = citta.country;
-                    cittaAdd.countryCode = citta.countryCode;
-                    cittaAdd.region = citta.region;
-                    cittaAdd.regionCode = citta.region;
-                    cittaAdd.latitude = citta.latitude;
-                    cittaAdd.longitude = citta.longitude;
-                    cittaAdd.population = int.Parse(popolazione);
-                    eleCitta.Add(cittaAdd);
-                }
-                return eleCitta;
+                return result;
             }
         }
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)

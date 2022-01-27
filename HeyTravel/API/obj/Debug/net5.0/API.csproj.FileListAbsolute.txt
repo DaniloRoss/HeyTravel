@@ -119,3 +119,9 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\A
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\System.Data.SqlClient.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\runtimes\win-arm64\native\sni.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\runtimes\win-x64\native\sni.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

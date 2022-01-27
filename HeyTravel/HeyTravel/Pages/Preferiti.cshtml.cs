@@ -8,11 +8,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HeyTravel.Pages
 {
-    [Authorize]
+    //[Authorize]
     public class PreferitiModel : PageModel
     {
-        public void OnGet()
+
+
+        public async Task<IActionResult> OnGetAsync()
         {
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            return Page();
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -90,33 +93,59 @@ namespace API.Functions
             }
             return null;
         }
-        public async Task<string> Translate(string text, string target, string source)
+
+        /// <summary>
+        /// Traduce il nome di uno stato da una lingua all'altra
+        /// </summary>
+        /// <param name="stato"></param>
+        /// <param name="lingua"></param>
+        /// <returns>Traduzione dello stato</returns>
+        public string CountryTranslate(string stato, string lingua)
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
+            string translation = default;
+            string dir = Directory.GetCurrentDirectory();
+            string parent = Directory.GetParent(dir).ToString();
+            string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
+
+            if(lingua == "en")
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://google-translate1.p.rapidapi.com/language/translate/v2"),
-                Headers =
-            {
-                { "x-rapidapi-host", "google-translate1.p.rapidapi.com" },
-                { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
-            },
-                Content = new FormUrlEncodedContent(new Dictionary<string, string>
-            {
-                { "q", $"{text}" },
-                { "target", $"{target}" },
-                { "source", $"{source}" },
-            }),
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<RootTranslation>(body.Result).data.translations[0].translatedText;
-                return result;
+                using (SqlConnection sqlcon = new SqlConnection(connstr))
+                {
+                    SqlDataReader rdr;
+                    sqlcon.Open();
+                    SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
+                    rdr = sqlCommand.ExecuteReader();
+                    rdr.Read();
+                    translation = rdr.GetString(0);
+                    rdr.Close();
+                    sqlcon.Close();
+                }
             }
+            if(lingua == "it")
+            {
+                using (SqlConnection sqlcon = new SqlConnection(connstr))
+                {
+                    SqlDataReader rdr;
+                    sqlcon.Open();
+                    SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
+                    rdr = sqlCommand.ExecuteReader();
+                    rdr.Read();
+                    translation = rdr.GetString(0);
+                    rdr.Close();
+                    sqlcon.Close();
+                }
+            }
+                
+            
+            return translation;
         }
+
         /// <summary>
         /// Metodo che dato in input uno stato, estrae le prime 20 città per popolazione
         /// </summary>
@@ -128,17 +157,16 @@ namespace API.Functions
 
             stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
 
-            //if (stato.Contains("avorio"))
-            //{
-            //    statotradotto = await Translate(stato, "en", "fr");
-            //}
-            //else
-            //{
-            //    statotradotto = await Translate(stato, "en", "it");
-            //}
-            statotradotto = "United States of America";
+            if (stato.Contains("avorio"))
+            {
+                //statotradotto = await CountryTranslate(stato, "en", "fr");
+            }
+            else
+            {
+                statotradotto = CountryTranslate(stato, "it");
+            }
 
-            codicestato = ExtractCountryCode(statotradotto);
+            codicestato = null;// ExtractCountryCode(statotradotto);
 
             var client = new HttpClient();
             var request = new HttpRequestMessage
@@ -320,7 +348,7 @@ namespace API.Functions
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            var statoen = await Translate(stato, "en", "it");
+            var statoen = CountryTranslate(stato, "en");
             try
             {
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));

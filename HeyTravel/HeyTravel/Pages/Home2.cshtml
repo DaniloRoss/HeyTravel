@@ -1,6 +1,143 @@
 ﻿@page
 @model HeyTravel.Pages.Home2Model
 @{
-
+    ViewData["Title"] = "Home";
 }
-aaaaaaaaaaaaa
+<style>
+    body, html {
+        height: 100%;
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_Home2.jpeg");
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="text-center">
+    <br />
+    <br />
+    <br />
+    <h1 class="text-white-50"><i>Manca poco per il completamento del tuo miglior viaggio</i></h1>
+    <br />
+    <br />
+    <br />
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <style>
+                .center {
+                    margin: 0;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    -ms-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%);
+                }
+            </style>
+            <h5 class="text-white-50" align="center"><i>Inserire il mese di partenza</i></h5>
+            <form class="d-flex">
+                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <option>
+                        Gennaio
+                    </option>
+                    <option>
+                        Febbraio
+                    </option>
+                    <option>
+                        Marzo
+                    </option>
+                    <option>
+                        Aprile
+                    </option>
+                    <option>
+                        Maggio
+                    </option>
+                    <option>
+                        Giugno
+                    </option>
+                    <option>
+                        Luglio
+                    </option>
+                    <option>
+                        Agosto
+                    </option>
+                    <option>
+                        Settembre
+                    </option>
+                    <option>
+                        Ottobre
+                    </option>
+                    <option>
+                        Novembre
+                    </option>
+                    <option>
+                        Dicembre
+                    </option>
+                </select>
+            </form>
+            <br />
+            <h5 class="text-white-50" align="center"><i>Inserire il mese di ritorno</i></h5>
+            <form class="d-flex">
+                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <option>
+                        Gennaio
+                    </option>
+                    <option>
+                        Febbraio
+                    </option>
+                    <option>
+                        Marzo
+                    </option>
+                    <option>
+                        Aprile
+                    </option>
+                    <option>
+                        Maggio
+                    </option>
+                    <option>
+                        Giugno
+                    </option>
+                    <option>
+                        Luglio
+                    </option>
+                    <option>
+                        Agosto
+                    </option>
+                    <option>
+                        Settembre
+                    </option>
+                    <option>
+                        Ottobre
+                    </option>
+                    <option>
+                        Novembre
+                    </option>
+                    <option>
+                        Dicembre
+                    </option>
+                </select>
+            </form>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="center">
+                <input type="button" onclick="location.href='Home2'" class="btn btn-outline-warning" value="Search" />
+            </div>
+        </div>
+    </div>
+</form>

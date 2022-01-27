@@ -32,25 +32,63 @@ namespace API.Functions
             {
                 statoInput = "russian federation";
             }
-            foreach (var tabella in document.DocumentNode.SelectNodes(".//table"))
+            var lista = document.DocumentNode.SelectNodes(".//table");
+            foreach (var tabella in lista)
             {
                 string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) > 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0
-                    || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
+                if(split.Length==3)
                 {
-                    foreach (var riga in tabella.SelectNodes(".//tr"))
+                    if (string.Compare(split[1].ToLower(), statoInput.Substring(0, 1)) > 0 && string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) < 0)
                     {
-                        if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
-                            return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
 
+                            }
+                        }
+                    }
+                    if (string.Compare(split[1].ToLower(), statoInput.Substring(0, 1)) == 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0)
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) > 0 && string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0)
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                            }
+                        }
+                    }
+                    if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                            }
+                        }
+                    }
+                }                
             }
             return null;
-
         }
         public async Task<string> Translate(string text, string target, string source)
         {
@@ -98,7 +136,7 @@ namespace API.Functions
             //{
             //    statotradotto = await Translate(stato, "en", "it");
             //}
-            statotradotto = "Italy";
+            statotradotto = "United States of America";
 
             codicestato = ExtractCountryCode(statotradotto);
 
@@ -115,11 +153,13 @@ namespace API.Functions
             };
             using (var response = await client.SendAsync(request))
             {
+                List<Citta> eleCitta = new List<Citta>();
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
                 foreach (var citta in result)
                 {
+                    Citta cittaAdd = new Citta();
                     string link = $"https://it.wikipedia.org/wiki/{citta.name}";
                     HtmlWeb web = new HtmlWeb();
                     HtmlDocument document = web?.Load(link);
@@ -127,8 +167,20 @@ namespace API.Functions
                     HtmlNode nodoAbitanti = document.DocumentNode.SelectSingleNode(".//a[contains(@title, 'Popolazione')]");
                     string popolazione=nodoAbitanti.ParentNode.ParentNode.SelectSingleNode(".//td").InnerText.Trim();
                     popolazione = popolazione.Replace("&#160;", "")?.Split("&")[0];
+                    cittaAdd.id = citta.id;
+                    cittaAdd.wikiDataId = citta.wikiDataId;
+                    cittaAdd.type = citta.type;
+                    cittaAdd.name = citta.name;
+                    cittaAdd.country = citta.country;
+                    cittaAdd.countryCode = citta.countryCode;
+                    cittaAdd.region = citta.region;
+                    cittaAdd.regionCode = citta.region;
+                    cittaAdd.latitude = citta.latitude;
+                    cittaAdd.longitude = citta.longitude;
+                    cittaAdd.population = int.Parse(popolazione);
+                    eleCitta.Add(cittaAdd);
                 }
-                return null;
+                return eleCitta;
             }
         }
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)

@@ -118,4 +118,4 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\H
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\Newtonsoft.Json.dll
-C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csproj.AssemblyReference.cache
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.csprojAssemblyReference.cache

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Functions;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -32,6 +33,7 @@ namespace API.Controllers
             return listameteo;
         }
 
+        [Authorize]
         [HttpGet("Covid/casi/{stato}")]
         public async Task<Casi> DataCovid(string stato)
         {

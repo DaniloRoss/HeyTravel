@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -33,7 +34,7 @@ namespace API.Controllers
             return listameteo;
         }
 
-        [Authorize]
+        
         [HttpGet("Covid/casi/{stato}")]
         public async Task<Casi> DataCovid(string stato)
         {

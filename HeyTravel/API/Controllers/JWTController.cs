@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Functions;
+using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,56 +13,24 @@ namespace API.Controllers
 {    
     [ApiController]
     [Route("[controller]")]
-    public class LoginController : Controller
+    public class JWTController : Controller
     {
-        private IConfiguration _config;
-
-        public LoginController(IConfiguration config)
+        private readonly IJWTRepository JWTrepository;
+        public JWTController(IJWTRepository JWTrepository)
         {
-            _config = config;
+            this.JWTrepository = JWTrepository;
         }
+       
         [AllowAnonymous]
-        [HttpPost("{username}/password")]
-        public IActionResult Login(string username, string password)
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] UserModel userModel)
         {
-            UserModel login = new UserModel { Username = username, Password = password };
-            IActionResult response = Unauthorized();
-            var user = AuthenticateUser(login);
+            var token = JWTrepository.Authenticate(userModel.UserName, userModel.Password);
+            
+            if (token == null)
+                return Unauthorized();
 
-            if (user != null)
-            {
-                var tokenString = GenerateJSONWebToken(user);
-                response = Ok(new { token = tokenString });
-            }
-
-            return response;
-        }
-
-        private string GenerateJSONWebToken(UserModel userInfo)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
-              expires: DateTime.Now.AddMinutes(120),
-              signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private UserModel AuthenticateUser(UserModel login)
-        {
-            UserModel user = null;
-
-            //Validate the User Credentials    
-            //Demo Purpose, I have Passed HardCoded User Information    
-            if (login != null)
-            {
-                user = login;
-            }
-            return user;
+            return Ok(token);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,8 @@ namespace HeyTravel.Models
 {
     public class Meteo
     {
+        [Key]
+        public int ID { get; set; }
         public string Stato { get; set; }
         public string Citta { get; set; }
         public List<Temperature> Temperature { get; set; }
@@ -17,6 +20,8 @@ namespace HeyTravel.Models
 
     public class Temperature
     {
+        [Key]
+        public int ID { get; set; }
         public string Mese { get; set; }
         public decimal Min { get; set; }
         public decimal Max { get; set; }
@@ -25,6 +30,8 @@ namespace HeyTravel.Models
 
     public class Precipitazioni
     {
+        [Key]
+        public int ID { get; set; }
         public string Mese { get; set; }
         public int Quantità { get; set; }
         public int Giorni { get; set; }
@@ -32,6 +39,8 @@ namespace HeyTravel.Models
 
     public class OreSole
     {
+        [Key]
+        public int ID { get; set; }
         public string Mese { get; set; }
         public decimal MediaGiornaliera { get; set; }
         public int TotaleMese { get; set; }
@@ -39,6 +48,8 @@ namespace HeyTravel.Models
 
     public class Mare
     {
+        [Key]
+        public int ID { get; set; }
         public string Mese { get; set; }
         public decimal Temperatura { get; set; }
     }

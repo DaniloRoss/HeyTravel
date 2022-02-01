@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
@@ -18,7 +19,7 @@ namespace API.Functions
         /// <summary>
         /// Metodo che dato in input uno stato, restituisce il suo codice ISO a due caratteri
         /// </summary>
-        /// <param name="stato">Stato in Italiano di cui estrarre il codice a due caratteri</param>
+        /// <param name="stato">Stato in Inglese di cui estrarre il codice a due caratteri</param>
         /// <returns></returns>
         public string ExtractCountryCode(string stato)
         {
@@ -30,12 +31,7 @@ namespace API.Functions
 
             stato = stato.ToLower();
             statoInput = stato;
-
-            if (stato == "russia")
-            {
-                statoInput = "russian federation";
-            }
-            CountryTranslate(stato, "it");
+            
             var lista = document.DocumentNode.SelectNodes(".//table");
             foreach (var tabella in lista)
             {
@@ -43,18 +39,17 @@ namespace API.Functions
                 string[] split = idTab.Split('-');
                 if(split.Length==3)
                 {
-                    if (string.Compare(split[1].ToLower(), statoInput.Substring(0, 1)) > 0 && string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) < 0)
+                    if ((Encoding.Default.GetBytes(split[1].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]) && (Encoding.Default.GetBytes(split[2].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]))
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
                             if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
                             {
                                 return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
-
                             }
                         }
                     }
-                    if (string.Compare(split[1].ToLower(), statoInput.Substring(0, 1)) == 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0)
+                    if (Encoding.Default.GetBytes(split[1].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] || Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -68,7 +63,7 @@ namespace API.Functions
                 }
                 else
                 {
-                    if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) > 0 && string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0)
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] && Encoding.Default.GetBytes(split[3].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -79,7 +74,7 @@ namespace API.Functions
                             }
                         }
                     }
-                    if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]|| Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -163,21 +158,21 @@ namespace API.Functions
 
             stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
 
-            if (stato.Contains("avorio"))
+            statotradotto = CountryTranslate(stato, "en");
+            if (statotradotto == null)
             {
-                statotradotto = "Côte d'Ivoire";
-            }
-            else
-            {
-                statotradotto = CountryTranslate(stato, "en");
-                if (statotradotto == null)
-                {
-                    return null;
-                }
+                return null;
             }
 
             codicestato = ExtractCountryCode(statotradotto);
-
+            if (stato.Contains("avorio"))
+            {
+                codicestato = "CI";
+            }
+            if(codicestato==null)
+            {
+                return null;
+            }
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {

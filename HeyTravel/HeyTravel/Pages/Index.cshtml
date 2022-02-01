@@ -42,21 +42,22 @@
                 }
             </style>
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
-                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
+            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                   @foreach (var item in Model.EleNazioni)
                     {
                         <option>
-                            @item.ToString()
+                          @item.ToString()
                         </option>
                     }
                 </select>
+
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
                 <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     @foreach (var item in Model.EleNazioni)
                     {
                         <option>
-                            @item.ToString()
+                          @item.ToString()
                         </option>
                     }
                 </select>

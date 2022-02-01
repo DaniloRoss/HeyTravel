@@ -258,3 +258,4 @@ C:\Users\brozz\Desktop\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Raz
 C:\Users\Testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_CookieConsentPartial.cshtml.g.cs
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.csprojAssemblyReference.cache
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaData.cshtml.g.cs
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Risultato.cshtml.g.cs

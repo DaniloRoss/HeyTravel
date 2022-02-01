@@ -7,7 +7,7 @@
     body, html {
         height: 100%;
         /* The image used */
-        background-image: url("../images/HeyTravel_Foto_Home2.jpeg");
+        background-image: url("../images/HeyTravel_Foto_Ricerca.jpeg");
         /* Full height */
         height: 100%;
         /* Center and scale the image nicely */
@@ -42,11 +42,11 @@
                 }
             </style>
             <h5 class="text-white-50" align="center"><i>Inserire il mese di partenza</i></h5>
-            <input class="form-control me-2 text-black" type="month" name="month" min="2022-01" max="2022-12" value="2022-01">
+            <input class="form-control me-2 text-black" type="month" name="month" min="2022-02" max="2022-12" value="@DateTime.Today.Month">
             <br />
             <br />
             <h5 class="text-white-50" align="center"><i>Inserire il mese di ritorno</i></h5>
-            <input class="form-control me-2 text-black" type="month" name="month" min="2022-01" max="2022-12" value="2022-01">
+            <input class="form-control me-2 text-black" type="month" name="month" min="2022-02" max="2022-12" value="@DateTime.Today.Month">
             <br />
             <br />
             <br />
@@ -59,7 +59,7 @@
             <br />
             <br />
             <div class="center">
-                <input type="button" onclick="location.href=''" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
+                <input type="button" onclick="location.href='Risultato'" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
             </div>
         </div>
     </div>

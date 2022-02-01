@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using API.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,41 +13,30 @@ namespace API.Functions
 {
     public class JWTRepository : IJWTRepository
     {
-        private readonly IDictionary<string, string> users = new Dictionary<string, string>
+        public string GenerateJwtToken(IdentityUser user, JwtConfig _jwtConfig)
         {
-            { "test1", "password1" },
-            { "test2", "password2" }
-        };
-        private readonly string key;
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
 
-        public JWTRepository(string key)
-        {
-            this.key = key;
-        }
+            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
 
-        public string Authenticate(string username, string password)
-        {
-            if(users.Any(u=>u.Key==username && u.Value == password))
+            var jwtTokenDescriptor = new SecurityTokenDescriptor
             {
-                return null;
-            }
-
-            var tokenhandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.ASCII.GetBytes(key);
-            var tokenDescriptior = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new []
                 {
-                    new Claim(ClaimTypes.Name, username)
-                }),
+                    new Claim("Id", user.Id),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }
+                ),
                 Expires = DateTime.Now,
-                SigningCredentials =
-                new SigningCredentials(
-                    new SymmetricSecurityKey(tokenKey),
-                    SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenhandler.CreateToken(tokenDescriptior);
-            return tokenhandler.WriteToken(token);
+
+            var token = jwtTokenHandler.CreateToken(jwtTokenDescriptor);
+            var jwtToken = jwtTokenHandler.WriteToken(token);
+
+            return jwtToken;
         }
     }
 }

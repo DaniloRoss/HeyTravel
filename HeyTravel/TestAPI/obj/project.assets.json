@@ -10721,8 +10721,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -10733,9 +10732,6 @@
       "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

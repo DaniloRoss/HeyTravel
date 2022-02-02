@@ -17,6 +17,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace API.Controllers
 {    
     [ApiController]
@@ -27,10 +28,8 @@ namespace API.Controllers
 
         private readonly JwtConfig _jwtConfig;
 
-        private readonly IJWTRepository JWTrepository;
-        public JWTController(IJWTRepository JWTrepository, UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        public JWTController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
         {
-            this.JWTrepository = JWTrepository;
             _usermanager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
         }
@@ -58,11 +57,11 @@ namespace API.Controllers
 
                 if (isCreated.Succeeded)
                 {
-                    var jwtToken = JWTRepository.GenerateJwtToken(newUser, _jwtConfig);
+                    var jwtToken = GenerateJwtToken(newUser);
                     return Ok(new RegistrationResponse()
                     {
                         Success = true,
-                        Token=jwtToken
+                        Token = jwtToken
                     });
                 }
                 else
@@ -84,6 +83,80 @@ namespace API.Controllers
                 Success = false
             });
         }
-        
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _usermanager.FindByEmailAsync(user.Email);
+                if (existingUser == null)
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>()
+                        {
+                            "Invalid login request"
+                        },
+                        Success = false
+                    });                    
+                }
+                var isCorrect = await _usermanager.CheckPasswordAsync(existingUser, user.Password);
+
+                if (!isCorrect)
+                {
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>()
+                        {
+                            "Invalid login request"
+                        },
+                        Success = false
+                    });
+                }
+
+                var jwtToken = GenerateJwtToken(existingUser);
+
+                return Ok(new RegistrationResponse()
+                {
+                    Success = true,
+                    Token = jwtToken
+                });
+            }
+            return BadRequest(new RegistrationResponse()
+            {
+                Errors = new List<string>()
+                {
+                    "Invalid payload"
+                },
+                Success = false
+            });
+        }
+
+        private string GenerateJwtToken(IdentityUser user)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
+
+            var jwtTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim("Id", user.Id),
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                }
+                ),
+                //Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = jwtTokenHandler.CreateToken(jwtTokenDescriptor);
+            var jwtToken = jwtTokenHandler.WriteToken(token);
+
+            return jwtToken;
+        }
     }
 }

@@ -33,7 +33,6 @@ namespace HeyTravel.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             
-
             return Page();
         }
     }

@@ -46,9 +46,9 @@ namespace API.Controllers
                     return BadRequest(new RegistrationResponse()
                     {
                         Errors = new List<string>()
-                {
-                    "Email already in use"
-                },
+                        {
+                            "Email already in use"
+                        },
                         Success = false
                     });
                 }

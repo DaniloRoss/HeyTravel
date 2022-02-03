@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
@@ -30,30 +31,63 @@ namespace API.Functions
 
             stato = stato.ToLower();
             statoInput = stato;
-
-            if (stato == "russia")
-            {
-                statoInput = "russian federation";
-            }
-            foreach (var tabella in document.DocumentNode.SelectNodes(".//table"))
+            
+            var lista = document.DocumentNode.SelectNodes(".//table");
+            foreach (var tabella in lista)
             {
                 string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if (string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) > 0 || string.Compare(split[2].ToLower(), statoInput.Substring(0, 1)) == 0
-                    || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) < 0 || string.Compare(split[3].ToLower(), statoInput.Substring(0, 1)) == 0)
+                if(split.Length==3)
                 {
-                    foreach (var riga in tabella.SelectNodes(".//tr"))
+                    if ((Encoding.Default.GetBytes(split[1].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]) && (Encoding.Default.GetBytes(split[2].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]))
                     {
-                        if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
-                            return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+                            }
+                        }
+                    }
+                    if (Encoding.Default.GetBytes(split[1].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] || Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
 
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] && Encoding.Default.GetBytes(split[3].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                            }
+                        }
+                    }
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]|| Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    {
+                        foreach (var riga in tabella.SelectNodes(".//tr"))
+                        {
+                            if (riga.SelectSingleNode(".//td[contains(@class, 'abs')]").InnerText.Trim().ToLower() == statoInput)
+                            {
+                                return riga.SelectSingleNode(".//td[3]").InnerText.Trim();
+
+                            }
+                        }
+                    }
+                }                
             }
             return null;
-
         }
 
         /// <summary>
@@ -64,48 +98,53 @@ namespace API.Functions
         /// <returns>Traduzione dello stato</returns>
         public string CountryTranslate(string stato, string lingua)
         {
-            string translation = default;
-            string dir = Directory.GetCurrentDirectory();
-            string parent = Directory.GetParent(dir).ToString();
-            string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
-
-            if(lingua == "en")
+            try
             {
-                using (SqlConnection sqlcon = new SqlConnection(connstr))
-                {
-                    SqlDataReader rdr;
-                    sqlcon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                string translation = default;
+                string dir = Directory.GetCurrentDirectory();
+                string parent = Directory.GetParent(dir).ToString();
+                string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
 
-                    sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
-                    rdr = sqlCommand.ExecuteReader();
-                    rdr.Read();
-                    translation = rdr.GetString(0);
-                    rdr.Close();
-                    sqlcon.Close();
+                if (lingua == "en")
+                {
+                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    {
+                        SqlDataReader rdr;
+                        sqlcon.Open();
+                        SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
+                        rdr = sqlCommand.ExecuteReader();
+                        rdr.Read();
+                        translation = rdr.GetString(0);
+                        rdr.Close();
+                        sqlcon.Close();
+                    }
                 }
+                if (lingua == "it")
+                {
+                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    {
+                        SqlDataReader rdr;
+                        sqlcon.Open();
+                        SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                        sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
+                        rdr = sqlCommand.ExecuteReader();
+                        rdr.Read();
+                        translation = rdr.GetString(0);
+                        rdr.Close();
+                        sqlcon.Close();
+                    }
+                }
+                return translation;
             }
-            if(lingua == "it")
+            catch
             {
-                using (SqlConnection sqlcon = new SqlConnection(connstr))
-                {
-                    SqlDataReader rdr;
-                    sqlcon.Open();
-                    SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                    sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
-                    rdr = sqlCommand.ExecuteReader();
-                    rdr.Read();
-                    translation = rdr.GetString(0);
-                    rdr.Close();
-                    sqlcon.Close();
-                }
-            }
-                
-            
-            return translation;
+                return null;
+            }            
         }
 
         /// <summary>
@@ -119,17 +158,21 @@ namespace API.Functions
 
             stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
 
+            statotradotto = CountryTranslate(stato, "en");
+            if (statotradotto == null)
+            {
+                return null;
+            }
+
+            codicestato = ExtractCountryCode(statotradotto);
             if (stato.Contains("avorio"))
             {
-                //statotradotto = await CountryTranslate(stato, "en", "fr");
+                codicestato = "CI";
             }
-            else
+            if(codicestato==null)
             {
-                statotradotto = CountryTranslate(stato, "it");
+                return null;
             }
-
-            codicestato = null;// ExtractCountryCode(statotradotto);
-
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {

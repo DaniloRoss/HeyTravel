@@ -3,3 +3,40 @@
 @{
     ViewData["Title"] = "Preferiti";
 }
+
+<br />
+<h2 class="text-black-50" align="center">Ritrova qui le tue mete <i>Preferite</i></h2>
+<br />
+<form method="post">
+    <table class="table text-black-50" >
+        <thead>
+            <tr align="center">
+                <th>Partenza</th>
+                <th>Arrivo</th>
+                <th>%Vaccinati</th>
+                <th>%Casi</th>
+                <th>Temperatura Media</th>
+                <th>Precipitazioni</th>
+                <th>Media Sole</th>
+                <th>Temperatura Mare</th>
+                <th>Rimuovere dai preferiti?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.NewViag)
+            {
+                <tr>
+                    <td>@item.StatoPartenza</td>
+                    <td>@item.StatoArrivo</td>
+                    <td>@item.Vaccinati.PercentualeVaccini.ToString()</td>
+                    <td>@item.CasiCovid.PercentualeContagi.ToString()</td>
+                    <td>@item.Temp.Media.ToString()</td>
+                    <td>@item.Preci.Quantità.ToString()</td>
+                    <td>@item.Sole.MediaGiornaliera.ToString()</td>
+                    <td>@item.Tmare.Temperatura.ToString()</td>
+                    <td><button type="submit" class="btn btn-outline-primary" asp-route-id="@item.ID" align="center"><i>Rimuovi</i></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

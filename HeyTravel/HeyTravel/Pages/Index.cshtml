@@ -40,31 +40,40 @@
                 }
             </style>
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
-            <form class="d-flex">
-                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
+            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                   @foreach (var item in Model.EleNazioni)
                     {
                         <option>
-                            @item.ToString()
+                          @item.ToString()
                         </option>
                     }
                 </select>
-            </form>
+
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-            <form class="d-flex">
                 <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     @foreach (var item in Model.EleNazioni)
                     {
                         <option>
-                            @item.ToString()
+                          @item.ToString()
                         </option>
                     }
                 </select>
-
-            </form>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="center">
+                <input type="button" onclick="location.href='RicercaData'" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
+            </div>
         </div>
-
     </div>
         <input type="button" onclick="location.href='Home2'" class="btn btn-outline-primary center" value="Search" />
 </form>

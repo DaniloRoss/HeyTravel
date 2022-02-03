@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {}
+    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
+    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+        "projectUniqueName": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
         "projectName": "HeyTravel",
-        "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
-        "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
+        "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+        "packagesPath": "C:\\Users\\brozzoni.17118\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brozzoni.17118\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,9 +59,17 @@
               "target": "Package",
               "version": "[5.0.4, )"
             },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite.Core": {
+              "target": "Package",
+              "version": "[5.0.13, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",

@@ -255,7 +255,6 @@ C:\Users\brozz\Desktop\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\ref
 C:\Users\brozz\Desktop\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.pdb
 C:\Users\brozz\Desktop\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
 C:\Users\brozz\Desktop\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_CookieConsentPartial.cshtml.g.cs
-C:\Users\Testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Home2.cshtml.g.cs
 C:\Users\Testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_CookieConsentPartial.cshtml.g.cs
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.csprojAssemblyReference.cache
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.Data.Sqlite.dll
@@ -410,3 +409,5 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\ne
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\ref\HeyTravel.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.pdb
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaData.cshtml.g.cs
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Risultato.cshtml.g.cs

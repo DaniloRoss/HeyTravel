@@ -11,6 +11,7 @@ namespace API.Functions
         string ExtractCountryCode(string stato);
         Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string codicestato);
         IEnumerable<Meteo> ExtractMeteo (string stato, string città);
+        Task<IEnumerable<Aeroporto>> ExtractAirports(double latitude, double longitude);
         Task<Casi> DataCovid(string stato);
         Vaccini DataVaccini(string stato);
         Task<string> CovidMap();

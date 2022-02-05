@@ -31,7 +31,12 @@ namespace API.Controllers
             List<Meteo> listameteo = scrapingRepository.ExtractMeteo(stato, citta).ToList();
             return listameteo;
         }
-
+        [HttpGet("Aeroporti/{latitude}/{longitude}")]
+        public async Task<List<Aeroporto>> ExtractAirports(double latitude, double longitude)
+        {
+            List<Aeroporto> listaAeroporti = await scrapingRepository.ExtractAirports(latitude, longitude) as List<Aeroporto>;
+            return listaAeroporti;
+        }
         [HttpGet("Covid/casi/{stato}")]
         public async Task<Casi> DataCovid(string stato)
         {

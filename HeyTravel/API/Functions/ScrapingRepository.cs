@@ -313,7 +313,28 @@ namespace API.Functions
             }
             return eleMeteo;
         }
-
+        public async Task<IEnumerable<Aeroporto>> ExtractAirports(double latitude, double longitude)
+        {
+            var client = new HttpClient();
+            Uri ur = new Uri($"https://aviation-reference-data.p.rapidapi.com/airports/search?lat={latitude.ToString().Replace(',', '.')}&lon={longitude.ToString().Replace(',', '.')}&radius=100");
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = ur,
+                Headers =
+                {
+                    { "x-rapidapi-host", "aviation-reference-data.p.rapidapi.com" },
+                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Aeroporto>>(body);
+                return result;
+            }
+        }
         /// <summary>
         /// Funzione he estrae i dati dei casi di Covid19 in base al paese
         /// </summary>

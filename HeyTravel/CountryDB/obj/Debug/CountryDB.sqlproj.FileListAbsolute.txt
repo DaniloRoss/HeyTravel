@@ -4,3 +4,9 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\bin\Debug\Co
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.sqlprojAssemblyReference.cache
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.pdb
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\bin\Debug\CountryDB.dacpac
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\bin\Debug\CountryDB.dll
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\bin\Debug\CountryDB.pdb
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.sqlprojAssemblyReference.cache
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.dll
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\CountryDB\obj\Debug\CountryDB.pdb

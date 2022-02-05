@@ -27,9 +27,18 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                 </ul>
+                @*Google Auth*@
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-                <partial name="_LoginPartial" />
+                @*Log Out*@
+                <a href="#" onclick="signOut();">Log out</a>
+                <script>
+                    function signOut() {
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                            console.log('User signed out.');
+                        });
+                    }
+                </script>
             </div>
        </nav>
     </header>

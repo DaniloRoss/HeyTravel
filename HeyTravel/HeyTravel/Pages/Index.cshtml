@@ -15,6 +15,23 @@
     }
 </style>
 
+@*Google Auth*@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<head>
+    <meta name="google-signin-client_id" content="586732699757-bift7cd1h112rkqfj1kjc4o9pdp71t6u.apps.googleusercontent.com">
+</head>
+
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        //console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+</script>
+
 <div class="text-center">
     <br />
     <br />
@@ -39,26 +56,27 @@
                     transform: translate(-50%, -50%);
                 }
             </style>
+
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
             <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                   @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
 
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
             <br />
             <br />
             <br />

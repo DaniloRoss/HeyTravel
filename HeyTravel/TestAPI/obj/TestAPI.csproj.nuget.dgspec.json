@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj": {}
+    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\testa.17135\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+        "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\brozzoni.17118\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\testa.17135\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brozzoni.17118\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -116,20 +116,20 @@
         }
       }
     },
-    "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj": {
+    "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+        "projectUniqueName": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
         "projectName": "TestAPI",
-        "projectPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
-        "packagesPath": "C:\\Users\\testa.17135\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
+        "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+        "packagesPath": "C:\\Users\\brozzoni.17118\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\testa.17135\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brozzoni.17118\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -143,8 +143,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-                "projectPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
+              "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+                "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
               }
             }
           }

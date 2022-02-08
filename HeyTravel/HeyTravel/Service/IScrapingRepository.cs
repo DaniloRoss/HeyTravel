@@ -1,4 +1,4 @@
-﻿using API.Models;
+﻿using HeyTravel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +9,7 @@ namespace HeyTravel.Service
     public interface IScrapingRepository
     {
         Task<Casi> DataCovid(string stato);
+        Task<List<Citta>> ExtractBestCitiesPerCountry(string stato);
+        Task<List<Meteo>> ExtractMeteo(string stato, string citta);
     }
 }

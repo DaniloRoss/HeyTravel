@@ -1,4 +1,4 @@
-﻿using API.Models;
+﻿using HeyTravel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,14 @@ namespace HeyTravel.Service
         public async Task<Casi> DataCovid(string stato)
         {
             return await httpClient.GetFromJsonAsync<Casi>(@$"Scraping/Covid/casi/{stato}");
+        }
+        public async Task<List<Citta>> ExtractBestCitiesPerCountry(string stato)
+        {
+            return await httpClient.GetFromJsonAsync<List<Citta>>(@$"Scraping/MiglioriCitta/{stato}");
+        }
+        public async Task<List<Meteo>> ExtractMeteo(string stato, string citta)
+        {
+            return await httpClient.GetFromJsonAsync<List<Meteo>>(@$"Scraping/Meteo/{stato}/{citta}");
         }
     }
 }

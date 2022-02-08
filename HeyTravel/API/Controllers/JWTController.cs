@@ -61,7 +61,7 @@ namespace API.Controllers
                     return Ok(new RegistrationResponse()
                     {
                         Success = true,
-                        Token = jwtToken
+                        Token = jwtToken                        
                     });
                 }
                 else

@@ -8,8 +8,8 @@ namespace HeyTravel.Models
 {
     public class Casi
     {
-        [Key]
-        public int ID { get; set; }
+        //[Key]
+        //public int ID { get; set; }
         public string Stato { get; set; }
         public int CasiAttivi { get; set; }
         public int CasiGiornalieri { get; set; }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using HeyTravel.Models;
 using HeyTravel.Service;
@@ -20,7 +21,9 @@ namespace HeyTravel.Pages
             this.scrapingRepository = scrapingRepository;
         }
         public List<Citta> eleCittaPartenza = new List<Citta>();
-        public List<Citta> eleCittaArrivo = new List<Citta>();        
+        public List<Citta> eleCittaArrivo = new List<Citta>();
+        public Casi CasiArrivo = new Casi();
+
         [BindProperty]
         public string cittaPartenza { get; set; }
         [BindProperty]
@@ -31,11 +34,22 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string statoarrivo { get; set; }
 
-
         public async Task<IActionResult> OnGetAsync(string statopartenza, string statoarrivo)
         {
-            eleCittaPartenza = await scrapingRepository.ExtractBestCitiesPerCountry(statopartenza);
-            eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountry(statoarrivo);
+            eleCittaPartenza =  await scrapingRepository.ExtractBestCitiesPerCountryAsync(statopartenza);
+
+            if (eleCittaPartenza != null)
+            {
+                Thread.Sleep(1000);
+                eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
+            }
+       
+            if (CasiArrivo != null)
+            {
+                Thread.Sleep(1000);
+                CasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
+            }
+                
 
             return Page();
         }

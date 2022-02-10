@@ -9,7 +9,7 @@ namespace HeyTravel.Service
     public interface IScrapingRepository
     {
         Task<Casi> DataCovid(string stato);
-        Task<List<Citta>> ExtractBestCitiesPerCountry(string stato);
+        Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato);
         Task<List<Meteo>> ExtractMeteo(string stato, string citta);
     }
 }

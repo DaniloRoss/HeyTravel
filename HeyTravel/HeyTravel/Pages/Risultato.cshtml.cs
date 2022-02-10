@@ -19,7 +19,7 @@ namespace HeyTravel.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            var a = jWTRepository.Login("HeyTravel", "HeyTravel2022!");
+            var a = await jWTRepository.Login("HeyTravel", "HeyTravel2022!");
             return Page();
         }
     }

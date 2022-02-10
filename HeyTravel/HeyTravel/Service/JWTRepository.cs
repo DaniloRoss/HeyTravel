@@ -22,8 +22,9 @@ namespace HeyTravel.Service
         public async Task<string> Login(string username , string password)
         {
             var user = new UserLoginRequest { Username = username, Password = password };
-            var result = await httpClient.GetFromJsonAsync<string>(@$"JWT/Login/{user}");
-            return null;
+            var result = await httpClient.PostAsJsonAsync<UserLoginRequest>(@$"JWT/Login", user);
+            var b = await result.Content.ReadAsStringAsync();
+            return b;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace API.Controllers
             });
         }
 
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         public async Task<string> Login([FromBody] UserLoginRequest user)
         {
             if (ModelState.IsValid)

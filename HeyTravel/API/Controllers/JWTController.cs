@@ -28,10 +28,13 @@ namespace API.Controllers
 
         private readonly JwtConfig _jwtConfig;
 
-        public JWTController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        private readonly ITokenManager tokenManager;
+
+        public JWTController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor, ITokenManager tokenManager)
         {
             _usermanager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
+            this.tokenManager = tokenManager;
         }
        
         [AllowAnonymous]
@@ -58,6 +61,7 @@ namespace API.Controllers
                 if (isCreated.Succeeded)
                 {
                     var jwtToken = GenerateJwtToken(newUser);
+                    await tokenManager.SetToken(userModel.Username, jwtToken);
                     return Ok(new RegistrationResponse()
                     {
                         Success = true,
@@ -89,7 +93,7 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await _usermanager.FindByEmailAsync(user.Email);
+                var existingUser = await _usermanager.FindByNameAsync(user.Username);
                 if (existingUser == null)
                 {
                     return BadRequest(new RegistrationResponse()
@@ -115,12 +119,13 @@ namespace API.Controllers
                     });
                 }
 
-                var jwtToken = GenerateJwtToken(existingUser);
+                var jwtToken = await tokenManager.GetToken(user.Username);
+
 
                 return Ok(new RegistrationResponse()
                 {
                     Success = true,
-                    Token = jwtToken
+                    Token = jwtToken.Token
                 });
             }
             return BadRequest(new RegistrationResponse()

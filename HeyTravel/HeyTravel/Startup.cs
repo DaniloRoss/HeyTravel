@@ -61,6 +61,7 @@ namespace HeyTravel
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
             //services.Configure<CookiePolicyOptions>(options => 
             //{ 
             //    /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 

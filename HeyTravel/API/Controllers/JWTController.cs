@@ -88,54 +88,29 @@ namespace API.Controllers
             });
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
+        [HttpGet("Login")]
+        public async Task<string> Login([FromBody] UserLoginRequest user)
         {
             if (ModelState.IsValid)
             {
                 var existingUser = await _usermanager.FindByNameAsync(user.Username);
                 if (existingUser == null)
                 {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = new List<string>()
-                        {
-                            "Invalid login request"
-                        },
-                        Success = false
-                    });                    
+                    return "Username inesistente";        
                 }
                 var isCorrect = await _usermanager.CheckPasswordAsync(existingUser, user.Password);
 
                 if (!isCorrect)
                 {
-                    return BadRequest(new RegistrationResponse()
-                    {
-                        Errors = new List<string>()
-                        {
-                            "Invalid login request"
-                        },
-                        Success = false
-                    });
+                    return "Password non valida";
                 }
 
                 var jwtToken = await tokenManager.GetToken(user.Username);
 
 
-                return Ok(new RegistrationResponse()
-                {
-                    Success = true,
-                    Token = jwtToken.Token
-                });
+                return jwtToken.Token;
             }
-            return BadRequest(new RegistrationResponse()
-            {
-                Errors = new List<string>()
-                {
-                    "Invalid payload"
-                },
-                Success = false
-            });
+            return "Errore";
         }
 
         private string GenerateJwtToken(IdentityUser user)

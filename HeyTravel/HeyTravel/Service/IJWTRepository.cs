@@ -10,6 +10,6 @@ namespace HeyTravel.Service
 {
     public interface IJWTRepository
     {
-        Task<RegistrationResponse> Register(UserRegistrationDTO user);
+        Task<string> Login(string username, string password);
     }
 }

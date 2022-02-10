@@ -1,4 +1,4 @@
 ﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="/Identity" Path="C:\Users\testa.17135\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.12\staticwebassets\V4\" />
-  <ContentRoot BasePath="_content/API" Path="C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\API\wwwroot\" />
+  <ContentRoot BasePath="/Identity" Path="C:\Users\infol\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.12\staticwebassets\V4\" />
+  <ContentRoot BasePath="_content/API" Path="C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\API\wwwroot\" />
 </StaticWebAssets>

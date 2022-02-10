@@ -26,11 +26,13 @@ namespace HeyTravel.Pages
 
         [BindProperty]
         public string cittaPartenza { get; set; }
+
         [BindProperty]
         public string cittaArrivo { get; set; }
 
         [BindProperty]
         public string statopartenza { get; set; }
+
         [BindProperty]
         public string statoarrivo { get; set; }
 
@@ -40,17 +42,16 @@ namespace HeyTravel.Pages
 
             if (eleCittaPartenza != null)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(300);
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
        
             if (CasiArrivo != null)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(300);
                 CasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
             }
                 
-
             return Page();
         }
 

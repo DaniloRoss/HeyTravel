@@ -595,3 +595,4 @@ C:\Users\brozzoni.17118\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug
 C:\Users\brozzoni.17118\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaData.cshtml.g.cs
 C:\Users\brozzoni.17118\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Risultato.cshtml.g.cs
 C:\Users\brozzoni.17118\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs

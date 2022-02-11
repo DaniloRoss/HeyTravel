@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<script>mapboxgl.accessToken = 'pk.eyJ1IjoiZGFueXJlZHMiLCJhIjoiY2t5Zm1zdDNyMGVlbzJvbmFlNXY5YXAwZCJ9.NJg7y8ASm8cyNmNHdo3lLw';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/danyreds/ckyrf8zmocm1314lepqa8k1qk',
+            center: [9.8, 45.75],
+            zoom: 8.5
+        });
+
+        map.on('load', function() {
+
+            map.addSource('BG_comuni', {
+                type: 'geojson',
+                data: './BG_comuni2.json'
+            });
+
+            map.addLayer({
+                id: 'comuni-layer',
+                type: 'fill',
+                source: 'BG_comuni',
+                'paint': {
+                    'fill-color': "#AA1100",
+                    'fill-opacity': {
+                        property: 'RATIO',
+                        stops: [
+                            [0, 0],
+                            [1, 0.15],
+                            [20, 0.5],
+                            [35, 0.7],
+                            [100, 0.8],
+                        ]
+                    }
+                }
+            });
+        });
+
+        map.on('click', 'comuni-layer', function(e) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const conflitto = urlParams.get('conflitto');
+            const mode = urlParams.get('mode');
+            var HTML = 'Comune di <b>' + e.features[0].properties.NOME_COM + '</b>';
+            HTML += '<br><a href="http://www.combattentibergamaschi.it/cerca.php?comune=' + encodeURIComponent(e.features[0].properties.NOME_COM).replace(/'/g, '%27') + '&mode=' + mode + '&conflitto=' + conflitto + '" target="_blank">' + e.features[0].properties.NOMINATIVI + ' nominativi</a>';
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(HTML)
+                .addTo(map);
+        });
+
+        // Change the cursor to a pointer when the mouse is over the states layer.
+        map.on('mouseenter', 'comuni-layer', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'comuni-layer', function () {
+            map.getCanvas().style.cursor = '';
+        });</script>

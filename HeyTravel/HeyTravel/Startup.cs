@@ -85,7 +85,7 @@ namespace HeyTravel
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IJWTRepository jWTRepository)
         {
             if (env.IsDevelopment())
             {
@@ -113,6 +113,8 @@ namespace HeyTravel
             {
                 endpoints.MapRazorPages();
             });
+
+            jWTRepository.Login("HeyTravel", "HeyTravel2022!");
         }
     }
 }

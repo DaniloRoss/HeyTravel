@@ -319,19 +319,46 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public async Task<Casi> DataCovid(string stato)
+        public async Task<List<Casi>> DataCovid(string stato)
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
             decimal popolazione = default;
             decimal percentuale = default;
-
+            List<Casi> elecasi = new List<Casi>();
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
             var statoen = CountryTranslate(stato, "en");
+            
+
             try
             {
+                if (stato == "world")
+                {
+                    var nodes = doc.DocumentNode.SelectNodes("//table[@id='main_table_countries_yesterday']//tr[@style='']");
+                    foreach (var row in nodes)
+                    {
+                        try
+                        {
+                            var a = row.SelectNodes("//td");
+                            string nomestato = row.ChildNodes[3].InnerText.Trim().Replace("/n", null).Replace(",", null);
+                            casiattivi = decimal.Parse(row.ChildNodes[17].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                            giornalieri = 0;
+                            popolazione = decimal.Parse(row.ChildNodes[29].InnerText.Trim().Replace("/n", null).Replace(",", null));
+                            percentuale = (casiattivi / popolazione) * 100;
+
+                            elecasi.Add(new Casi { Stato = nomestato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione });
+                            
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                        return elecasi;
+                }
+                
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
                 giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
@@ -340,10 +367,12 @@ namespace API.Functions
             catch (NullReferenceException)
             {
                 Casi error = new Casi();
-                return error;
+                elecasi.Add(error);
+                return elecasi;
             }
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
-            return casi;            
+            elecasi.Add(casi);
+            return elecasi;            
         }
 
         /// <summary>

@@ -22,7 +22,8 @@ namespace HeyTravel.Pages
         }
         public List<Citta> eleCittaPartenza = new List<Citta>();
         public List<Citta> eleCittaArrivo = new List<Citta>();
-        public Casi CasiArrivo = new Casi();
+        public Casi eleCasiArrivo = new Casi();
+        public Vaccini eleVaccini = new Vaccini();
 
         [BindProperty]
         public string cittaPartenza { get; set; }
@@ -46,12 +47,18 @@ namespace HeyTravel.Pages
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
        
-            if (CasiArrivo != null)
+            if (eleCasiArrivo != null)
             {
                 Thread.Sleep(300);
-                CasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
+                eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
             }
-                
+
+            if (eleVaccini != null)
+            {
+                Thread.Sleep(300);
+                eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
+            }
+     
             return Page();
         }
 

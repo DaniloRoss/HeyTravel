@@ -11,5 +11,6 @@ namespace HeyTravel.Service
         Task<Casi> DataCovid(string stato);
         Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato);
         Task<List<Meteo>> ExtractMeteo(string stato, string citta);
+        Vaccini DataVaccini(string stato);
     }
 }

@@ -34,13 +34,22 @@
 </select>
 <br />
 <div class="text-center">
-    <label class="text-black"><i>Percentuale dei contagi: @((int)Model.CasiArrivo.PercentualeContagi)% &emsp;&emsp; &emsp;&emsp;</i></label>
+    <label class="text-black"><i>Percentuale dei contagi: @((int)Model.eleCasiArrivo.PercentualeContagi)% &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Casi giornalieri: @((int)Model.CasiArrivo.CasiGiornalieri) &emsp;&emsp; &emsp;&emsp;</i></label>
+    <label class="text-black"><i>Casi giornalieri: @((int)Model.eleCasiArrivo.CasiGiornalieri) &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Popolazione Stato: @((int)Model.CasiArrivo.Popolazione) &emsp;&emsp; &emsp;&emsp;</i></label>
+    <label class="text-black"><i>Popolazione Stato: @((int)Model.eleCasiArrivo.Popolazione) &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Casi COVID attivi: @((int)Model.CasiArrivo.CasiAttivi)</i></label>
+    <label class="text-black"><i>Casi COVID attivi: @((int)Model.eleCasiArrivo.CasiAttivi)</i></label>
+</div>
+<div class="text-center">
+    <label class="text-black"><i>Vaccinati: @((int)Model.eleVaccini.Vaccinati) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+    <label class="text-black"><i>Dosi totali: @((int)Model.eleVaccini.DosiTotali) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+    <label class="text-black"><i>Nuove dosi amministrate: @((int)Model.eleVaccini.NuoveDosi) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+    <label class="text-black"><i>Percentuale vaccini: @((int)Model.eleVaccini.PercentualeVaccini)%</i></label>
 </div>
 <br />
 <div class="text-center">

@@ -19,8 +19,6 @@ namespace HeyTravel.Models
 
     public class Vaccini
     {
-        [Key]
-        public int ID { get; set; }
         public string Stato { get; set; }
         public int Vaccinati { get; set; }
         public int DosiTotali { get; set; }

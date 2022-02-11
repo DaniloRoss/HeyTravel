@@ -27,5 +27,9 @@ namespace HeyTravel.Service
         {
             return await httpClient.GetFromJsonAsync<List<Meteo>>(@$"Scraping/Meteo/{stato}/{citta}");
         }
+        public async Vaccini DataVaccini(string stato)
+        {
+            return await httpClient.GetFromJsonAsync<Vaccini>(@$"Scraping/Covid/vaccini/{stato}");
+        }
     }
 }

@@ -24,11 +24,40 @@
                     </ul>
                 </div>
             </div>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-            </ul>
-            <partial name="_LoginPartial" />
-        </div>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                </ul>
+
+                <label id="NomeUtente"></label>
+                @*Google Auth che fa onSignIn*@
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                @*Log Out*@
+                <a href="#" class="nav-link text-dark" onclick="signOut();">Log out</a>
+                <script>
+                    function signOut() {
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                            document.getElementById("NomeUtente").innerHTML = '';
+                            console.log('User signed out.');
+                        });
+                    }
+                    function onSignIn(googleUser) {
+                        var profile = googleUser.getBasicProfile();
+                        var id = profile.getId(); // Do not send to your backend! Use an ID token instead.
+                        var Email = profile.getEmail(); // This is null if the 'email' scope is not present.
+                        
+                        document.getElementById("NomeUtente").innerHTML = profile.getName();
+                    }
+                    function Confirm() {
+                        var confirm_value = document.createElement("INPUT");
+                        confirm_value.type = "hidden";
+                        confirm_value.name = "confirm_value";
+                        confirm_value.value = googleUser.getEmail();
+                        //In confirm_value che è hidden, ci sta la mail dello user
+                        document.forms[0].appendChild(confirm_value);
+                    }
+                </script>
+            </div>
        </nav>
     </header>
     <div class="container">

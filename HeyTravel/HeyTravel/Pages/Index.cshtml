@@ -15,6 +15,13 @@
     }
 </style>
 
+@*Google Auth*@
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<head>
+    <meta name="google-signin-client_id" content="586732699757-bift7cd1h112rkqfj1kjc4o9pdp71t6u.apps.googleusercontent.com">
+</head>
+
 <div class="text-center">
     <br />
     <br />
@@ -39,26 +46,27 @@
                     transform: translate(-50%, -50%);
                 }
             </style>
+
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
             <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                   @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
 
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-                <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
             <br />
             <br />
             <br />

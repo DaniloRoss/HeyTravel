@@ -43,7 +43,7 @@ namespace HeyTravel.Pages
 
             if (eleCittaPartenza != null)
             {
-                Thread.Sleep(300);
+                Thread.Sleep(800);
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
        

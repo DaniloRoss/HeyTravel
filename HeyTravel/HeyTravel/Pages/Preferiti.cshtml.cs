@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace HeyTravel.Pages
 {
     //[Authorize]
+    
     public class PreferitiModel : PageModel
     {
         private readonly AppDbContext _context;

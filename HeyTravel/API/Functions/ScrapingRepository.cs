@@ -141,7 +141,7 @@ namespace API.Functions
                 }
                 return translation;
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }            

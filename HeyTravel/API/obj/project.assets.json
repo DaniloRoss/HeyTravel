@@ -8298,19 +8298,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\infol\\.nuget\\packages\\": {}
+    "C:\\Users\\testa.17135\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\infol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\API\\obj\\",
+      "projectPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\testa.17135\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\testa.17135\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\infol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\testa.17135\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8405,7 +8409,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

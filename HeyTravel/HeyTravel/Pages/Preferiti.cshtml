@@ -17,7 +17,7 @@
                 <th>%Casi</th>
                 <th>Temperatura Media</th>
                 <th>Precipitazioni</th>
-                <th>Media Sole</th>
+                <th>Media Ore Sole</th>
                 <th>Temperatura Mare</th>
                 <th>Rimuovere dai preferiti?</th>
             </tr>
@@ -30,10 +30,10 @@
                     <td>@item.StatoArrivo</td>
                     <td>@item.Vaccinati.PercentualeVaccini.ToString()</td>
                     <td>@item.CasiCovid.PercentualeContagi.ToString()</td>
-                    <td>@item.Temp.Media.ToString()</td>
-                    <td>@item.Preci.Quantità.ToString()</td>
-                    <td>@item.Sole.MediaGiornaliera.ToString()</td>
-                    <td>@item.Tmare.Temperatura.ToString()</td>
+                    <td>@item.Meteo.Temperature.Where(p=>p.Mese==item.MeseArrivo).ToString()</td>
+                    <td>@item.Meteo.Precipitazioni.Where(p => p.Mese == item.MeseArrivo).ToString()</td>
+                    <td>@item.Meteo.OreSole.Where(p => p.Mese == item.MeseArrivo).ToString()</td>
+                    <td>@item.Meteo.Mare.Where(p => p.Mese == item.MeseArrivo).ToString()</td>
                     <td><button type="submit" class="btn btn-outline-primary" asp-route-id="@item.ID" align="center"><i>Rimuovi</i></button></td>
                 </tr>
             }

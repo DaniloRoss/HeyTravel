@@ -10,7 +10,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
+
 
 namespace API.Functions
 {
@@ -414,23 +417,47 @@ namespace API.Functions
 
         public async Task<string> CovidMap()
         {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
+            var json = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
+            string mappa = default;
+            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world.csv"))
             {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://covid19-data.p.rapidapi.com/geojson-ww"),
-                Headers =
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                while (!parser.EndOfData)
                 {
-                    { "x-rapidapi-host", "covid19-data.p.rapidapi.com" },
-                    { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
-                },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                return body;
+                    string[] fields = parser.ReadFields();
+
+                    if (fields[0] == "COVID")
+                    {
+
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if(fields[0]== "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
+                            {
+                                json.features.FirstOrDefault(a => a.properties.name == "Italy").properties.casi = 0;
+                            }
+                            else
+                            {
+                                json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = decimal.Parse(fields[1]);
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = 0;
+                        }
+                        catch (NullReferenceException)
+                        {
+
+                        }
+                    }
+                }
+                mappa = JsonConvert.SerializeObject(json);
+                //File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
             }
+            return mappa;
         }
     }
 }

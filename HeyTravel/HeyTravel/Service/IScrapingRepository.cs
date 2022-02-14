@@ -9,5 +9,6 @@ namespace HeyTravel.Service
     public interface IScrapingRepository
     {
         Task<Casi> DataCovid(string stato);
+        Task<string> Mappa();
     }
 }

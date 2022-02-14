@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Functions;
 using API.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
@@ -49,10 +45,10 @@ namespace API.Controllers
             return vaccini;
         }
         [HttpGet("Covid/map/")]
-        public async Task<string> CovidMap()
+        public async Task<IActionResult> CovidMap()
         {
-            var map = await scrapingRepository.CovidMap();
-            return map;
+            await scrapingRepository.CovidMap();
+            return Ok();
         }
     }
 }

@@ -20,5 +20,11 @@ namespace HeyTravel.Service
         {
             return await httpClient.GetFromJsonAsync<Casi>(@$"Scraping/Covid/casi/{stato}");
         }
+
+        public async Task<string> Mappa()
+        {
+            string json = await httpClient.GetFromJsonAsync<string>(@$"Scraping/Covid/map");
+            return json;
+        }
     }
 }

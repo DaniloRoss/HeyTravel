@@ -1,21 +1,29 @@
 ﻿<!DOCTYPE html>
-<script>mapboxgl.accessToken = 'pk.eyJ1IjoiZGFueXJlZHMiLCJhIjoiY2t5Zm1zdDNyMGVlbzJvbmFlNXY5YXAwZCJ9.NJg7y8ASm8cyNmNHdo3lLw';
+<html>
+<head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+    <div id="map" style="width:600px; height:400px;"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGFueXJlZHMiLCJhIjoiY2t6bjEyamNxMDN6NzJucXVnZjZ2enM3eCJ9.ieT8jUJor2Z0q69as5-WYQ';
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/danyreds/ckzmpnpey001h15oatavzcetr',
             center: [9.8, 45.75],
-            zoom: 8.5
+            zoom: 2.5
         });
 
-        map.on('load', function() {
+        map.on('load', function () {
 
             map.addSource('COVID', {
                 type: 'geojson',
-                data: 'C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\wwwroot\html\Mappa.html'
+                data: 'https://www.combattentibergamaschi.it/mappa.json'
             });
 
             map.addLayer({
-                id: 'chronopleth',
+                id: 'covid-cases',
                 type: 'fill',
                 source: 'COVID',
                 'paint': {
@@ -34,25 +42,24 @@
             });
         });
 
-        //map.on('click', 'COVID', function(e) {
-        //    const queryString = window.location.search;
-        //    const urlParams = new URLSearchParams(queryString);
-        //    const conflitto = urlParams.get('conflitto');
-        //    const mode = urlParams.get('mode');
-        //    var HTML = 'Comune di <b>' + e.features[0].properties.NOME_COM + '</b>';
-        //    HTML += '<br><a href="http://www.combattentibergamaschi.it/cerca.php?comune=' + encodeURIComponent(e.features[0].properties.NOME_COM).replace(/'/g, '%27') + '&mode=' + mode + '&conflitto=' + conflitto + '" target="_blank">' + e.features[0].properties.NOMINATIVI + ' nominativi</a>';
-        //    new mapboxgl.Popup()
-        //        .setLngLat(e.lngLat)
-        //        .setHTML(HTML)
-        //        .addTo(map);
-        //});
+        map.on('click', 'covid-cases', function (e) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            var HTML = 'Country: <b>' + e.features[0].properties.name + '</b>' + ' ' + e.features[0].properties.casi + ' cases';
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(HTML)
+                .addTo(map);
+        });
 
-        //// Change the cursor to a pointer when the mouse is over the states layer.
-        //map.on('mouseenter', 'comuni-layer', function () {
-        //    map.getCanvas().style.cursor = 'pointer';
-        //});
+        // Change the cursor to a pointer when the mouse is over the states layer.
+        map.on('mouseenter', 'covid-cases', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
 
-        //// Change it back to a pointer when it leaves.
-        //map.on('mouseleave', 'comuni-layer', function () {
-        //    map.getCanvas().style.cursor = '';
-        //});</script>
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'covid-cases', function () {
+            map.getCanvas().style.cursor = '';
+        });</script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 using HeyTravel.Data;
+using HeyTravel.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace HeyTravel
@@ -28,6 +30,28 @@ namespace HeyTravel
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IScrapingRepository, ScrapingRepository>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44377/");
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip,
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+
+            });
+
+            services.AddHttpClient<IJWTRepository, JWTRepository>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44377/");
+            }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AllowAutoRedirect = false,
+                AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip,
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+
+            });
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DatiContextConnection")));
@@ -37,30 +61,31 @@ namespace HeyTravel
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.Configure<CookiePolicyOptions>(options => 
-            { 
-                /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 
-                options.CheckConsentNeeded = context => true; 
 
-                /*requires using Microsoft.AspNetCore.Http;*/ 
-                options.MinimumSameSitePolicy = SameSiteMode.None; 
-            });
+            //services.Configure<CookiePolicyOptions>(options => 
+            //{ 
+            //    /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 
+            //    options.CheckConsentNeeded = context => true; 
+
+            //    /*requires using Microsoft.AspNetCore.Http;*/ 
+            //    options.MinimumSameSitePolicy = SameSiteMode.None; 
+            //});
             
-            services.AddAuthentication()
-            .AddGoogle(options =>
-            {
-                IConfigurationSection googleAuthNSection =
-                    Configuration.GetSection("Authentication:Google");
+            //services.AddAuthentication()
+            //.AddGoogle(options =>
+            //{
+            //    IConfigurationSection googleAuthNSection =
+            //        Configuration.GetSection("Authentication:Google");
 
-                options.ClientId = googleAuthNSection["ClientId"];
-                options.ClientSecret = googleAuthNSection["ClientSecret"];
-            });
+            //    options.ClientId = googleAuthNSection["ClientId"];
+            //    options.ClientSecret = googleAuthNSection["ClientSecret"];
+            //});
 
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IJWTRepository jWTRepository)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +113,8 @@ namespace HeyTravel
             {
                 endpoints.MapRazorPages();
             });
+
+            jWTRepository.Login("HeyTravel", "HeyTravel2022!");
         }
     }
 }

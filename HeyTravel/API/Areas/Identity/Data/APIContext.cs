@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ namespace API.Data
         {
         }
 
-        
+        public DbSet<UserToken> userTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

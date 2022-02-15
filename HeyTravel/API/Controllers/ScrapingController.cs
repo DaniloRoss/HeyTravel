@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Functions;
 using API.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -37,9 +33,9 @@ namespace API.Controllers
 
         
         [HttpGet("Covid/casi/{stato}")]
-        public async Task<Casi> DataCovid(string stato)
+        public async Task<List<Casi>> DataCovid(string stato)
         {
-            Casi covid = await scrapingRepository.DataCovid(stato);
+            List<Casi> covid = await scrapingRepository.DataCovid(stato);
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]
@@ -49,10 +45,10 @@ namespace API.Controllers
             return vaccini;
         }
         [HttpGet("Covid/map/")]
-        public async Task<string> CovidMap()
+        public async Task<IActionResult> CovidMap()
         {
-            var map = await scrapingRepository.CovidMap();
-            return map;
+            await scrapingRepository.CovidMap();
+            return Ok();
         }
     }
 }

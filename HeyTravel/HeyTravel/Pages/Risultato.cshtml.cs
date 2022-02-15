@@ -12,14 +12,30 @@ namespace HeyTravel.Pages
 {
     public class RisultatoModel : PageModel
     {
-        private readonly IJWTRepository jWTRepository;
-        public RisultatoModel(IJWTRepository jWTRepository)
+        [Inject]
+        public IJWTRepository JwtRepository { get; set; }
+        [Inject]
+        public IScrapingRepository scrapingRepository { get; set; }
+
+        public RisultatoModel(IJWTRepository JwtRepository, IScrapingRepository scrapingRepository)
         {
-            this.jWTRepository = jWTRepository;
+            this.JwtRepository = JwtRepository;
+            this.scrapingRepository = scrapingRepository;
         }
+
+        [BindProperty]
+        public UserRegistrationDTO userRegistrationDTO { get; set; }
+
+
         public async Task<IActionResult> OnGetAsync()
         {
-            var a = await jWTRepository.Login("HeyTravel", "HeyTravel2022!");
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var a = await JwtRepository.Register(userRegistrationDTO);
+            //var a = await scrapingRepository.DataCovid("Italia");
             return Page();
         }
     }

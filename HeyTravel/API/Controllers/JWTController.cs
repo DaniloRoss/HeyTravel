@@ -28,13 +28,10 @@ namespace API.Controllers
 
         private readonly JwtConfig _jwtConfig;
 
-        private readonly ITokenManager tokenManager;
-
-        public JWTController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor, ITokenManager tokenManager)
+        public JWTController(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
         {
             _usermanager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
-            this.tokenManager = tokenManager;
         }
        
         [AllowAnonymous]
@@ -61,7 +58,6 @@ namespace API.Controllers
                 if (isCreated.Succeeded)
                 {
                     var jwtToken = GenerateJwtToken(newUser);
-                    await tokenManager.SetToken(userModel.Username, jwtToken);
                     return Ok(new RegistrationResponse()
                     {
                         Success = true,
@@ -89,28 +85,52 @@ namespace API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<string> Login([FromBody] UserLoginRequest user)
+        public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await _usermanager.FindByNameAsync(user.Username);
+                var existingUser = await _usermanager.FindByEmailAsync(user.Email);
                 if (existingUser == null)
                 {
-                    return "Username inesistente";        
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>()
+                        {
+                            "Invalid login request"
+                        },
+                        Success = false
+                    });                    
                 }
                 var isCorrect = await _usermanager.CheckPasswordAsync(existingUser, user.Password);
 
                 if (!isCorrect)
                 {
-                    return "Password non valida";
+                    return BadRequest(new RegistrationResponse()
+                    {
+                        Errors = new List<string>()
+                        {
+                            "Invalid login request"
+                        },
+                        Success = false
+                    });
                 }
 
-                var jwtToken = await tokenManager.GetToken(user.Username);
+                var jwtToken = GenerateJwtToken(existingUser);
 
-
-                return jwtToken.Token;
+                return Ok(new RegistrationResponse()
+                {
+                    Success = true,
+                    Token = jwtToken
+                });
             }
-            return "Errore";
+            return BadRequest(new RegistrationResponse()
+            {
+                Errors = new List<string>()
+                {
+                    "Invalid payload"
+                },
+                Success = false
+            });
         }
 
         private string GenerateJwtToken(IdentityUser user)

@@ -26,9 +26,7 @@
 <div class="text-center">
     <br />
     <br />
-    <br />
     <h1 class="text-black-50"><i>Benvenuto in HeyTravel, il miglior sito per il miglior viaggio</i></h1>
-    <br />
     <br />
     <br />
 </div>
@@ -47,27 +45,26 @@
                     transform: translate(-50%, -50%);
                 }
             </style>
-
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
-            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                @foreach (var item in Model.EleNazioni)
-                {
-                    <option>
-                        @item.ToString()
-                    </option>
-                }
-            </select>
+            <select asp-for="@Model.statoPartenza" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                   @foreach (var item in Model.EleNazioni)
+                    {
+                        <option>
+                          @item.ToString()
+                        </option>
+                    }
+                </select>
 
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-            <select class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                @foreach (var item in Model.EleNazioni)
-                {
-                    <option>
-                        @item.ToString()
-                    </option>
-                }
-            </select>
+                <select asp-for="@Model.statoArrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    @foreach (var item in Model.EleNazioni)
+                    {
+                        <option>
+                          @item.ToString()
+                        </option>
+                    }
+                </select>
             <br />
             <br />
             <br />
@@ -80,9 +77,8 @@
             <br />
             <br />
             <div class="center">
-                <input type="button" onclick="location.href='RicercaData'" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
+                <button type="submit" class="btn btn-outline-light" style="background-color:gray">Cerca</button>
             </div>
         </div>
-    </div>  
-    
+    </div>
 </form>

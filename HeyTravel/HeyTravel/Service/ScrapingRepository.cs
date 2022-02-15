@@ -1,4 +1,4 @@
-﻿using API.Models;
+﻿using HeyTravel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +15,21 @@ namespace HeyTravel.Service
         {
             this.httpClient = httpClient;
         }
-
         public async Task<Casi> DataCovid(string stato)
         {
             return await httpClient.GetFromJsonAsync<Casi>(@$"Scraping/Covid/casi/{stato}");
         }
-
-        public async Task<string> Mappa()
+        public async Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato)
         {
-            string json = await httpClient.GetFromJsonAsync<string>(@$"Scraping/Covid/map");
-            return json;
+            return  await httpClient.GetFromJsonAsync<List<Citta>>(@$"Scraping/MiglioriCitta/{stato}");
+        }
+        public async Task<List<Meteo>> ExtractMeteo(string stato, string citta)
+        {
+            return await httpClient.GetFromJsonAsync<List<Meteo>>(@$"Scraping/Meteo/{stato}/{citta}");
+        }
+        public async Task<Vaccini> DataVaccini(string stato)
+        {
+            return await httpClient.GetFromJsonAsync<Vaccini>(@$"Scraping/Covid/vaccini/{stato}");
         }
     }
 }

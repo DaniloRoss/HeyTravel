@@ -8,8 +8,8 @@ namespace HeyTravel.Models
 {
     public class Casi
     {
-        [Key]
-        public int ID { get; set; }
+        //[Key]
+        //public int ID { get; set; }
         public string Stato { get; set; }
         public int CasiAttivi { get; set; }
         public int CasiGiornalieri { get; set; }
@@ -19,8 +19,6 @@ namespace HeyTravel.Models
 
     public class Vaccini
     {
-        [Key]
-        public int ID { get; set; }
         public string Stato { get; set; }
         public int Vaccinati { get; set; }
         public int DosiTotali { get; set; }

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 
 namespace API.Functions

@@ -49,10 +49,10 @@ namespace API.Controllers
             return vaccini;
         }
         [HttpGet("Covid/map/")]
-        public async Task<string> CovidMap()
+        public async Task<IActionResult> CovidMap()
         {
-            var map = await scrapingRepository.CovidMap();
-            return map;
+            await scrapingRepository.CovidMap();
+            return Ok();
         }
     }
 }

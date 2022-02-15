@@ -8774,19 +8774,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\infol\\.nuget\\packages\\": {}
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
       "projectName": "HeyTravel",
-      "projectPath": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
-      "packagesPath": "C:\\Users\\infol\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
+      "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\infol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8800,8 +8804,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\infol\\Desktop\\School\\Informatica\\GitHub\\MILESTONE MS-4.1\\MILESTONE-MS-4.1\\MILESTONE MS-4.1\\HeyTravel\\HeyTravel\\API\\API.csproj"
+            "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
             }
           }
         }
@@ -8871,7 +8875,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

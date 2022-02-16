@@ -101,53 +101,34 @@ namespace API.Functions
         /// <returns>Traduzione dello stato</returns>
         public string CountryTranslate(string stato, string lingua)
         {
-            try
+            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/stati.csv"))
             {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
                 string translation = default;
-                string dir = Directory.GetCurrentDirectory();
-                string parent = Directory.GetParent(dir).ToString();
-                string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
+                stato = stato.ToLower();
+                stato[0].ToString().ToUpper();
+                var statoparsed= char.ToUpper(stato[0]) + stato.Substring(1);
 
-                if (lingua == "en")
+
+                while (!parser.EndOfData)
                 {
-                    using (SqlConnection sqlcon = new SqlConnection(connstr))
-                    {
-                        SqlDataReader rdr;
-                        sqlcon.Open();
-                        SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                    string[] fields = parser.ReadFields();
 
-                        sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
-                        rdr = sqlCommand.ExecuteReader();
-                        rdr.Read();
-                        translation = rdr.GetString(0);
-                        rdr.Close();
-                        sqlcon.Close();
-                    }
-                }
-                if (lingua == "it")
-                {
-                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    if (fields[0] == statoparsed)
                     {
-                        SqlDataReader rdr;
-                        sqlcon.Open();
-                        SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                        sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
-                        rdr = sqlCommand.ExecuteReader();
-                        rdr.Read();
-                        translation = rdr.GetString(0);
-                        rdr.Close();
-                        sqlcon.Close();
-                    }
+                        if (lingua == "en")
+                        {
+                            translation = fields[1];
+                        }
+                        if (lingua == "fr")
+                        {
+                            translation = fields[2];
+                        }
+                    }                    
                 }
                 return translation;
             }
-            catch
-            {
-                return null;
-            }            
         }
 
         /// <summary>
@@ -359,7 +340,9 @@ namespace API.Functions
 
                         }
                     }
-                        return elecasi;
+                    var json = JsonConvert.SerializeObject(elecasi);
+                    File.WriteAllText(@"wwwroot/json/casi.json", json);
+                    return elecasi;
                 }
                 
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
@@ -415,11 +398,55 @@ namespace API.Functions
             return vaccini;
         }
 
-        public async Task<string> CovidMap()
+        public async Task<GeoJson> CovidMap()
         {
-            var json = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
-            string mappa = default;
+            List<Casi> casi = await DataCovid("world");
+            var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
+            File.WriteAllText(@"wwwroot/csv/world_new.csv", string.Empty);
+            string line = default;
+            line = "";
+
             using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world.csv"))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                while (!parser.EndOfData)
+                {
+                    string[] fields = parser.ReadFields();
+
+                    if (fields[0] == "COVID")
+                    {
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var casiattivi = casi.FirstOrDefault(a => a.Stato == fields[0]).CasiAttivi.ToString();
+                            fields[1] = casiattivi;
+                        }
+                        catch (NullReferenceException)
+                        {
+                            fields[1] = "";
+                        }
+                    }
+                    foreach (var field in fields)
+                    {
+                        if (line == "")
+                        {
+                            line = line + field;
+                        }
+                        else
+                        {
+                            line = line + "," + field;
+                        }
+                    }
+                    File.AppendAllText(@"wwwroot/csv/world_new.csv", line + "\n");
+                    line = "";
+                }
+            }
+
+
+            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world_new.csv"))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -437,16 +464,16 @@ namespace API.Functions
                         {
                             if(fields[0]== "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
                             {
-                                json.features.FirstOrDefault(a => a.properties.name == "Italy").properties.casi = 0;
+                                
                             }
                             else
                             {
-                                json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = decimal.Parse(fields[1]);
+                                jsonmap.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = decimal.Parse(fields[1]);
                             }
                         }
                         catch (FormatException)
                         {
-                            json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = 0;
+                            jsonmap.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = 0;
                         }
                         catch (NullReferenceException)
                         {
@@ -454,10 +481,10 @@ namespace API.Functions
                         }
                     }
                 }
-                mappa = JsonConvert.SerializeObject(json);
-                //File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
-            }
-            return mappa;
+                var mappa = JsonConvert.SerializeObject(jsonmap);
+                File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
+                return jsonmap;
+            }            
         }
     }
 }

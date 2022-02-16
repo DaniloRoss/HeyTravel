@@ -1,10 +1,13 @@
-﻿using API.Models;
+﻿using HeyTravel.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace HeyTravel.Service
 {
@@ -21,9 +24,11 @@ namespace HeyTravel.Service
             return await httpClient.GetFromJsonAsync<Casi>(@$"Scraping/Covid/casi/{stato}");
         }
 
-        public async Task<string> Mappa()
+        public async Task<GeoJson> Mappa()
         {
-            string json = await httpClient.GetFromJsonAsync<string>(@$"Scraping/Covid/map");
+            var json = await httpClient.GetFromJsonAsync<GeoJson>(@"Scraping/Covid/map");
+            var mappa = JsonConvert.SerializeObject(json);
+            File.WriteAllText(@"wwwroot/json/mappa_new.json", mappa);
             return json;
         }
     }

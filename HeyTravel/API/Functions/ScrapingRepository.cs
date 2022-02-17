@@ -374,6 +374,7 @@ namespace API.Functions
             var doc = web.Load(UrlCovid);
             try
             {
+                var riga = doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']");
                 vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
                 dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
                 try
@@ -386,7 +387,7 @@ namespace API.Functions
                     nuovedosi = 0;
                 }
             }
-            catch (NullReferenceException)
+            catch (Exception ex)
             {
                 Vaccini error = new Vaccini();
                 return error;
@@ -396,7 +397,7 @@ namespace API.Functions
             return vaccini;
         }
 
-        public async Task<GeoJson> CovidMap()
+        public async Task<string> CovidMap()
         {
             List<Casi> casi = DataCovid("world");
             var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
@@ -481,7 +482,7 @@ namespace API.Functions
                 }
                 var mappa = JsonConvert.SerializeObject(jsonmap);
                 File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
-                return jsonmap;
+                return mappa;
             }            
         }
     }

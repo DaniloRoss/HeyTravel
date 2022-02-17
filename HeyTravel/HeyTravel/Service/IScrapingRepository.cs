@@ -12,6 +12,6 @@ namespace HeyTravel.Service
         Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato);
         Task<List<Meteo>> ExtractMeteo(string stato, string citta);
         Task<Vaccini> DataVaccini(string stato);
-        Task<GeoJson> Mappa();
+        Task<string> Mappa();
     }
 }

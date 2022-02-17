@@ -14,9 +14,11 @@ namespace HeyTravel.Service
     public class ScrapingRepository : IScrapingRepository
     {
         private readonly HttpClient httpClient;
-        public ScrapingRepository(HttpClient httpClient)
+        private readonly IJWTRepository jWTRepository;
+        public ScrapingRepository(HttpClient httpClient, IJWTRepository jWTRepository)
         {
             this.httpClient = httpClient;
+            this.jWTRepository = jWTRepository;
         }
         public Task<List<Casi>> DataCovid(string stato)
         {
@@ -35,12 +37,16 @@ namespace HeyTravel.Service
             return await httpClient.GetFromJsonAsync<Vaccini>(@$"Scraping/Covid/vaccini/{stato}");
         }
 
-        public async Task<GeoJson> Mappa()
+        public async Task<string> Mappa()
         {
-            var json = await httpClient.GetFromJsonAsync<GeoJson>(@"Scraping/Covid/map");
-            var mappa = JsonConvert.SerializeObject(json);
+            string token = await jWTRepository.Login("HeyTravel", "HeyTravel2022!");
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
+
+            var json = await httpClient.GetAsync(@"Scraping/Covid/map");
+            var mappa = await json.Content.ReadAsStringAsync();
             File.WriteAllText(@"wwwroot/json/mappa_new.json", mappa);
-            return json;
+            return mappa;
         }
     }
 }

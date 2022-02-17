@@ -49,9 +49,9 @@ namespace API.Controllers
             return vaccini;
         }
         [HttpGet("Covid/map")]
-        public async Task<GeoJson> CovidMap()
+        public async Task<string> CovidMap()
         {
-            GeoJson mappa = await scrapingRepository.CovidMap();
+            string mappa = await scrapingRepository.CovidMap();
             return mappa;
         }
     }

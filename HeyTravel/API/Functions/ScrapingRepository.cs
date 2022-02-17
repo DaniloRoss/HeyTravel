@@ -420,10 +420,10 @@ namespace API.Functions
                     {
                         try
                         {
-                            var casiattivi = casi.FirstOrDefault(a => a.Stato == fields[0]).CasiAttivi.ToString();
+                            var casiattivi = casi.First(a => a.Stato == fields[0]).CasiAttivi.ToString();
                             fields[1] = casiattivi;
                         }
-                        catch (NullReferenceException)
+                        catch (Exception ex)
                         {
                             fields[1] = "";
                         }

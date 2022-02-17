@@ -88,6 +88,8 @@ namespace API
                  });
             });
             services.AddScoped<IScrapingRepository, ScrapingRepository>();
+            services.AddScoped<ITokenManager, TokenManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

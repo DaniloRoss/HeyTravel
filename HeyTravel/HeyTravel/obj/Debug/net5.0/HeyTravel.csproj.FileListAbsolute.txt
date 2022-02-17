@@ -614,7 +614,6 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\H
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\HeyTravel.Views.pdb
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\HtmlAgilityPack.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Humanizer.dll
-C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -800,3 +799,5 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\H
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs

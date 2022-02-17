@@ -42,7 +42,6 @@ namespace HeyTravel.Service
             string token = await jWTRepository.Login("HeyTravel", "HeyTravel2022!");
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
 
-
             var json = await httpClient.GetAsync(@"Scraping/Covid/map");
             var mappa = await json.Content.ReadAsStringAsync();
             File.WriteAllText(@"wwwroot/json/mappa_new.json", mappa);

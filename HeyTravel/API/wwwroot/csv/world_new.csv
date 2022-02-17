@@ -1,222 +1,57 @@
 COVID,,,GEOJSON,
-Afghanistan,13919,,Afghanistan,Afghanistan
-Albania,7980,,Albania,Albania
-Algeria,80451,,Algeria,Algeria
-Andorra,731,,Andorra,
-Angola,229,,Angola,Angola
-Anguilla,19,,Anguilla,
-Antigua and Barbuda,582,,Antigua and Barbuda,
-Argentina,161032,,Argentina,Argentina
-Armenia,21054,,Armenia,Armenia
-Aruba,62,,Aruba,
-Australia,196276,,Australia,Australia
-Austria,306869,,Austria,Austria
-Azerbaijan,46935,,Azerbaijan,Azerbaijan
-Bahamas,6647,,Bahamas,Bahamas, The
-Bahrain,50500,,Bahrain,
-Bangladesh,186921,,Bangladesh,Bangladesh
-Barbados,5215,,Barbados,
-Belarus,8860,,Belarus,Belarus
-Belgium,1036708,,Belgium,Belgium
-Belize,3224,,Belize,Belize
-Benin,883,,Benin,Benin
+Afghanistan,13476,,Afghanistan,Afghanistan
+Albania,7542,,Albania,Albania
+Algeria,80528,,Algeria,Algeria
+Andorra,727,,Andorra,
+Angola,211,,Angola,Angola
+Anguilla,21,,Anguilla,
+Antigua and Barbuda,80,,Antigua and Barbuda,
+Argentina,164630,,Argentina,Argentina
+Armenia,20226,,Armenia,Armenia
+Aruba,58,,Aruba,
+Australia,160008,,Australia,Australia
+Austria,309150,,Austria,Austria
+Azerbaijan,46674,,Azerbaijan,Azerbaijan
+Bahamas,6599,,Bahamas,Bahamas, The
+Bahrain,46328,,Bahrain,
+Bangladesh,178078,,Bangladesh,Bangladesh
+Barbados,4948,,Barbados,
+Belarus,8532,,Belarus,Belarus
+Belgium,1022735,,Belgium,Belgium
+Belize,2907,,Belize,Belize
+Benin,898,,Benin,Benin
 Bermuda,206,,Bermuda,
-Bhutan,2383,,Bhutan,Bhutan
-Bolivia,107749,,Bolivia,Bolivia
-Bosnia and Herzegovina,158244,,Bosnia and Herz.,Bosnia and Herzegovina
+Bhutan,2576,,Bhutan,Bhutan
+Bolivia,106356,,Bolivia,Bolivia
+Bosnia and Herzegovina,159070,,Bosnia and Herz.,Bosnia and Herzegovina
 Botswana,3941,,Botswana,Botswana
-Brazil,2772602,,Brazil,Brazil
-Brunei,7015,,Brunei,Brunei
-Bulgaria,257413,,Bulgaria,Bulgaria
-Burkina Faso,55,,Burkina Faso,Burkina Faso
-Burundi,37091,,Burundi,Burundi
-Cabo Verde,76,,Cabo Verde,
-Cambodia,1928,,Cambodia,Cambodia
+Brazil,2654751,,Brazil,Brazil
+Brunei,7516,,Brunei,Brunei
+Bulgaria,257265,,Bulgaria,Bulgaria
+Burkina Faso,48,,Burkina Faso,Burkina Faso
+Burundi,37112,,Burundi,Burundi
+Cabo Verde,82,,Cabo Verde,
+Cambodia,1975,,Cambodia,Cambodia
 Cameroon,10710,,Cameroon,Cameroon
-Canada,134098,,Canada,Canada
+Canada,132593,,Canada,Canada
 CAR,7215,,Central African Rep.,Central African Republic
-Caribbean Netherlands,178,,Caribbean Netherlands,
+Caribbean Netherlands,144,,Caribbean Netherlands,
 Cayman Islands,9118,,Cayman Islands,
 Chad,2150,,Chad,Chad
-Channel Islands,2930,,Channel Islands,
-Chile,801050,,Chile,Chile
-China,1398,,China,China
-Colombia,44890,,Colombia,Colombia
-Comoros,154,,Comoros,
+Channel Islands,2940,,Channel Islands,
+Chile,824277,,Chile,Chile
+China,1419,,China,China
+Colombia,45239,,Colombia,Colombia
+Comoros,150,,Comoros,
 Congo,3321,,Congo,Congo, Rep.
-Costa Rica,165746,,Costa Rica,Costa Rica
-Croatia,29308,,Croatia,Croatia
-Cuba,4383,,Cuba,Cuba
-Cura&ccedil;ao,750,,Curaçao,
-Cyprus,170525,,Cyprus,Cyprus
-Czechia,197477,,Czech Rep.,Czech Republic
-Denmark,577979,,Denmark,Denmark
-Djibouti,11,,Djibouti,Djibouti
-Dominica,844,,Dominica,
-Dominican Republic,2644,,Dominican Rep.,Dominican Republic
-DRC,33547,,Dem. Rep. Congo,Congo, Dem. Rep.
-Ecuador,,,Ecuador,Ecuador
-Egypt,45244,,Egypt,Egypt, Arab Rep.
-El Salvador,19905,,El Salvador,El Salvador
-Equatorial Guinea,75,,Eq. Guinea,Equatorial Guinea
-Eritrea,60,,Eritrea,Eritrea
-Estonia,116277,,Estonia,Estonia
-Eswatini,205,,Swaziland,Swaziland
-Ethiopia,51023,,Ethiopia,Ethiopia
-Faeroe Islands,22293,,Faeroe Islands,
-Falkland Islands,,,Falkland Is.,Falkland Islands
-Fiji,1002,,Fiji,Fiji
-Finland,538594,,Finland,Finland
-France,4146609,,France,France
-French Guiana,65710,,French Guiana,
-Gabon,2922,,Gabon,Gabon
-Gambia,85,,Gambia,Gambia, The
-Georgia,176045,,Georgia,Georgia
-Germany,3582018,,Germany,Germany
-Ghana,524,,Ghana,Ghana
-Gibraltar,848,,Gibraltar,
-Greece,214124,,Greece,Greece
-Greenland,8658,,Greenland,Greenland
-Grenada,368,,Grenada,
-Guadeloupe,116476,,Guadeloupe,
-Guatemala,47392,,Guatemala,Guatemala
-Guinea,3209,,Guinea,Guinea
-Guinea-Bissau,810,,Guinea-Bissau,Guinea-Bissau
-Guyana,1379,,Guyana,Guyana
-Haiti,4129,,Haiti,Haiti
-Honduras,266867,,Honduras,Honduras
-Hong Kong,13214,,Hong Kong,
-Hungary,210285,,Hungary,Hungary
-Iceland,18393,,Iceland,Iceland
-India,370209,,India,India
-Indonesia,406025,,Indonesia,Indonesia
-Iran,374660,,Iran,Iran, Islamic Rep.
-Iraq,56558,,Iraq,Iraq
-Ireland,162835,,Ireland,Ireland
-Isle of Man,220,,Isle of Man,
-Israel,238200,,Israel,Israel
-Italy,1550410,,Italy,Italy
-Ivory Coast,1415,,Côte d'Ivoire,Côte d'Ivoire
-Jamaica,50795,,Jamaica,Jamaica
-Japan,857537,,Japan,Japan
-Jordan,188981,,Jordan,Jordan
-Kazakhstan,48064,,Kazakhstan,Kazakhstan
-Kenya,14019,,Kenya,Kenya
-Kiribati,2088,,Kiribati,
-Kosovo,,,Kosovo,Kosovo
-Kuwait,32371,,Kuwait,Kuwait
-Kyrgyzstan,4011,,Kyrgyzstan,Kyrgyz Republic
-Laos,131427,,Lao PDR,Lao PDR
-Latvia,140939,,Latvia,Latvia
-Lebanon,331086,,Lebanon,Lebanon
-Lesotho,8622,,Lesotho,Lesotho
-Liberia,1323,,Liberia,Liberia
-Libya,40921,,Libya,Libya
-Liechtenstein,372,,Liechtenstein,
-Lithuania,100450,,Lithuania,Lithuania
-Luxembourg,17552,,Luxembourg,Luxembourg
-Madagascar,5009,,Madagascar,Madagascar
-Malawi,9258,,Malawi,Malawi
-Malaysia,182965,,Malaysia,Malaysia
-Maldives,15795,,Maldives,
-Mali,1355,,Mali,Mali
-Malta,1977,,Malta,Malta
-Martinique,100340,,Martinique,
-Mauritania,227,,Mauritania,Mauritania
-Mauritius,1962,,Mauritius,
-Mayotte,33421,,Mayotte,
-Mexico,447474,,Mexico,Mexico
-Moldova,31748,,Moldova,Moldova
-Monaco,196,,Monaco,
-Mongolia,142071,,Mongolia,Mongolia
-Montenegro,2991,,Montenegro,Montenegro
-Morocco,11961,,Morocco,Morocco
-Mozambique,4020,,Mozambique,Mozambique
-Myanmar,12626,,Myanmar,Myanmar
-N. Cyprus,,,N. Cyprus,Cyprus, Northern
-N. Korea,,,Dem. Rep. Korea,Korea, Dem. Rep.
-Namibia,666,,Namibia,Namibia
-Nepal,19400,,Nepal,Nepal
-Netherlands,2273978,,Netherlands,Netherlands
-New Caledonia,13727,,New Caledonia,New Caledonia
-New Zealand,6309,,New Zealand,New Zealand
-Nicaragua,13451,,Nicaragua,Nicaragua
-Niger,41,,Niger,Niger
-Nigeria,20511,,Nigeria,Nigeria
-North Macedonia,10095,,Macedonia,Macedonia, FYR
-Norway,978221,,Norway,Norway
-Oman,19845,,Oman,Oman
-Pakistan,75405,,Pakistan,Pakistan
-Palau,1005,,Palau,
-Palestine,46046,,Palestine,Palestine (West Bank and Gaza)
-Panama,17596,,Panama,Panama
-Papua New Guinea,1318,,Papua New Guinea,Papua New Guinea
-Paraguay,29266,,Paraguay,Paraguay
-Peru,,,Peru,Peru
-Philippines,72365,,Philippines,Philippines
-Poland,636006,,Poland,Poland
-Portugal,536835,,Portugal,Portugal
-Puerto Rico,,,Puerto Rico,Puerto Rico
-Qatar,7755,,Qatar,Qatar
-R&eacute;union,27532,,Réunion,
-Romania,366950,,Romania,Romania
-Russia,2668036,,Russia,Russian Federation
-Rwanda,82352,,Rwanda,Rwanda
-S. Korea,652253,,Korea,Korea, Rep.
-Saint Kitts and Nevis,68,,Saint Kitts and Nevis,
-Saint Lucia,1466,,Saint Lucia,
-Saint Martin,8312,,Saint Martin,
-Saint Pierre Miquelon,40,,Saint Pierre Miquelon,
-Samoa,30,,Samoa,
-San Marino,652,,,
-Sao Tome and Principe,13,,Sao Tome and Principe,
-Saudi Arabia,24779,,Saudi Arabia,Saudi Arabia
-Senegal,213,,Senegal,Senegal
-Serbia,221247,,Serbia,Serbia
-Seychelles,804,,Seychelles,
-Sierra Leone,,,Sierra Leone,Sierra Leone
-Singapore,46269,,Singapore,
-Sint Maarten,208,,Sint Maarten,
-Slovakia,245767,,Slovakia,Slovak Republic
-Slovenia,135909,,Slovenia,Slovenia
-Solomon Islands,3719,,Solomon Is.,Solomon Islands
-Somalia,11733,,Somalia,Somalia
-Somaliland,,,Somaliland,Somaliland
-South Africa,36837,,South Africa,South Africa
-South Sudan,3686,,S. Sudan,South Sudan
-Spain,2613940,,Spain,Spain
-Sri Lanka,19076,,Sri Lanka,Sri Lanka
-St. Vincent Grenadines,101,,St. Vincent Grenadines,
-Sudan,15743,,Sudan,Sudan
-Suriname,26581,,Suriname,Suriname
-Sweden,771449,,Sweden,Sweden
-Switzerland,879344,,Switzerland,Switzerland
-Syria,6217,,Syria,Syrian Arab Republic
-Taiwan,1162,,Taiwan,Taiwan
-Tajikistan,17,,Tajikistan,Tajikistan
-Tanzania,,,Tanzania,Tanzania
-Thailand,132725,,Thailand,Thailand
-Timor-Leste,1557,,Timor-Leste,Timor-Leste
-Togo,1277,,Togo,Togo
-Tonga,139,,Tonga,
-Trinidad and Tobago,21461,,Trinidad and Tobago,Trinidad and Tobago
-Tunisia,43382,,Tunisia,Tunisia
-Turkey,825587,,Turkey,Turkey
-Turkmenistan,,,Turkmenistan,Turkmenistan
-Turks and Caicos,54,,Turks and Caicos,
-UAE,61784,,United Arab Emirates,United Arab Emirates
-Uganda,59543,,Uganda,Uganda
-UK,1979212,,United Kingdom,United Kingdom
-Ukraine,657532,,Ukraine,Ukraine
-Uruguay,47079,,Uruguay,Uruguay
-USA,28125618,,United States,United States of America
-Uzbekistan,13300,,Uzbekistan,Uzbekistan
-Vanuatu,,,Vanuatu,Vanuatu
-Vatican City,1,,,
-Venezuela,13040,,Venezuela,Venezuela, RB
-Vietnam,290692,,Vietnam,Vietnam
-Wallis and Futuna,9,,Wallis and Futuna,
-Western Sahara,1,,W. Sahara,Western Sahara
-Yemen,1059,,Yemen,Yemen, Rep.
-Zambia,2599,,Zambia,Zambia
-Zimbabwe,2397,,Zimbabwe,Zimbabwe
+Costa Rica,145917,,Costa Rica,Costa Rica
+Croatia,32170,,Croatia,Croatia
+Cuba,3776,,Cuba,Cuba
+Cura&ccedil;ao,742,,Curaçao,
+Cyprus,173067,,Cyprus,Cyprus
+Czechia,213968,,Czech Rep.,Czech Republic
+Denmark,566517,,Denmark,Denmark
+Djibouti,9,,Djibouti,Djibouti
+Dominica,785,,Dominica,
+Dominican Republic,2528,,Dominican Rep.,Dominican Republic
+DRC,33576,,Dem. Rep. Congo,Congo, Dem. Rep.

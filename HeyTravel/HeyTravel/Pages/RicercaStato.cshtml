@@ -35,14 +35,16 @@
 <br />
 <div class="text-center">
     <h6>CASI COVID</h6>
+    @foreach (var item in Model.eleCasiArrivo)
+    {
+        <label class="text-black"><i>Casi giornalieri: @((int)item.CasiGiornalieri) &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Casi giornalieri: @((int)Model.eleCasiArrivo.CasiGiornalieri) &emsp;&emsp; &emsp;&emsp;</i></label>
+        <label class="text-black"><i>Popolazione Stato: @((int)item.Popolazione) &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Popolazione Stato: @((int)Model.eleCasiArrivo.Popolazione) &emsp;&emsp; &emsp;&emsp;</i></label>
+        <label class="text-black"><i>Casi COVID attivi: @((int)item.CasiAttivi) &emsp;&emsp; &emsp;&emsp;</i></label>
 
-    <label class="text-black"><i>Casi COVID attivi: @((int)Model.eleCasiArrivo.CasiAttivi) &emsp;&emsp; &emsp;&emsp;</i></label>
-
-    <label class="text-black"><i>Percentuale contagi: @((int)Model.eleCasiArrivo.PercentualeContagi)%</i></label>
+        <label class="text-black"><i>Percentuale contagi: @((int)item.PercentualeContagi)%</i></label>
+    }
 </div>
 <br />
 <div class="text-center">

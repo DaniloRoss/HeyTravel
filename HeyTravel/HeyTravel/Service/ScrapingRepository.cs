@@ -18,9 +18,9 @@ namespace HeyTravel.Service
         {
             this.httpClient = httpClient;
         }
-        public async Task<Casi> DataCovid(string stato)
+        public async Task<List<Casi>> DataCovid(string stato)
         {
-            return await httpClient.GetFromJsonAsync<Casi>(@$"Scraping/Covid/casi/{stato}");
+            return await httpClient.GetFromJsonAsync<List<Casi>>(@$"Scraping/Covid/casi/{stato}");
         }
         public async Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato)
         {

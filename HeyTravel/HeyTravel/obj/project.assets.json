@@ -245,18 +245,6 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.Google/5.0.12": {
-        "type": "package",
-        "compile": {
-          "lib/net5.0/Microsoft.AspNetCore.Authentication.Google.dll": {}
-        },
-        "runtime": {
-          "lib/net5.0/Microsoft.AspNetCore.Authentication.Google.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.13": {
         "type": "package",
         "dependencies": {
@@ -2971,21 +2959,6 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
-      ]
-    },
-    "Microsoft.AspNetCore.Authentication.Google/5.0.12": {
-      "sha512": "AFLtpcDW5Gvqf8op5CFDrt/LJx5tNEVKD2g0i5YkhkLwMRsMB9fSpswPvNbk3nhv5gjtpB1WeeBaBYgKH7J2aw==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.authentication.google/5.0.12",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net5.0/Microsoft.AspNetCore.Authentication.Google.dll",
-        "lib/net5.0/Microsoft.AspNetCore.Authentication.Google.xml",
-        "microsoft.aspnetcore.authentication.google.5.0.12.nupkg.sha512",
-        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.13": {
@@ -8789,7 +8762,6 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "API >= 1.0.0",
-      "Microsoft.AspNetCore.Authentication.Google >= 5.0.12",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 5.0.4",
       "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.12",
@@ -8802,19 +8774,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danil\\.nuget\\packages\\": {}
+    "C:\\Users\\brozzoni.17118\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "projectUniqueName": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
       "projectName": "HeyTravel",
-      "projectPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
-      "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
+      "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "packagesPath": "C:\\Users\\brozzoni.17118\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\brozzoni.17118\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8828,8 +8804,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
+            "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\brozzoni.17118\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
             }
           }
         }
@@ -8844,10 +8820,6 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.Google": {
-            "target": "Package",
-            "version": "[5.0.12, )"
-          },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",
             "version": "[5.0.4, )"
@@ -8903,7 +8875,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }

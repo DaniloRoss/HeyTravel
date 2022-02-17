@@ -43,19 +43,19 @@ namespace HeyTravel.Pages
 
             if (eleCittaPartenza != null)
             {
-                Thread.Sleep(300);
+                Thread.Sleep(600);
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
        
-            if (eleCasiArrivo != null)
+            if (eleCittaArrivo != null)
             {
-                Thread.Sleep(300);
+                Thread.Sleep(600);
                 eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
             }
 
-            if (eleVaccini != null)
+            if (eleCasiArrivo != null)
             {
-                Thread.Sleep(300);
+                Thread.Sleep(600);
                 eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
             }
      

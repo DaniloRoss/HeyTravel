@@ -19,43 +19,17 @@
 </style>
 
 <form method="post" class="text-center">
-    <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <style>
-                .center {
-                    margin: 0;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    -ms-transform: translate(-50%, -50%);
-                    transform: translate(-50%, -50%);
-                }
-            </style>
-            <h5 class="text-white-50" align="center"><i>Username</i></h5>
-            <input asp-for="userRegistrationDTO.Username" class="form-control me-2 text-black" type="text" />
-            <br />
-            <br />
-            <h5 class="text-white-50" align="center"><i>Email</i></h5>
-            <input asp-for="userRegistrationDTO.Email" class="form-control me-2 text-black" type="email" />
-            <br />
-            <br />
-            <h5 class="text-white-50" align="center"><i>Password</i></h5>
-            <input asp-for="userRegistrationDTO.Password" class="form-control me-2 text-black" type="password" />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div class="center">
-                <button type="submit" class="btn btn-danger">Registrati</button>
-            </div>
-        </div>
+    <div class="text-center">
+        <h6>CASI COVID</h6>
+        @foreach (var item in Model.eleMeteo)
+        {
+            <label class="text-black" asp-for="@Model.citta"><i>Casi giornalieri: @(item.Temperature.Where(temp=>temp.Mese == Model.mese).Select(t=>t.Media)) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            @*<label class="text-black"><i>Popolazione Stato: @((int)item) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Casi COVID attivi: @((int)item) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Percentuale contagi: @((int)item)%</i></label>*@
+        }
     </div>
 </form>

@@ -301,7 +301,7 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public async Task<List<Casi>> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato)
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
@@ -398,7 +398,7 @@ namespace API.Functions
 
         public async Task<GeoJson> CovidMap()
         {
-            List<Casi> casi = await DataCovid("world");
+            List<Casi> casi = DataCovid("world");
             var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
             File.WriteAllText(@"wwwroot/csv/world_new.csv", string.Empty);
             string line = default;

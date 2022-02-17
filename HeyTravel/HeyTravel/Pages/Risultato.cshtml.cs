@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using API.Models.DTO.Requests;
+using HeyTravel.Models;
 using HeyTravel.Service;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +15,46 @@ namespace HeyTravel.Pages
     public class RisultatoModel : PageModel
     {
         [Inject]
-        public IJWTRepository JwtRepository { get; set; }
-        [Inject]
         public IScrapingRepository scrapingRepository { get; set; }
 
-        public RisultatoModel(IJWTRepository JwtRepository, IScrapingRepository scrapingRepository)
+        public RisultatoModel(IScrapingRepository scrapingRepository)
         {
-            this.JwtRepository = JwtRepository;
             this.scrapingRepository = scrapingRepository;
         }
 
+        public List<Meteo> eleMeteo = new List<Meteo>();
+
         [BindProperty]
-        public UserRegistrationDTO userRegistrationDTO { get; set; }
+        public string mese { get; set; }
 
+        [BindProperty]
+        public string citta { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        [BindProperty]
+        public string stato { get; set; }
+
+        [BindProperty]
+        public string mesepartenza { get; set; }
+
+        [BindProperty]
+        public string mesearrivo { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string stato, string citta)
         {
+            //if (eleMeteo != null)
+            //{
+            Thread.Sleep(1000);
+            eleMeteo = await scrapingRepository.ExtractMeteo(stato, citta);
+
+
+            //}
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var a = await JwtRepository.Register(userRegistrationDTO);
-            //var a = await scrapingRepository.DataCovid("Italia");
+
             return Page();
         }
     }

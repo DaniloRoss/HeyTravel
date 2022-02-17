@@ -14,36 +14,21 @@ namespace HeyTravel.Pages
 
     public class RicercaDataModel : PageModel
     {
-        [Inject]
-        public IScrapingRepository scrapingRepository { get; set; }
-
-        public RicercaDataModel(IScrapingRepository scrapingRepository)
-        {
-            this.scrapingRepository = scrapingRepository;
-        }
-
-        public List<Meteo> eleMeteo = new List<Meteo>();
-
-        [BindProperty]
-        public string citta { get; set; }
-
-        [BindProperty]
-        public string stato { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string stato, string citta)
         {
-            if (eleMeteo != null)
-            {
-                eleMeteo = await scrapingRepository.ExtractMeteo(stato, citta);
-            }
-
-
             return Page();
         }
 
+        [BindProperty]
+        public string mesePartenza { get; set; }
+
+        [BindProperty]
+        public string meseArrivo { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            return RedirectToPage("/Risultato", new { mesepartenza = mesePartenza, mesearrivo = meseArrivo });
         }
     }
 }

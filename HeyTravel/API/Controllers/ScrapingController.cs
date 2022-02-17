@@ -48,11 +48,11 @@ namespace API.Controllers
             Vaccini vaccini = scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
-        [HttpGet("Covid/map/")]
-        public async Task<IActionResult> CovidMap()
+        [HttpGet("Covid/map")]
+        public async Task<GeoJson> CovidMap()
         {
-            await scrapingRepository.CovidMap();
-            return Ok();
+            GeoJson mappa = await scrapingRepository.CovidMap();
+            return mappa;
         }
     }
 }

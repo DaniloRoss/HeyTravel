@@ -10,20 +10,32 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HeyTravel.Pages
 {
-    //[Authorize]
-    
+    [Authorize]    
     public class PreferitiModel : PageModel
     {
         private readonly AppDbContext _context;
         public PreferitiModel(AppDbContext context)
         {
             _context = context;
-            NewViag = _context.Viaggio.ToList();
+            eleViaggi = _context.Viaggio.ToList();
+            eleAssociazioni = _context.eleAssociazione.ToList();
         }
-        public List<Viaggi> NewViag { get; set; }
+        public List<Viaggi> eleViaggi { get; set; }
+        public List<Viaggi> eleViaggiUtente { get; set; }
+        public List<Associazione> eleAssociazioniUtente { get; set; }
+        public List<Associazione> eleAssociazioni { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
+            eleAssociazioniUtente = eleAssociazioni.Where(p => p.Username_Utente == User.Identity.Name).ToList();
+            foreach (var associa in eleAssociazioniUtente)
+            {
+                eleViaggiUtente = eleViaggi.Where(p => p.ID == associa.ID_Viaggio).ToList();
+            }
+            if (eleViaggiUtente == null)
+            {
+                return NotFound();
+            }
             return Page();
         }
 
@@ -32,9 +44,11 @@ namespace HeyTravel.Pages
             if (id == null)
                 return NotFound();
 
-            var Via = _context.Viaggio.FirstOrDefault(p => p.ID == id);
+            var Viaggio = _context.Viaggio.FirstOrDefault(p => p.ID == id);
+            var Associazione = _context.eleAssociazione.FirstOrDefault(p => p.ID_Viaggio == id);
 
-            _context.Viaggio.Remove(Via);
+            _context.Viaggio.Remove(Viaggio);
+            _context.eleAssociazione.Remove(Associazione);
 
             try
             {

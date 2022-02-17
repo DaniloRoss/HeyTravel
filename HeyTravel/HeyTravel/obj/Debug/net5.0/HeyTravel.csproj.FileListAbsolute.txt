@@ -508,7 +508,6 @@ C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_CookieConsentPartial.cshtml.g.cs
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.RazorTargetAssemblyInfo.cache
@@ -520,3 +519,4 @@ C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.pdb
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
 C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\stroppa.17218\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_CookieConsentPartial.cshtml.g.cs

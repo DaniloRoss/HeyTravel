@@ -16,6 +16,23 @@ namespace HeyTravel.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.13");
 
+            modelBuilder.Entity("HeyTravel.Models.Associazione", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ID_Viaggio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Username_Utente")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("eleAssociazione");
+                });
+
             modelBuilder.Entity("HeyTravel.Models.Casi", b =>
                 {
                     b.Property<int>("ID")

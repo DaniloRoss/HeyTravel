@@ -14,7 +14,7 @@ namespace API.Functions
         IEnumerable<Meteo> ExtractMeteo (string stato, string città);
         Task<List<Casi>> DataCovid(string stato);
         Vaccini DataVaccini(string stato);
-        Task<GeoJson> CovidMap();
+        Task<string> CovidMap();
         string CountryTranslate(string stato, string lingua);
     }
 }

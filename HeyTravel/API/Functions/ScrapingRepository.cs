@@ -398,7 +398,7 @@ namespace API.Functions
             return vaccini;
         }
 
-        public async Task<GeoJson> CovidMap()
+        public async Task<string> CovidMap()
         {
             List<Casi> casi = await DataCovid("world");
             var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
@@ -483,7 +483,7 @@ namespace API.Functions
                 }
                 var mappa = JsonConvert.SerializeObject(jsonmap);
                 File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
-                return jsonmap;
+                return mappa;
             }            
         }
     }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Functions;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -45,9 +47,9 @@ namespace API.Controllers
             return vaccini;
         }
         [HttpGet("Covid/map")]
-        public async Task<GeoJson> CovidMap()
+        public async Task<string> CovidMap()
         {
-            GeoJson mappa = await scrapingRepository.CovidMap();
+            string mappa = await scrapingRepository.CovidMap();
             return mappa;
         }
     }

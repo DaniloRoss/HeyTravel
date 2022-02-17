@@ -376,6 +376,7 @@ namespace API.Functions
             var doc = web.Load(UrlCovid);
             try
             {
+                var riga = doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']");
                 vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
                 dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
                 try
@@ -388,7 +389,7 @@ namespace API.Functions
                     nuovedosi = 0;
                 }
             }
-            catch (NullReferenceException)
+            catch (Exception ex)
             {
                 Vaccini error = new Vaccini();
                 return error;

@@ -23,15 +23,28 @@ namespace HeyTravel.Pages
         }
 
         public List<Meteo> eleMeteo = new List<Meteo>();
+        public List<Citta> eleCittaPartenza = new List<Citta>();
+        public List<Citta> eleCittaArrivo = new List<Citta>();
+        public List<Casi> eleCasiArrivo = new List<Casi>();
+        public Vaccini eleVaccini = new Vaccini();
+
+        public List<OreSole> elesole = new List<OreSole>();
+        public List<Temperature> eletemp = new List<Temperature>();
+        public List<Precipitazioni> eleprec = new List<Precipitazioni>();
+        public List<Mare> elemare = new List<Mare>();
+
 
         [BindProperty]
-        public string mese { get; set; }
+        public string cittapartenza { get; set; }
 
         [BindProperty]
-        public string citta { get; set; }
+        public string statopartenza { get; set; }
 
         [BindProperty]
-        public string stato { get; set; }
+        public string cittarrivo { get; set; }
+
+        [BindProperty]
+        public string statoarrivo { get; set; }
 
         [BindProperty]
         public string mesepartenza { get; set; }
@@ -39,22 +52,47 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string mesearrivo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string stato, string citta)
+        public async Task<IActionResult> OnGetAsync(string statoarrivo, string cittarrivo)
         {
-            //if (eleMeteo != null)
-            //{
-            Thread.Sleep(1000);
-            eleMeteo = await scrapingRepository.ExtractMeteo(stato, citta);
+            if (eleCittaPartenza != null)
+            {
+                eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);
+            }
 
+            if (eleCittaArrivo != null)
+            {
+                eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
+            }
 
-            //}
+            if (eleCasiArrivo != null)
+            {
+                eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
+            }
+
+            eleMeteo = await scrapingRepository.ExtractMeteo(statoarrivo, cittarrivo);
+
+            if(eleMeteo[0].Mare != null)
+            {
+
+            }
+            if (eleMeteo[0].Temperature != null)
+            {
+
+            }
+            if (eleMeteo[0].Precipitazioni != null)
+            {
+
+            }
+            if (eleMeteo[0].OreSole != null)
+            {
+
+            }
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             return Page();
         }
     }

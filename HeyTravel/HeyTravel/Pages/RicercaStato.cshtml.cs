@@ -26,10 +26,7 @@ namespace HeyTravel.Pages
         public Vaccini eleVaccini = new Vaccini();
 
         [BindProperty]
-        public string cittaPartenza { get; set; }
-
-        [BindProperty]
-        public string cittaArrivo { get; set; }
+        public string cittarrivo { get; set; }
 
         [BindProperty]
         public string statopartenza { get; set; }
@@ -39,23 +36,20 @@ namespace HeyTravel.Pages
 
         public async Task<IActionResult> OnGetAsync(string statopartenza, string statoarrivo)
         {
-            eleCittaPartenza =  await scrapingRepository.ExtractBestCitiesPerCountryAsync(statopartenza);
+            //eleCittaPartenza =  await scrapingRepository.ExtractBestCitiesPerCountryAsync(statopartenza);
 
             if (eleCittaPartenza != null)
             {
-                Thread.Sleep(600);
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
        
             if (eleCittaArrivo != null)
             {
-                Thread.Sleep(600);
                 eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
             }
 
             if (eleCasiArrivo != null)
             {
-                Thread.Sleep(600);
                 eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
             }
      
@@ -64,7 +58,7 @@ namespace HeyTravel.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            return RedirectToPage("/RicercaData", new { statoPartenza = this.statopartenza, statoArrivo = this.statoarrivo, cittaArrivo = cittarrivo });
         }
     }
 }

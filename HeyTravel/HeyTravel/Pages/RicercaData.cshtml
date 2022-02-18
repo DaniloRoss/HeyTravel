@@ -42,11 +42,11 @@
                     }
                 </style>
                 <h5 class="text-white-50" align="center"><i>Inserire il mese di partenza</i></h5>
-                <input class="form-control me-2 text-black" asp-for="@Model.mesePartenza" type="month" name="month" min="2022-02" max="2022-12" />
+                <input class="form-control me-2 text-black" asp-for="@Model.mesepartenza" type="month" min="2022-02" max="2022-12" />
                 <br />
                 <br />
                 <h5 class="text-white-50" align="center"><i>Inserire il mese di ritorno</i></h5>
-                <input class="form-control me-2 text-black" asp-for="@Model.meseArrivo" type="month" name="month" min="2022-02" max="2022-12" />
+                <input class="form-control me-2 text-black" asp-for="@Model.mesearrivo" type="month" min="2022-02" max="2022-12" />
                 <br />
                 <br />
                 <br />
@@ -59,7 +59,7 @@
                 <br />
                 <br />
                 <div class="center">
-                    <input type="button" onclick="location.href='Risultato'" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
+                    <input type="submit" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
                 </div>
             </div>
         </div>

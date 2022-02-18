@@ -19,16 +19,26 @@ namespace HeyTravel.Pages
         {
             return Page();
         }
+        [BindProperty]
+        public string cittaPartenza { get; set; }
 
         [BindProperty]
-        public string mesePartenza { get; set; }
+        public string cittaArrivo { get; set; }
 
         [BindProperty]
-        public string meseArrivo { get; set; }
+        public string statoPartenza { get; set; }
+        [BindProperty]
+        public string statoArrivo { get; set; }
+
+        [BindProperty]
+        public string mesepartenza { get; set; }
+
+        [BindProperty]
+        public string mesearrivo { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/Risultato", new { mesepartenza = mesePartenza, mesearrivo = meseArrivo });
+            return RedirectToPage("/Risultato", new { mesepartenza = mesepartenza, mesearrivo = mesearrivo, statopartenza = this.statoPartenza, statoarrivo = this.statoArrivo, cittarrivo = cittaArrivo });
         }
     }
 }

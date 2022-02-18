@@ -129,7 +129,7 @@ namespace API.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }
                 ),
-                //Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddYears(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

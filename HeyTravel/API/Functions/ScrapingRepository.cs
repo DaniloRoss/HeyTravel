@@ -32,13 +32,13 @@ namespace API.Functions
 
             stato = stato.ToLower();
             statoInput = stato;
-            
+
             var lista = document.DocumentNode.SelectNodes(".//table");
             foreach (var tabella in lista)
             {
                 string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if(split.Length==3)
+                if (split.Length == 3)
                 {
                     if ((Encoding.Default.GetBytes(split[1].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]) && (Encoding.Default.GetBytes(split[2].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]))
                     {
@@ -75,7 +75,7 @@ namespace API.Functions
                             }
                         }
                     }
-                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]|| Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] || Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -86,7 +86,7 @@ namespace API.Functions
                             }
                         }
                     }
-                }                
+                }
             }
             return null;
         }
@@ -106,7 +106,7 @@ namespace API.Functions
                 string translation = default;
                 stato = stato.ToLower();
                 stato[0].ToString().ToUpper();
-                var statoparsed= char.ToUpper(stato[0]) + stato.Substring(1);
+                var statoparsed = char.ToUpper(stato[0]) + stato.Substring(1);
 
 
                 while (!parser.EndOfData)
@@ -123,7 +123,7 @@ namespace API.Functions
                         {
                             translation = fields[2];
                         }
-                    }                    
+                    }
                 }
                 return translation;
             }
@@ -151,7 +151,7 @@ namespace API.Functions
             {
                 codicestato = "CI";
             }
-            if(codicestato==null)
+            if (codicestato == null)
             {
                 return null;
             }
@@ -174,6 +174,7 @@ namespace API.Functions
                 return result;
             }
         }
+
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
         {
             string link = default(string);
@@ -463,7 +464,7 @@ namespace API.Functions
                         {
                             if (fields[0] == "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
                             {
-                                
+
                             }
                             else
                             {
@@ -483,7 +484,7 @@ namespace API.Functions
                 var mappa = JsonConvert.SerializeObject(jsonmap);
                 File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
                 return mappa;
-            }            
+            }
         }
     }
 }

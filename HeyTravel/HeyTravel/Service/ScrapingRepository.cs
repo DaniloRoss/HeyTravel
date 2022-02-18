@@ -20,26 +20,38 @@ namespace HeyTravel.Service
             this.httpClient = httpClient;
             this.jWTRepository = jWTRepository;
         }
-        public Task<List<Casi>> DataCovid(string stato)
+        public async Task<List<Casi>> DataCovid(string stato)
         {
-            return httpClient.GetFromJsonAsync<List<Casi>>(@$"Scraping/Covid/casi/{stato}");
+            string token = await jWTRepository.Login();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
+            return await httpClient.GetFromJsonAsync<List<Casi>>(@$"Scraping/Covid/casi/{stato}");
         }
         public async Task<List<Citta>> ExtractBestCitiesPerCountryAsync(string stato)
         {
-            return  await httpClient.GetFromJsonAsync<List<Citta>>(@$"Scraping/MiglioriCitta/{stato}");
+            string token = await jWTRepository.Login();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
+            return await httpClient.GetFromJsonAsync<List<Citta>>(@$"Scraping/MiglioriCitta/{stato}");
         }
         public async Task<List<Meteo>> ExtractMeteo(string stato, string citta)
         {
+            string token = await jWTRepository.Login();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
             return await httpClient.GetFromJsonAsync<List<Meteo>>(@$"Scraping/Meteo/{stato}/{citta}");
         }
         public async Task<Vaccini> DataVaccini(string stato)
         {
+            string token = await jWTRepository.Login();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
             return await httpClient.GetFromJsonAsync<Vaccini>(@$"Scraping/Covid/vaccini/{stato}");
         }
 
         public async Task<string> Mappa()
         {
-            string token = await jWTRepository.Login("HeyTravel", "HeyTravel2022!");
+            string token = await jWTRepository.Login();
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
 
             var json = await httpClient.GetAsync(@"Scraping/Covid/map");

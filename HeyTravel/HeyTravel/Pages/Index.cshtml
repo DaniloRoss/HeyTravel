@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home";    
 }
 <style>
     body, html {
@@ -47,24 +47,24 @@
             </style>
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
             <select asp-for="@Model.statoPartenza" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                   @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
 
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-                <select asp-for="@Model.statoArrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+            <select asp-for="@Model.statoArrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
             <br />
             <br />
             <br />
@@ -77,8 +77,11 @@
             <br />
             <br />
             <div class="center">
-                <button type="submit" class="btn btn-outline-light" style="background-color:gray">Cerca</button>
+                <button type="submit" class="btn btn-outline-light" style ="background-color:gray">Cerca</button>
             </div>
+           
         </div>
     </div>
 </form>
+
+

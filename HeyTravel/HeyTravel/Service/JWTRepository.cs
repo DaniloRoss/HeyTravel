@@ -19,9 +19,9 @@ namespace HeyTravel.Service
             this.httpClient = httpClient;
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<string> Login()
         {
-            var user = new UserLoginRequest { Username = username, Password = password };
+            var user = new UserLoginRequest { Username = "HeyTravel", Password = "HeyTravel2022!" };
             var result = await httpClient.PostAsJsonAsync<UserLoginRequest>(@$"JWT/Login", user);
             var b = await result.Content.ReadAsStringAsync();
             return b;

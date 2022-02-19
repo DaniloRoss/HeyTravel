@@ -398,7 +398,6 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\ne
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_CookieConsentPartial.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\_ViewStart.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.RazorTargetAssemblyInfo.cache
@@ -506,7 +505,6 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\ne
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.Views.pdb
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.exe
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\HtmlAgilityPack.dll
-C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -802,3 +800,6 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\ne
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_CookieConsentPartial.cshtml.g.cs
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll

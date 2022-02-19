@@ -34,13 +34,13 @@ namespace API.Functions
 
             stato = stato.ToLower();
             statoInput = stato;
-            
+
             var lista = document.DocumentNode.SelectNodes(".//table");
             foreach (var tabella in lista)
             {
                 string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if(split.Length==3)
+                if (split.Length == 3)
                 {
                     if ((Encoding.Default.GetBytes(split[1].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]) && (Encoding.Default.GetBytes(split[2].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]))
                     {
@@ -77,7 +77,7 @@ namespace API.Functions
                             }
                         }
                     }
-                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]|| Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] || Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -88,7 +88,7 @@ namespace API.Functions
                             }
                         }
                     }
-                }                
+                }
             }
             return null;
         }
@@ -108,24 +108,34 @@ namespace API.Functions
                 string translation = default;
                 stato = stato.ToLower();
                 stato[0].ToString().ToUpper();
-                var statoparsed= char.ToUpper(stato[0]) + stato.Substring(1);
+                var statoparsed = char.ToUpper(stato[0]) + stato.Substring(1);
 
 
                 while (!parser.EndOfData)
                 {
                     string[] fields = parser.ReadFields();
 
-                    if (fields[0] == statoparsed)
+                    if (lingua == "it")
                     {
-                        if (lingua == "en")
+                        if (fields[1] == statoparsed)
                         {
-                            translation = fields[1];
+                            translation = fields[0];
                         }
-                        if (lingua == "fr")
+                    }
+                    else
+                    {
+                        if (fields[0] == statoparsed)
                         {
-                            translation = fields[2];
+                            if (lingua == "en")
+                            {
+                                translation = fields[1];
+                            }
+                            if (lingua == "fr")
+                            {
+                                translation = fields[2];
+                            }
                         }
-                    }                    
+                    }                        
                 }
                 return translation;
             }
@@ -153,7 +163,7 @@ namespace API.Functions
             {
                 codicestato = "CI";
             }
-            if(codicestato==null)
+            if (codicestato == null)
             {
                 return null;
             }
@@ -314,7 +324,7 @@ namespace API.Functions
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
             var statoen = CountryTranslate(stato, "en");
-            
+
 
             try
             {
@@ -333,7 +343,7 @@ namespace API.Functions
                             percentuale = (casiattivi / popolazione) * 100;
 
                             elecasi.Add(new Casi { Stato = nomestato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione });
-                            
+
                         }
                         catch
                         {
@@ -342,9 +352,16 @@ namespace API.Functions
                     }
                     var json = JsonConvert.SerializeObject(elecasi);
                     File.WriteAllText(@"wwwroot/json/casi.json", json);
+                    var zz = elecasi.OrderBy(a => a.Stato);
+                    foreach (var item in zz)
+                    {
+                        var statot = item.Stato;
+                        var statoit = CountryTranslate(statot, "it");
+                        File.AppendAllText(@"wwwroot/csv/elecountry.txt", statoit + "\n");
+                    }
                     return elecasi;
                 }
-                
+
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
                 giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
@@ -358,7 +375,7 @@ namespace API.Functions
             }
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             elecasi.Add(casi);
-            return elecasi;            
+            return elecasi;
         }
 
         /// <summary>
@@ -366,37 +383,28 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati sulle vaccinazioni</returns>
-        public Vaccini DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato)
         {
-            int nuovedosi = default;
-            int vaccinati = default;
-            int dositot = default;
-            string UrlCovid = "https://news.google.com/covid19/map?hl=it&state=7&gl=IT&ceid=IT%3Ait";
-            var web = new HtmlWeb();
-            var doc = web.Load(UrlCovid);
-            try
+            var statoen = CountryTranslate(stato, "en");
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
             {
-                var riga = doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']");
-                vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
-                dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
-                try
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://covid-news-and-statistics.p.rapidapi.com/vaccinations/{statoen}"),
+                Headers =
                 {
-                    nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
-
-                }
-                catch
-                {
-                    nuovedosi = 0;
-                }
-            }
-            catch (Exception ex)
+                    { "x-rapidapi-host", "covid-news-and-statistics.p.rapidapi.com" },
+                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
             {
-                Vaccini error = new Vaccini();
-                return error;
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var a = JsonConvert.DeserializeObject<VacciniModel>(body.Replace("[", "").Replace("]", ""));
+                Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.people_vaccinated, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
+                return vaccini;
             }
-            decimal perc = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[4].InnerText.Trim().Replace("/n", null).Replace("%", null));
-            Vaccini vaccini = new Vaccini { Stato = stato, Vaccinati = (int)vaccinati, DosiTotali = dositot, NuoveDosi = nuovedosi, PercentualeVaccini = perc };
-            return vaccini;
         }
 
         public async Task<string> CovidMap()
@@ -463,9 +471,9 @@ namespace API.Functions
                     {
                         try
                         {
-                            if(fields[0]== "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
+                            if (fields[0] == "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
                             {
-                                
+
                             }
                             else
                             {
@@ -485,7 +493,7 @@ namespace API.Functions
                 var mappa = JsonConvert.SerializeObject(jsonmap);
                 File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
                 return mappa;
-            }            
+            }
         }
     }
 }

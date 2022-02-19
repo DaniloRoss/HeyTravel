@@ -13,7 +13,7 @@ namespace API.Functions
         Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string codicestato);
         IEnumerable<Meteo> ExtractMeteo (string stato, string città);
         Task<List<Casi>> DataCovid(string stato);
-        Vaccini DataVaccini(string stato);
+        Task<Vaccini> DataVaccini(string stato);
         Task<string> CovidMap();
         string CountryTranslate(string stato, string lingua);
     }

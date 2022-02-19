@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - HeyTravel</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
     <header>
@@ -20,7 +22,10 @@
 
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-page="/Preferiti"><i class="text-secondary">Preferiti ☆</i></a>
-                        </li>                       
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" asp-page="/mappa"><i class="text-secondary">Mappa</i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -57,6 +62,11 @@
                     }
                 </script>-->
             </div>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
        </nav>
     </header>
     <div class="container">
@@ -66,7 +76,7 @@
         </main>
     </div>
 
-        <footer class="border-top footer text-muted" style="text-align: center; vertical-align: central">
+        <footer class="border-top footer text-muted" style="text-align: center; vertical-align: central; position:inherit;">
             <div class="bg-white">
                 <i>&copy; 2022 - HeyTravel - DISC S.P.A</i>
             </div>

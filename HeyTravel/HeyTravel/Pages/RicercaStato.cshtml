@@ -1,0 +1,66 @@
+﻿@page
+@model HeyTravel.Pages.RicercaStatoModel
+@{
+    ViewData["Title"] = "Stato";
+}
+<style>
+    body, html {
+        height: 100%;
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_Home.jpg");
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="text-center">
+    <br />
+    <br />
+    <h1 class="text-black-50"><i>Risultati del tuo stato di destinazione</i></h1>
+    <br />
+    <br />
+</div>
+
+<h5 class="text-black-50" align="center"><i>Inserire la città di destinazione</i></h5>
+<form method="post">
+    <select asp-for="@Model.cittarrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        @foreach (var item in Model.eleCittaArrivo)
+        {
+            <option>
+                @item.name.ToString()
+            </option>
+        }
+    </select>
+    <br />
+    <div class="text-center">
+        <h6>CASI COVID</h6>
+        @foreach (var item in Model.eleCasiArrivo)
+        {
+            <label class="text-black"><i>Casi giornalieri: @((int)item.CasiGiornalieri) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Popolazione Stato: @((int)item.Popolazione) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Casi COVID attivi: @((int)item.CasiAttivi) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Percentuale contagi: @((int)item.PercentualeContagi)%</i></label>
+        }
+    </div>
+    <br />
+    <div class="text-center">
+        <h6>VACCINI</h6>
+
+        <label class="text-black"><i>Vaccinati: @((int)Model.eleVaccini.Vaccinati) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+        @*<label class="text-black"><i>Dosi totali: @((int)Model.eleVaccini.DosiTotali) &emsp;&emsp; &emsp;&emsp;</i></label>
+
+            <label class="text-black"><i>Nuove dosi amministrate: @((int)Model.eleVaccini.NuoveDosi) &emsp;&emsp; &emsp;&emsp;</i></label>*@
+
+        <label class="text-black"><i>Percentuale vaccini: @((int)Model.eleVaccini.PercentualeVaccini)%</i></label>
+    </div>
+    <br />
+    <div class="text-center">
+        <input type="submit" class="btn btn-outline-primary" align="center" value="Cerca" />
+    </div>
+</form>

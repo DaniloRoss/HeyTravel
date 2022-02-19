@@ -37,9 +37,9 @@ namespace API.Controllers
 
         
         [HttpGet("Covid/casi/{stato}")]
-        public async Task<Casi> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato)
         {
-            Casi covid = await scrapingRepository.DataCovid(stato);
+            List<Casi> covid = scrapingRepository.DataCovid(stato);
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]
@@ -48,11 +48,11 @@ namespace API.Controllers
             Vaccini vaccini = scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
-        [HttpGet("Covid/map/")]
+        [HttpGet("Covid/map")]
         public async Task<string> CovidMap()
         {
-            var map = await scrapingRepository.CovidMap();
-            return map;
+            string mappa = await scrapingRepository.CovidMap();
+            return mappa;
         }
     }
 }

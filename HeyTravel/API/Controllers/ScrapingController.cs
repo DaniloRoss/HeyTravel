@@ -43,9 +43,9 @@ namespace API.Controllers
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]
-        public Vaccini DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato)
         {
-            Vaccini vaccini = scrapingRepository.DataVaccini(stato);
+            Vaccini vaccini = await scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
         [HttpGet("Covid/map")]

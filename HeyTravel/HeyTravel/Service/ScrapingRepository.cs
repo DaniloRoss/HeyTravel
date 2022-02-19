@@ -59,5 +59,14 @@ namespace HeyTravel.Service
             File.WriteAllText(@"wwwroot/json/mappa_new.json", mappa);
             return mappa;
         }
+
+        public async Task<List<string>> GetImages(string stato)
+        {
+            string token = await jWTRepository.Login();
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
+
+            var json = await httpClient.GetFromJsonAsync<List<string>>($@"Scraping/Photo/{stato}");
+            return json;
+        }
     }
 }

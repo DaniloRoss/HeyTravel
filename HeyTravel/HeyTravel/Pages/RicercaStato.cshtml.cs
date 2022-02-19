@@ -42,16 +42,6 @@ namespace HeyTravel.Pages
             {
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
-       
-            if (eleCittaArrivo != null)
-            {
-                eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
-            }
-
-            if (eleCasiArrivo != null)
-            {
-                eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
-            }
      
             return Page();
         }

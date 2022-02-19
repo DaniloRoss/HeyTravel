@@ -40,6 +40,7 @@ namespace HeyTravel.Pages
         public List<Citta> eleCittaArrivo = new List<Citta>();
         public List<Casi> eleCasiArrivo = new List<Casi>();
         public Vaccini eleVaccini = new Vaccini();
+        public List<string> elefoto = new List<string>();
 
         public List<OreSole> elesole = new List<OreSole>();
         public List<Temperature> eletemp = new List<Temperature>();
@@ -122,6 +123,13 @@ namespace HeyTravel.Pages
                     elesole.Add(zz);
                 }
             }
+
+            elefoto = await scrapingRepository.GetImages(cittarrivo);
+
+            this.statoarrivo = statoarrivo;
+            this.cittarrivo = cittarrivo;
+            this.meseArrivo = meseArrivo;
+            this.mesePartenza = mesePartenza;
 
             return Page();
         }

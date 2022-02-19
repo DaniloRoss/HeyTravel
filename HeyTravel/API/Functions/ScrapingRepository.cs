@@ -494,5 +494,32 @@ namespace API.Functions
                 return mappa;
             }
         }
+
+        public async Task<List<string>> GetImages(string stato)
+        {
+            List<string> elefoto = new List<string>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://google-image-search1.p.rapidapi.com/?keyword={stato}&max=1"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "google-image-search1.p.rapidapi.com" },
+                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var json = JsonConvert.DeserializeObject<List<Foto>>(body);
+                foreach(var item in json)
+                {
+                    elefoto.Add(item.proxyImage);
+                }
+                return elefoto;
+            }
+        }
     }
 }

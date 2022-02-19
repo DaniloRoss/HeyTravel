@@ -15,5 +15,6 @@ namespace API.Functions
         Task<Vaccini> DataVaccini(string stato);
         Task<string> CovidMap();
         string CountryTranslate(string stato, string lingua);
+        Task<List<string>> GetImages(string stato);
     }
 }

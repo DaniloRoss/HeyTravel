@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,3 +63,14 @@ namespace HeyTravel.Pages
         }
     }
 }
+
+//double value = 1234567890;
+//Console.WriteLine(value.ToString("#,#", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,#}", value));
+//// Displays 1,234,567,890
+
+//Console.WriteLine(value.ToString("#,##0,,", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,##0,,}", value));
+//// Displays 1,235

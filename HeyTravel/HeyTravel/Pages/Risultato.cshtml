@@ -80,13 +80,13 @@
             <div class="accordion-body">
                 @foreach (var item in Model.eleCasiArrivo)
                 {
-                    <h5>Casi giornalieri: <span class="badge bg-danger">@((int)item.CasiGiornalieri)</span></h5>
+                    <h5><i>Casi giornalieri: <span class="badge bg-danger">@((int)item.CasiGiornalieri)</span></i></h5>
 
-                    <h5>Popolazione Stato: <span class="badge bg-danger">@((int)item.Popolazione)</span></h5>
+                    <h5><i>Popolazione Stato: <span class="badge bg-danger">@((int)item.Popolazione)</span></i></h5>
 
-                    <h5>Casi COVID attivi: <span class="badge bg-danger">@((int)item.CasiAttivi)</span></h5>
+                    <h5><i>Casi COVID attivi: <span class="badge bg-danger">@((int)item.CasiAttivi)</span></i></h5>
 
-                    <h5>Percentuale contagi: <span class="badge bg-danger">@((int)item.PercentualeContagi)%</span></h5>
+                    <h5><i>Percentuale contagi: <span class="badge bg-danger">@((int)item.PercentualeContagi)%</span></i></h5>
                 }
             </div>
         </div>
@@ -100,11 +100,11 @@
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
                 <div class="accordion-body">
-                    <h5>Vaccinati: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.Vaccinati)</span></h5>
+                    <h5><i>Vaccinati: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.Vaccinati)</span></i></h5>
 
-                    <h5>Dosi totali: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.DosiTotali)</span></h5>
+                    <h5><i>Dosi totali: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.DosiTotali)</span></i></h5>
 
-                    <h5>Percentuale vaccini:<span class="badge bg-info text-dark">@((int)Model.eleVaccini.PercentualeVaccini)%</span></h5>
+                    <h5><i>Percentuale vaccini:<span class="badge bg-info text-dark">@((int)Model.eleVaccini.PercentualeVaccini)%</span></i></h5>
                 </div>
             </div>
         </div>
@@ -255,9 +255,11 @@
         </div>
     </div>
 </div>
+<br />
+<br />
 <form method="post">
-    <div class="center">
-        <input type="submit" class="btn btn-outline-light" style="background-color:gray" value=<i>Preferiti</i>/>
+    <div class="text-center">
+        <i><input type="submit" class="btn btn-outline-light" style="background-color:gray" value=Preferiti /></i>
     </div>
 </form>
 <br />

@@ -31,6 +31,7 @@
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.12",
           "Microsoft.AspNetCore.Identity.UI": "5.0.12",
+          "Microsoft.CodeAnalysis.Analyzers": "3.0.0",
           "Microsoft.Data.Sqlite": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.12",
           "Microsoft.EntityFrameworkCore.Sqlite.Core": "5.0.13",

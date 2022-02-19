@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,10 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
-
 
 namespace API.Functions
 {
@@ -135,7 +133,7 @@ namespace API.Functions
                                 translation = fields[2];
                             }
                         }
-                    }                        
+                    }
                 }
                 return translation;
             }
@@ -186,6 +184,7 @@ namespace API.Functions
                 return result;
             }
         }
+
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
         {
             string link = default(string);
@@ -313,7 +312,7 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public async Task<List<Casi>> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato)
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
@@ -402,14 +401,14 @@ namespace API.Functions
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
                 var a = JsonConvert.DeserializeObject<VacciniModel>(body.Replace("[", "").Replace("]", ""));
-                Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.people_vaccinated, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
+                Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.total_vaccinations, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
                 return vaccini;
             }
         }
 
         public async Task<string> CovidMap()
         {
-            List<Casi> casi = await DataCovid("world");
+            List<Casi> casi = DataCovid("world");
             var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
             File.WriteAllText(@"wwwroot/csv/world_new.csv", string.Empty);
             string line = default;
@@ -430,10 +429,10 @@ namespace API.Functions
                     {
                         try
                         {
-                            var casiattivi = casi.FirstOrDefault(a => a.Stato == fields[0]).CasiAttivi.ToString();
+                            var casiattivi = casi.First(a => a.Stato == fields[0]).CasiAttivi.ToString();
                             fields[1] = casiattivi;
                         }
-                        catch (NullReferenceException)
+                        catch (Exception ex)
                         {
                             fields[1] = "";
                         }

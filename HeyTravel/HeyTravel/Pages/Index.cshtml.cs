@@ -1,5 +1,7 @@
 ﻿using HeyTravel.Service;
+using HeyTravel.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -12,14 +14,19 @@ namespace HeyTravel.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<string> EleNazioni = new List<string>();
-        
-        private readonly ILogger<IndexModel> _logger;
+        public int id = 10;
+        [Inject]
+        public IScrapingRepository scrapingRepository { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, IJWTRepository jWTRepository)
+        public IndexModel(IScrapingRepository scrapingRepository)
         {
-            _logger = logger;
+            this.scrapingRepository = scrapingRepository;
         }
+        public List<string> EleNazioni = new List<string>();
+        [BindProperty]
+        public string statoPartenza { get; set; }
+        [BindProperty]
+        public string statoArrivo { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -27,14 +34,12 @@ namespace HeyTravel.Pages
             {
                 EleNazioni.Add(line);
             }
-
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            
-            return Page();
+            return RedirectToPage("/RicercaStato", new { statopartenza=statoPartenza, statoarrivo = statoArrivo });
         }
     }
 }

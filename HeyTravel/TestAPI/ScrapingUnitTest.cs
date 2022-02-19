@@ -17,10 +17,9 @@ namespace TestAPI
             ScrapingRepository scrapingRepository = new ScrapingRepository();
 
             //Act
-            List<Casi> result = await scrapingRepository.DataCovid("Italia");
-            List<Casi> error = await scrapingRepository.DataCovid("paeseinesistene");
-
-
+            List<Casi> result = scrapingRepository.DataCovid("Italia");
+            List<Casi> error = scrapingRepository.DataCovid("paeseinesistene");
+            
             //Assert
             result[0].Stato.Should().Be("Italia");
             result[0].CasiAttivi.Should().NotBe(0);

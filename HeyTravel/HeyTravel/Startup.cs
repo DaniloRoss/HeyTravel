@@ -61,31 +61,19 @@ namespace HeyTravel
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<CookiePolicyOptions>(options => 
+            { 
+                /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 
+                options.CheckConsentNeeded = context => true; 
 
-            //services.Configure<CookiePolicyOptions>(options => 
-            //{ 
-            //    /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 
-            //    options.CheckConsentNeeded = context => true; 
-
-            //    /*requires using Microsoft.AspNetCore.Http;*/ 
-            //    options.MinimumSameSitePolicy = SameSiteMode.None; 
-            //});
-            
-            //services.AddAuthentication()
-            //.AddGoogle(options =>
-            //{
-            //    IConfigurationSection googleAuthNSection =
-            //        Configuration.GetSection("Authentication:Google");
-
-            //    options.ClientId = googleAuthNSection["ClientId"];
-            //    options.ClientSecret = googleAuthNSection["ClientSecret"];
-            //});
-
-            services.AddRazorPages();
+                /*requires using Microsoft.AspNetCore.Http;*/ 
+                options.MinimumSameSitePolicy = SameSiteMode.None; 
+            });
+                services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IJWTRepository jWTRepository)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -113,8 +101,6 @@ namespace HeyTravel
             {
                 endpoints.MapRazorPages();
             });
-
-            jWTRepository.Login("HeyTravel", "HeyTravel2022!");
         }
     }
 }

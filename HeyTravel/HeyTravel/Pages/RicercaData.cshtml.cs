@@ -38,7 +38,7 @@ namespace HeyTravel.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/Risultato", new { mesepartenza = mesepartenza, mesearrivo = mesearrivo, statopartenza = this.statoPartenza, statoarrivo = this.statoArrivo, cittarrivo = cittaArrivo });
+            return RedirectToPage("/Risultato", new { mesePartenza = mesepartenza.ToString(), meseArrivo = mesearrivo.ToString(), statopartenza = this.statoPartenza, statoarrivo = this.statoArrivo, cittarrivo = cittaArrivo });
         }
     }
 }

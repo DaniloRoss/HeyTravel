@@ -19,11 +19,23 @@
         background-size: cover;
         background-color: darkgray;
     }
+
     .carousel-inner > .item > img {
         width: 640px;
         height: 360px;
     }
 </style>
+
+<div class="text-center">
+    <br />
+    <br />
+    <br />
+    <h1 class="text-white-50"><i>@Model.statoarrivo - @Model.cittarrivo</i></h1>
+    <h2 class="text-white-50"><i>@Model.mesePartenza - @Model.meseArrivo</i></h2>
+    <br />
+    <br />
+    <br />
+</div>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -68,13 +80,13 @@
             <div class="accordion-body">
                 @foreach (var item in Model.eleCasiArrivo)
                 {
-                    <h5>Casi giornalieri: <span class="badge bg-secondary">@((int)item.CasiGiornalieri)</span></h5>
+                    <h5>Casi giornalieri: <span class="badge bg-danger">@((int)item.CasiGiornalieri)</span></h5>
 
-                    <h5>Popolazione Stato: <span class="badge bg-secondary">@((int)item.Popolazione)</span></h5>
+                    <h5>Popolazione Stato: <span class="badge bg-danger">@((int)item.Popolazione)</span></h5>
 
-                    <h5>Casi COVID attivi: <span class="badge bg-secondary">@((int)item.CasiAttivi)</span></h5>
+                    <h5>Casi COVID attivi: <span class="badge bg-danger">@((int)item.CasiAttivi)</span></h5>
 
-                    <h5>Percentuale contagi: <span class="badge bg-secondary">@((int)item.PercentualeContagi)%</span></h5>
+                    <h5>Percentuale contagi: <span class="badge bg-danger">@((int)item.PercentualeContagi)%</span></h5>
                 }
             </div>
         </div>
@@ -88,14 +100,11 @@
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
             <div class="accordion-body">
                 <div class="accordion-body">
+                    <h5>Vaccinati: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.Vaccinati)</span></h5>
 
-                    <h5>Vaccinati: <span class="badge bg-secondary">@((int)Model.eleVaccini.Vaccinati)</span></h5>
+                    <h5>Dosi totali: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.DosiTotali)</span></h5>
 
-                    <h5>Dosi totali: <span class="badge bg-secondary">@((int)Model.eleVaccini.DosiTotali)</span></h5>
-
-                    <h5>Nuove dosi amministrate: <span class="badge bg-secondary">@((int)Model.eleVaccini.NuoveDosi)</span></h5>
-
-                    <h5>Percentuale vaccini:<span class="badge bg-secondary">@((int)Model.eleVaccini.PercentualeVaccini)%</span></h5>
+                    <h5>Percentuale vaccini:<span class="badge bg-info text-dark">@((int)Model.eleVaccini.PercentualeVaccini)%</span></h5>
                 </div>
             </div>
         </div>
@@ -108,11 +117,149 @@
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
             <div class="accordion-body">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    @if (Model.eletemp.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                                    TEMPERATURE
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Minima</th>
+                                                <th>Massima</th>
+                                                <th>Media</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.eletemp)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Min C°</td>
+                                                    <td>@item.Max C°</td>
+                                                    <td>@item.Media C°</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.eleprec.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                    PRECIPITAZIONI
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Quantità</th>
+                                                <th>Giorni</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.eleprec)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Quantità mm</td>
+                                                    <td>@item.Giorni</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.elesole.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                    ORE DI SOLE
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Media giornaliera</th>
+                                                <th>Totale</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.elesole)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.MediaGiornaliera ore</td>
+                                                    <td>@item.TotaleMese ore</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.elemare.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                                    TEMPERATURA DEL MARE
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSeven">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Temperatura</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.elemare)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Temperatura C°</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<form method="post">
+    <div class="center">
+        <input type="submit" class="btn btn-outline-light" style="background-color:gray" value="Aggiungi ai tuoi Preferiti"/>
+    </div>
+</form>
 <br />
 <br />
 

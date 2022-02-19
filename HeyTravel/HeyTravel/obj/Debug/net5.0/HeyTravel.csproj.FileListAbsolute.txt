@@ -800,3 +800,5 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\H
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\mappa.cshtml.g.cs
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\RicercaStato.cshtml.g.cs

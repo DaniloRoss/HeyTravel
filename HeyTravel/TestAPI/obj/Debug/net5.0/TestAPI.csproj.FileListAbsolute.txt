@@ -483,7 +483,6 @@ C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\ref\TestAPI.dll
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.pdb
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.genruntimeconfig.cache
-C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\CoverletSourceRootsMapping
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.csproj.AssemblyReference.cache
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.GeneratedMSBuildEditorConfig.editorconfig
@@ -739,3 +738,4 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.csproj.CopyComplete
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.genruntimeconfig.cache
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
+C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml

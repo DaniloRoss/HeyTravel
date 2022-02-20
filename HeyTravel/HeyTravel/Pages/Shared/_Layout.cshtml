@@ -27,14 +27,13 @@
                 </div>
             </div>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                </ul>
+                <partial name="_LoginPartial" />
 
-                <label id="NomeUtente"></label>
+                <!--<label id="NomeUtente"></label>-->
                 @*Google Auth che fa onSignIn*@
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
                 @*Log Out*@
-                <a href="#" class="nav-link text-dark" onclick="signOut();">Log out</a>
+                <!--<a href="#" class="nav-link text-dark" onclick="signOut();">Log out</a>
                 <script>
                     function signOut() {
                         var auth2 = gapi.auth2.getAuthInstance();
@@ -58,14 +57,9 @@
                         //In confirm_value che è hidden, ci sta la mail dello user
                         document.forms[0].appendChild(confirm_value);
                     }
-                </script>
+                </script>-->
             </div>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
-        </nav>
+       </nav>
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />

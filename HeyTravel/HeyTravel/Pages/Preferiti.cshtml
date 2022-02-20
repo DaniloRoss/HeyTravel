@@ -8,33 +8,27 @@
 <h2 class="text-black-50" align="center">Ritrova qui le tue mete <i>Preferite</i></h2>
 <br />
 <form method="post">
-    <table class="table text-black-50" >
+    <table class="table text-black-50">
         <thead>
             <tr align="center">
-                <th>Partenza</th>
-                <th>Arrivo</th>
-                <th>%Vaccinati</th>
-                <th>%Casi</th>
-                <th>Temperatura Media</th>
-                <th>Precipitazioni</th>
-                <th>Media Sole</th>
-                <th>Temperatura Mare</th>
-                <th>Rimuovere dai preferiti?</th>
+                <th>Stato di Arrivo</th>
+                <th>Città di Arrivo</th>
+                <th>Mese di Partenza</th>
+                <th>Mese di Arrivo</th>
+                <th>Informazioni dettagliate</th>
+                <th>Rimuovi il preferito</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.NewViag)
+            @foreach (var item in Model.eleViaggiUtente)
             {
                 <tr>
-                    <td>@item.StatoPartenza</td>
                     <td>@item.StatoArrivo</td>
-                    <td>@item.Vaccinati.PercentualeVaccini.ToString()</td>
-                    <td>@item.CasiCovid.PercentualeContagi.ToString()</td>
-                    <td>@item.Temp.Media.ToString()</td>
-                    <td>@item.Preci.Quantità.ToString()</td>
-                    <td>@item.Sole.MediaGiornaliera.ToString()</td>
-                    <td>@item.Tmare.Temperatura.ToString()</td>
-                    <td><button type="submit" class="btn btn-outline-primary" asp-route-id="@item.ID" align="center"><i>Rimuovi</i></button></td>
+                    <td>@item.CittaArrivo</td>
+                    <td>@item.MesePartenza</td>
+                    <td>@item.MeseArrivo</td>
+                    <td><button type="submit" class="btn btn-outline-primary" name="SubmitButton" asp-route-id="@item.ID" value="visualizza">Visualizza</button></td>
+                    <td><button type="submit" class="btn btn-outline-primary" name="SubmitButton" asp-route-id="@item.ID" align="center" value="rimuovi"><i>Rimuovi</i></button></td>
                 </tr>
             }
         </tbody>

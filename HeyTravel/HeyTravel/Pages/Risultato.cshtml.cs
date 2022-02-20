@@ -46,6 +46,7 @@ namespace HeyTravel.Pages
         public List<Citta> eleCittaArrivo = new List<Citta>();
         public List<Casi> eleCasiArrivo = new List<Casi>();
         public Vaccini eleVaccini = new Vaccini();
+        public List<string> elefoto = new List<string>();
 
         public List<OreSole> elesole = new List<OreSole>();
         public List<Temperature> eletemp = new List<Temperature>();
@@ -75,7 +76,13 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string meseArrivo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string statoarrivo, string cittarrivo, string mesePartenza, string meseArrivo)
+        [BindProperty]
+        public decimal Latitude { get; set; }
+
+        [BindProperty]
+        public decimal Longitude { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string statoarrivo, string cittarrivo, string mesePartenza, string meseArrivo, decimal Latitude, decimal Longitude)
         {
             if (eleCittaPartenza != null)
             {
@@ -149,6 +156,14 @@ namespace HeyTravel.Pages
             {
                 return NotFound();
             }
+            elefoto = await scrapingRepository.GetImages(cittarrivo);
+
+            this.statoarrivo = statoarrivo;
+            this.cittarrivo = cittarrivo;
+            this.meseArrivo = meseArrivo;
+            this.mesePartenza = mesePartenza;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)

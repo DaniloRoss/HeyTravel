@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -113,15 +113,25 @@ namespace API.Functions
                 {
                     string[] fields = parser.ReadFields();
 
-                    if (fields[0] == statoparsed)
+                    if (lingua == "it")
                     {
-                        if (lingua == "en")
+                        if (fields[1] == statoparsed)
                         {
-                            translation = fields[1];
+                            translation = fields[0];
                         }
-                        if (lingua == "fr")
+                    }
+                    else
+                    {
+                        if (fields[0] == statoparsed)
                         {
-                            translation = fields[2];
+                            if (lingua == "en")
+                            {
+                                translation = fields[1];
+                            }
+                            if (lingua == "fr")
+                            {
+                                translation = fields[2];
+                            }
                         }
                     }
                 }
@@ -315,8 +325,6 @@ namespace API.Functions
             var statoen = CountryTranslate(stato, "en");
 
 
-            try
-            {
                 if (stato == "world")
                 {
                     var nodes = doc.DocumentNode.SelectNodes("//table[@id='main_table_countries_yesterday']//tr[@style='']");
@@ -341,20 +349,53 @@ namespace API.Functions
                     }
                     var json = JsonConvert.SerializeObject(elecasi);
                     File.WriteAllText(@"wwwroot/json/casi.json", json);
+                    var zz = elecasi.OrderBy(a => a.Stato);
+                    foreach (var item in zz)
+                    {
+                        var statot = item.Stato;
+                        var statoit = CountryTranslate(statot, "it");
+                        File.AppendAllText(@"wwwroot/csv/elecountry.txt", statoit + "\n");
+                    }
                     return elecasi;
                 }
 
+            try
+            {
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                casiattivi = 0;
+            }
+            try
+            {
                 giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                giornalieri = 0;
+            }
+            try
+            {
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                popolazione = 0;
+            }
+            try
+            {
                 percentuale = (casiattivi / popolazione) * 100;
             }
-            catch (NullReferenceException)
+            catch
             {
-                Casi error = new Casi();
-                elecasi.Add(error);
-                return elecasi;
+                percentuale = 0;
             }
+
+
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             elecasi.Add(casi);
             return elecasi;
@@ -475,6 +516,33 @@ namespace API.Functions
                 var mappa = JsonConvert.SerializeObject(jsonmap);
                 File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
                 return mappa;
+            }
+        }
+
+        public async Task<List<string>> GetImages(string stato)
+        {
+            List<string> elefoto = new List<string>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://google-image-search1.p.rapidapi.com/?keyword={stato}&max=1"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "google-image-search1.p.rapidapi.com" },
+                    { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var json = JsonConvert.DeserializeObject<List<Foto>>(body);
+                foreach(var item in json)
+                {
+                    elefoto.Add(item.proxyImage);
+                }
+                return elefoto;
             }
         }
     }

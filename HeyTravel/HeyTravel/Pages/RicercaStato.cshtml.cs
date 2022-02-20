@@ -34,6 +34,10 @@ namespace HeyTravel.Pages
 
         [BindProperty]
         public string statoarrivo { get; set; }
+        [BindProperty]
+        public decimal Latitude { get; set; }
+        [BindProperty]
+        public decimal Longitude { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string statopartenza, string statoarrivo)
         {
@@ -43,23 +47,18 @@ namespace HeyTravel.Pages
             {
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
-       
-            if (eleCittaArrivo != null)
-            {
-                eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
-            }
 
-            if (eleCasiArrivo != null)
-            {
-                eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
-            }
-     
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/RicercaData", new { statoPartenza = this.statopartenza, statoArrivo = this.statoarrivo, cittaArrivo = cittarrivo });
+            eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);
+            var xy = eleCittaArrivo.First(a => a.country == statoarrivo);
+
+            Latitude = decimal.Round((decimal) xy.latitude);
+            Longitude = decimal.Round((decimal) xy.longitude);
+            return RedirectToPage("/RicercaData", new { statoPartenza = this.statopartenza, statoArrivo = this.statoarrivo, cittaArrivo = cittarrivo, latitude=Latitude, longitude=Longitude });
         }
     }
 }

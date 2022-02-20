@@ -13,5 +13,6 @@ namespace HeyTravel.Service
         Task<List<Meteo>> ExtractMeteo(string stato, string citta);
         Task<Vaccini> DataVaccini(string stato);
         Task<string> Mappa();
+        Task<List<string>> GetImages(string stato);
     }
 }

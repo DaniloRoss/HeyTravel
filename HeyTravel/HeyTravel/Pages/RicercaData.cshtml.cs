@@ -15,7 +15,7 @@ namespace HeyTravel.Pages
     public class RicercaDataModel : PageModel
     {
 
-        public async Task<IActionResult> OnGetAsync(string stato, string citta)
+        public async Task<IActionResult> OnGetAsync(string stato, string citta, decimal latitude, decimal longitude)
         {
             return Page();
         }
@@ -36,9 +36,15 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string mesearrivo { get; set; }
 
+        [BindProperty]
+        public decimal latitude { get; set; }
+
+        [BindProperty]
+        public decimal longitude { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            return RedirectToPage("/Risultato", new { mesePartenza = mesepartenza.ToString(), meseArrivo = mesearrivo.ToString(), statopartenza = this.statoPartenza, statoarrivo = this.statoArrivo, cittarrivo = cittaArrivo });
+            return RedirectToPage("/Risultato", new { mesePartenza = mesepartenza.ToString(), meseArrivo = mesearrivo.ToString(), statopartenza = this.statoPartenza, statoarrivo = this.statoArrivo, cittarrivo = cittaArrivo, Latitude = latitude, Longitude=longitude });
         }
     }
 }

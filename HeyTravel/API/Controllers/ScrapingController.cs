@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -53,6 +53,13 @@ namespace API.Controllers
         {
             string mappa = await scrapingRepository.CovidMap();
             return mappa;
+        }
+
+        [HttpGet("Photo/{stato}")]
+        public async Task<List<string>> GetPhoto(string stato)
+        {
+            List<string> elefoto = await scrapingRepository.GetImages(stato);
+            return elefoto;
         }
     }
 }

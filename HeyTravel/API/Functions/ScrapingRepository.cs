@@ -325,8 +325,6 @@ namespace API.Functions
             var statoen = CountryTranslate(stato, "en");
 
 
-            try
-            {
                 if (stato == "world")
                 {
                     var nodes = doc.DocumentNode.SelectNodes("//table[@id='main_table_countries_yesterday']//tr[@style='']");
@@ -361,17 +359,43 @@ namespace API.Functions
                     return elecasi;
                 }
 
+            try
+            {
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                casiattivi = 0;
+            }
+            try
+            {
                 giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                giornalieri = 0;
+            }
+            try
+            {
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                popolazione = 0;
+            }
+            try
+            {
                 percentuale = (casiattivi / popolazione) * 100;
             }
-            catch (NullReferenceException)
+            catch
             {
-                Casi error = new Casi();
-                elecasi.Add(error);
-                return elecasi;
+                percentuale = 0;
             }
+
+
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             elecasi.Add(casi);
             return elecasi;
@@ -506,7 +530,7 @@ namespace API.Functions
                 Headers =
                 {
                     { "x-rapidapi-host", "google-image-search1.p.rapidapi.com" },
-                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                    { "x-rapidapi-key", "56817d175dmshc711ac9d0fe0bf8p179522jsn5d8a789d077e" },
                 },
             };
             using (var response = await client.SendAsync(request))

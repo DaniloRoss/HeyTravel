@@ -1,9 +1,11 @@
-﻿mapboxgl.accessToken = 'pk.eyJ1IjoiZGFueXJlZHMiLCJhIjoiY2t6bjEyamNxMDN6NzJucXVnZjZ2enM3eCJ9.ieT8jUJor2Z0q69as5-WYQ';
+﻿const urlParams = new URLSearchParams(window.location.search); 
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGFueXJlZHMiLCJhIjoiY2t6bjEyamNxMDN6NzJucXVnZjZ2enM3eCJ9.ieT8jUJor2Z0q69as5-WYQ';
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/danyreds/ckzmpnpey001h15oatavzcetr',
-    center: [9.8, 45.75],
-    zoom: 3
+    center: [urlParams.get('Longitude'), urlParams.get('Latitude')],
+    zoom: 4
 });
 
 map.on('load', function () {

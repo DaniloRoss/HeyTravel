@@ -68,7 +68,13 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string meseArrivo { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string statoarrivo, string cittarrivo, string mesePartenza, string meseArrivo)
+        [BindProperty]
+        public decimal Latitude { get; set; }
+
+        [BindProperty]
+        public decimal Longitude { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(string statoarrivo, string cittarrivo, string mesePartenza, string meseArrivo, decimal Latitude, decimal Longitude)
         {
             if (eleCittaPartenza != null)
             {

@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {}
+    "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+    "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\stroppa.17218\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+        "projectPath": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\utente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\stroppa.17218\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\utente\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -112,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

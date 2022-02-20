@@ -17,20 +17,25 @@ namespace HeyTravel.Pages
         public PreferitiModel(AppDbContext context)
         {
             _context = context;
-            eleViaggi = _context.Viaggio.ToList();
+            eleViaggi = _context.eleViaggi.ToList();
             eleAssociazioni = _context.eleAssociazione.ToList();
         }
-        public List<Viaggi> eleViaggi { get; set; }
-        public List<Viaggi> eleViaggiUtente { get; set; }
+        public List<Viaggio> eleViaggi { get; set; }
+        public List<Viaggio> eleViaggiUtente { get; set; }
         public List<Associazione> eleAssociazioniUtente { get; set; }
-        public List<Associazione> eleAssociazioni { get; set; }
+        public List<Associazione> eleAssociazioni { get; set; }        
 
         public async Task<IActionResult> OnGetAsync()
         {
+            eleViaggiUtente = new List<Viaggio>();
             eleAssociazioniUtente = eleAssociazioni.Where(p => p.Username_Utente == User.Identity.Name).ToList();
             foreach (var associa in eleAssociazioniUtente)
             {
-                eleViaggiUtente = eleViaggi.Where(p => p.ID == associa.ID_Viaggio).ToList();
+                var viaggio = eleViaggi.Where(p => p.ID == associa.ID_Viaggio).FirstOrDefault();
+                if (viaggio != null)
+                {
+                    eleViaggiUtente.Add(viaggio);
+                }                 
             }
             if (eleViaggiUtente == null)
             {
@@ -40,25 +45,36 @@ namespace HeyTravel.Pages
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var Viaggio = _context.Viaggio.FirstOrDefault(p => p.ID == id);
-            var Associazione = _context.eleAssociazione.FirstOrDefault(p => p.ID_Viaggio == id);
-
-            _context.Viaggio.Remove(Viaggio);
-            _context.eleAssociazione.Remove(Associazione);
-
-            try
+        {            
+            string buttonClicked = Request.Form["SubmitButton"];
+            if (buttonClicked == "visualizza") 
             {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("/Index");
+                var Viaggio = _context.eleViaggi.FirstOrDefault(p => p.ID == id);
+                ///Risultato?mesePartenza=2022-04&meseArrivo=2022-04&statoarrivo=Italia&cittarrivo=Roma
+                return RedirectToPage("/Risultato", new { mesePartenza = Viaggio.MesePartenza, meseArrivo=Viaggio.MeseArrivo, statoarrivo = Viaggio.StatoArrivo, cittarrivo=Viaggio.CittaArrivo });
             }
-            catch
+            if (buttonClicked == "rimuovi") 
             {
-                return RedirectToPage("/Error");
+                if (id == null)
+                    return NotFound();
+
+                var Viaggio = _context.eleViaggi.FirstOrDefault(p => p.ID == id);
+                var Associazione = _context.eleAssociazione.FirstOrDefault(p => p.ID_Viaggio == id);
+
+                _context.eleViaggi.Remove(Viaggio);
+                _context.eleAssociazione.Remove(Associazione);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("/Index");
+                }
+                catch
+                {
+                    return RedirectToPage("/Error");
+                }
             }
+            return Page();
         }
     }
 }

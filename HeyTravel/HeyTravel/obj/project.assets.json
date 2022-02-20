@@ -8804,23 +8804,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\stroppa.17218\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\utente\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "projectUniqueName": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
       "projectName": "HeyTravel",
-      "projectPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
-      "packagesPath": "C:\\Users\\stroppa.17218\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
+      "projectPath": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
+      "packagesPath": "C:\\Users\\utente\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\stroppa.17218\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\utente\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8834,8 +8830,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
+            "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\utente\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
             }
           }
         }
@@ -8915,7 +8911,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

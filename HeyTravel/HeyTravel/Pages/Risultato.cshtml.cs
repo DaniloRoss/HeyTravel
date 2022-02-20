@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models.DTO.Requests;
+using HeyTravel.Data;
 using HeyTravel.Models;
 using HeyTravel.Service;
 using Microsoft.AspNetCore.Components;
@@ -16,10 +17,12 @@ namespace HeyTravel.Pages
     {
         [Inject]
         public IScrapingRepository scrapingRepository { get; set; }
-
-        public RisultatoModel(IScrapingRepository scrapingRepository)
+        private readonly AppDbContext _context;
+        public RisultatoModel(IScrapingRepository scrapingRepository, AppDbContext context)
         {
             this.scrapingRepository = scrapingRepository;
+            _context = context;
+            eleViaggi = _context.eleViaggi.ToList();
 
             mesi.Add(1, "Gennaio");
             mesi.Add(2, "Febbraio");
@@ -35,6 +38,9 @@ namespace HeyTravel.Pages
             mesi.Add(12, "Dicembre");
         }
 
+        public List<Viaggio> eleViaggi { get; set; }
+        public List<Associazione> eleAssociazioni { get; set; }
+
         public List<Meteo> eleMeteo = new List<Meteo>();
         public List<Citta> eleCittaPartenza = new List<Citta>();
         public List<Citta> eleCittaArrivo = new List<Citta>();
@@ -46,8 +52,10 @@ namespace HeyTravel.Pages
         public List<Precipitazioni> eleprec = new List<Precipitazioni>();
         public List<Mare> elemare = new List<Mare>();
 
-        IDictionary<int, string> mesi = new Dictionary<int, string>();        
-
+        IDictionary<int, string> mesi = new Dictionary<int, string>();     
+        
+        [BindProperty]
+        public Viaggio Viaggio { get; set; }
 
         [BindProperty]
         public string cittapartenza { get; set; }
@@ -122,13 +130,60 @@ namespace HeyTravel.Pages
                     elesole.Add(zz);
                 }
             }
+            Viaggio = new Viaggio
+            {
+                StatoArrivo = statoarrivo,
+                CittaArrivo = cittarrivo,
+                MesePartenza = mesePartenza,
+                MeseArrivo = meseArrivo
+            };
 
-            return Page();
+            _context.eleViaggi.Add(Viaggio);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return Page();
+            }
+            catch
+            {
+                return NotFound();
+            }
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            return Page();
+            if (User != null)
+            {
+                Viaggio viaggio = eleViaggi.Where(p => p.ID == id).FirstOrDefault();
+
+                if (viaggio == null)
+                {
+                    return NotFound();
+                }
+
+                Associazione associazione = new Associazione
+                {
+                    ID_Viaggio = viaggio.ID,
+                    Username_Utente = User.Identity.Name
+                };
+                             
+                _context.eleAssociazione.Add(associazione);
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("/Preferiti");
+                }
+                catch
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return RedirectToPage("/Account/Login");
+            }
         }
     }
 }

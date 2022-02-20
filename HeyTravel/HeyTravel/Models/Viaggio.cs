@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace HeyTravel.Models
 {
-    public class Viaggi
+    public class Viaggio
     {
         [Key]
         public int ID { get; set; }
-        public string StatoPartenza { get; set; }
         public string StatoArrivo { get; set; }
+        public string CittaArrivo { get; set; }
+        public string MesePartenza { get; set; }
         public string MeseArrivo { get; set; }
-        public Vaccini Vaccinati { get; set; }
-        public Casi CasiCovid { get; set; }
-        public Meteo Meteo { get; set; }
     }
 }

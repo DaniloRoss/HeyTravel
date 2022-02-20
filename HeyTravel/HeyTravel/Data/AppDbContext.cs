@@ -13,7 +13,7 @@ namespace HeyTravel.Data
         {
 
         }
-        public DbSet<Viaggi> Viaggio { get; set; }
+        public DbSet<Viaggio> eleViaggi { get; set; }
         public DbSet<Associazione> eleAssociazione { get; set; }
 
         //AGGIUNGERE I DBSET DI VACCINI, METEO E CASI

@@ -34,8 +34,10 @@ namespace HeyTravel.Pages
 
         [BindProperty]
         public string statoarrivo { get; set; }
+
         [BindProperty]
         public decimal Latitude { get; set; }
+
         [BindProperty]
         public decimal Longitude { get; set; }
 
@@ -46,6 +48,11 @@ namespace HeyTravel.Pages
             if (eleCittaPartenza != null)
             {
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
+            }
+
+            if (statopartenza == statoarrivo)
+            {
+                return RedirectToPage("/Errori");
             }
 
             return Page();

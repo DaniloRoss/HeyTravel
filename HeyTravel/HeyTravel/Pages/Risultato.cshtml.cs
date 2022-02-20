@@ -103,9 +103,14 @@ namespace HeyTravel.Pages
 
             var mpartenza = mesePartenza.Split("-")[1];
 
-            var marrivo = meseArrivo.Split("-")[1];                                                   
-            
-            if(eleMeteo[0].Mare != null)
+            var marrivo = meseArrivo.Split("-")[1];
+
+            if (int.Parse(mesePartenza.Split("-")[1]) > int.Parse(meseArrivo.Split("-")[1]))
+            {
+                return RedirectToPage("/Errori");
+            }
+
+            if (eleMeteo[0].Mare != null)
             {
                 for (int i = int.Parse(mpartenza); i <= int.Parse(marrivo); i++)
                 {

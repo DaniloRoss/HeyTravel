@@ -21,11 +21,11 @@
         background-color: darkgray;
     }
 
-     .carousel-inner > .item > img,
-  .carousel-inner > .item > a > img {
-      width: 70%;
-      margin: auto;
-  }
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 70%;
+        margin: auto;
+    }
 </style>
 <br />
 <br />
@@ -40,16 +40,16 @@
 
 @if (Model.elefoto.Count != 0)
 {
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        @foreach (var item in Model.elefoto)
-        {
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="@item" alt="First slide">
-            </div>
-        }
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var item in Model.elefoto)
+            {
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="@item" alt="First slide">
+                </div>
+            }
+        </div>
     </div>
-</div>
 }
 
 
@@ -244,13 +244,7 @@
         </div>
     </div>
 </div>
-<br />
-<br />
-<form method="post">
-    <div class="center">
-        <input type="submit" asp-route-id="@Model.Viaggio.ID" class="btn btn-outline-light" style="background-color:gray" value="Aggiungi ai tuoi Preferiti"/>
-    </div>
-</form>
+
 <br />
 <br />
 <div id="map" style="width:1200px; height:600px; margin:auto; box-sizing:inherit; display:block; background-color:white;"></div>
@@ -261,7 +255,7 @@
 
 <form method="post" style="text-align:center;">
     <div class="center">
-        <input type="submit" class="btn btn-success" value="Aggiungi ai preferiti"/>
+        <input type="submit" asp-route-id="@Model.Viaggio.ID" class="btn btn-success" value="Aggiungi ai tuoi Preferiti" />
     </div>
 </form>
 <br />

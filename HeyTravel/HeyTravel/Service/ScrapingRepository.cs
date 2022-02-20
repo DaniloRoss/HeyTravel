@@ -65,8 +65,15 @@ namespace HeyTravel.Service
             string token = await jWTRepository.Login();
             httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", token);
 
-            var json = await httpClient.GetFromJsonAsync<List<string>>($@"Scraping/Photo/{stato}");
-            return json;
+            try
+            {
+                var json = await httpClient.GetFromJsonAsync<List<string>>($@"Scraping/Photo/{stato}");
+                return json;
+            }
+            catch
+            {
+                return new List<string>();
+            }
         }
     }
 }

@@ -1215,3 +1215,4 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_CookieConsentPartial.cshtml.g.cs
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml

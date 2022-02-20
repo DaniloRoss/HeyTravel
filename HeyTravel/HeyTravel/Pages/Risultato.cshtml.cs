@@ -147,6 +147,13 @@ namespace HeyTravel.Pages
 
             _context.eleViaggi.Add(Viaggio);
 
+            elefoto = await scrapingRepository.GetImages(cittarrivo);
+
+            this.statoarrivo = statoarrivo;
+            this.cittarrivo = cittarrivo;
+            this.meseArrivo = meseArrivo;
+            this.mesePartenza = mesePartenza;
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -155,15 +162,7 @@ namespace HeyTravel.Pages
             catch
             {
                 return NotFound();
-            }
-            elefoto = await scrapingRepository.GetImages(cittarrivo);
-
-            this.statoarrivo = statoarrivo;
-            this.cittarrivo = cittarrivo;
-            this.meseArrivo = meseArrivo;
-            this.mesePartenza = mesePartenza;
-
-            return Page();
+            }            
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)

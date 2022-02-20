@@ -1213,3 +1213,4 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\ref\HeyTravel.dll
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.pdb
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
+C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml

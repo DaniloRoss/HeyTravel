@@ -1423,3 +1423,4 @@ C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\HeyTravel.Views.pdb
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Errori.cshtml.g.cs
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Errori.cshtml.g.cs

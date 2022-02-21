@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
@@ -90,7 +89,27 @@ namespace API.Functions
             }
             return null;
         }
-
+        public async Task<string> ExtractCountryFromCode(string codice)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://restcountries.com/v3.1/alpha/{codice}"),
+                //Headers =
+                //{
+                //    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
+                //    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                //},
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<RootCode>>(body);
+                return result[0].translations.ita.common;
+            }
+        }
         /// <summary>
         /// Traduce il nome di uno stato da una lingua all'altra
         /// </summary>
@@ -146,43 +165,140 @@ namespace API.Functions
         /// <returns></returns>
         public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
         {
-            string statotradotto, codicestato;
-
-            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
-
-            statotradotto = CountryTranslate(stato, "en");
-            if (statotradotto == null)
+            List<Citta> eleCitta = new List<Citta>();
+            if(stato.Contains(' '))
             {
-                return null;
+                stato.Replace(' ', '-');
             }
+            string link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
 
-            codicestato = ExtractCountryCode(statotradotto);
-            if (stato.Contains("avorio"))
-            {
-                codicestato = "CI";
-            }
-            if (codicestato == null)
-            {
-                return null;
-            }
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
-                Headers =
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument document = web?.Load(link);
+
+            HtmlNodeCollection NodesTabelle;
+
+            NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+            string ultima_citta = "";
+            foreach (var tabella in NodesTabelle)
+            {             
+                try
                 {
-                    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
-                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-                },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-                return result;
+                    Citta citta = new Citta();
+
+                    string captionNome = tabella.SelectSingleNode(".//caption").InnerText.Trim();
+                    citta.name = captionNome.Substring(0, captionNome.IndexOf(" -"));
+
+                    if (citta.name != ultima_citta)
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage
+                        {
+                            Method = HttpMethod.Get,
+                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9"),
+                        };
+                        using (var response = await client.SendAsync(request))
+                        {
+                            response.EnsureSuccessStatusCode();
+                            var body = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<List<Root>>(body);
+                            citta.latitude = result[0].lat;
+                            citta.longitude = result[0].lon;
+                            citta.country = ExtractCountryFromCode(result[0].country).Result;
+                            if (citta.country.ToLower() != stato.ToLower())
+                                continue;
+                        }
+                        eleCitta.Add(citta);
+                    }
+                    ultima_citta = citta.name;
+                }
+                catch
+                {
+                    continue;
+                }                
             }
+            document = web?.Load("https://www.climieviaggi.it/climi-nel-mondo/paesi");
+
+            HtmlNodeCollection NodesA;
+
+            NodesA = document.DocumentNode.SelectNodes($".//a[contains(@href,'{stato.ToLower()}')]");
+            foreach (var hr in NodesA)
+            {
+                string[] split = new string[4];
+                split = hr.GetAttributeValue("href", "default").ToLower().Split('/');
+                try
+                {
+                    if (split[2] == stato && split[3] != "" && !eleCitta.Select(p => p.name).Contains(hr.InnerText.Trim()))
+                    {
+                        Citta citta = new Citta();
+                        citta.name = hr.InnerText.Trim();
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage
+                        {
+                            Method = HttpMethod.Get,
+                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9"),
+                            //Headers =
+                            //{
+                            //    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
+                            //    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                            //},
+                        };
+                        using (var response = await client.SendAsync(request))
+                        {
+                            response.EnsureSuccessStatusCode();
+                            var body = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<List<Root>>(body);
+                            citta.latitude = result[0].lat;
+                            citta.longitude = result[0].lon;
+                            citta.country = ExtractCountryFromCode(result[0].country).Result;
+                            if (citta.country.ToLower() != stato.ToLower())
+                                continue;
+                        }
+                        eleCitta.Add(citta);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }                
+            }
+            return eleCitta;
+            //string statotradotto, codicestato;
+
+            //stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
+
+            //statotradotto = CountryTranslate(stato, "en");
+            //if (statotradotto == null)
+            //{
+            //    return null;
+            //}
+
+            //codicestato = ExtractCountryCode(statotradotto);
+            //if (stato.Contains("avorio"))
+            //{
+            //    codicestato = "CI";
+            //}
+            //if(codicestato==null)
+            //{
+            //    return null;
+            //}
+            //var client = new HttpClient();
+            //var request = new HttpRequestMessage
+            //{
+            //    Method = HttpMethod.Get,
+            //    RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
+            //    Headers =
+            //    {
+            //        { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
+            //        { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+            //    },
+            //};
+            //using (var response = await client.SendAsync(request))
+            //{
+            //    response.EnsureSuccessStatusCode();
+            //    var body = await response.Content.ReadAsStringAsync();
+            //    var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
+            //    return result;
+            //}
         }
 
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
@@ -306,7 +422,28 @@ namespace API.Functions
             }
             return eleMeteo;
         }
-
+        public async Task<IEnumerable<Aeroporto>> ExtractAirports(double latitude, double longitude)
+        {
+            var client = new HttpClient();
+            Uri ur = new Uri($"https://aviation-reference-data.p.rapidapi.com/airports/search?lat={latitude.ToString().Replace(',', '.')}&lon={longitude.ToString().Replace(',', '.')}&radius=100");
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = ur,
+                Headers =
+                {
+                    { "x-rapidapi-host", "aviation-reference-data.p.rapidapi.com" },
+                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Aeroporto>>(body);
+                return result;
+            }
+        }
         /// <summary>
         /// Funzione he estrae i dati dei casi di Covid19 in base al paese
         /// </summary>

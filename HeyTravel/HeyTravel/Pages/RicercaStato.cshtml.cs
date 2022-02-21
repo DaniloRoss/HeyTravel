@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,8 +34,10 @@ namespace HeyTravel.Pages
 
         [BindProperty]
         public string statoarrivo { get; set; }
+
         [BindProperty]
         public decimal Latitude { get; set; }
+
         [BindProperty]
         public decimal Longitude { get; set; }
 
@@ -47,13 +50,18 @@ namespace HeyTravel.Pages
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
 
+            if (statopartenza == statoarrivo)
+            {
+                return RedirectToPage("/Errori");
+            }
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);
-            var xy = eleCittaArrivo.First(a => a.country == statoarrivo);
+            var xy = eleCittaArrivo.First(a => a.name == cittarrivo);
 
             Latitude = decimal.Round((decimal) xy.latitude);
             Longitude = decimal.Round((decimal) xy.longitude);
@@ -61,3 +69,14 @@ namespace HeyTravel.Pages
         }
     }
 }
+
+//double value = 1234567890;
+//Console.WriteLine(value.ToString("#,#", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,#}", value));
+//// Displays 1,234,567,890
+
+//Console.WriteLine(value.ToString("#,##0,,", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,##0,,}", value));
+//// Displays 1,235

@@ -14,7 +14,6 @@ namespace HeyTravel.Pages
 
     public class RicercaDataModel : PageModel
     {
-
         public async Task<IActionResult> OnGetAsync(string stato, string citta, decimal latitude, decimal longitude)
         {
             return Page();
@@ -27,6 +26,7 @@ namespace HeyTravel.Pages
 
         [BindProperty]
         public string statoPartenza { get; set; }
+
         [BindProperty]
         public string statoArrivo { get; set; }
 

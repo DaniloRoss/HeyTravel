@@ -8,7 +8,7 @@
     body, html {
         height: 100%;
         /* The image used */
-        background-image: url("../images/HeyTravel_Foto_Home.jpg");
+        background-image: url("../images/HeyTravel_Foto_RicercaStato.jpg");
         /* Center and scale the image nicely */
         background-position: center;
         background-repeat: no-repeat;
@@ -23,8 +23,10 @@
     <br />
     <br />
 </div>
-
+<br />
+<br />
 <h5 class="text-black-50" align="center"><i>Inserire la città di destinazione</i></h5>
+<br />
 <form method="post">
     <select asp-for="@Model.cittarrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         @foreach (var item in Model.eleCittaArrivo)
@@ -35,7 +37,8 @@
         }
     </select>
     <br />
+    <br />
     <div class="text-center">
-        <input type="submit" class="btn btn-outline-primary" align="center" value="Cerca" />
+        <button type="submit" class="btn btn-info" style="width:100px">Cerca</button>
     </div>
 </form>

@@ -9,14 +9,31 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeyTravel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220201103458_viag")]
-    partial class viag
+    [Migration("20220217130921_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.13");
+
+            modelBuilder.Entity("HeyTravel.Models.Associazione", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ID_Viaggio")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Username_Utente")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("eleAssociazione");
+                });
 
             modelBuilder.Entity("HeyTravel.Models.Casi", b =>
                 {
@@ -53,12 +70,34 @@ namespace HeyTravel.Migrations
                     b.Property<string>("Mese")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MeteoID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Temperatura")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("MeteoID");
+
                     b.ToTable("Mare");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.Meteo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Citta")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Stato")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Meteo");
                 });
 
             modelBuilder.Entity("HeyTravel.Models.OreSole", b =>
@@ -73,10 +112,15 @@ namespace HeyTravel.Migrations
                     b.Property<string>("Mese")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MeteoID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("TotaleMese")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MeteoID");
 
                     b.ToTable("OreSole");
                 });
@@ -93,10 +137,15 @@ namespace HeyTravel.Migrations
                     b.Property<string>("Mese")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MeteoID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Quantità")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MeteoID");
 
                     b.ToTable("Precipitazioni");
                 });
@@ -116,10 +165,15 @@ namespace HeyTravel.Migrations
                     b.Property<string>("Mese")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("MeteoID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<decimal>("Min")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MeteoID");
 
                     b.ToTable("Temperature");
                 });
@@ -159,10 +213,10 @@ namespace HeyTravel.Migrations
                     b.Property<int?>("CasiCovidID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PreciID")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("MeseArrivo")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("SoleID")
+                    b.Property<int?>("MeteoID")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("StatoArrivo")
@@ -171,12 +225,6 @@ namespace HeyTravel.Migrations
                     b.Property<string>("StatoPartenza")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TempID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TmareID")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("VaccinatiID")
                         .HasColumnType("INTEGER");
 
@@ -184,17 +232,39 @@ namespace HeyTravel.Migrations
 
                     b.HasIndex("CasiCovidID");
 
-                    b.HasIndex("PreciID");
-
-                    b.HasIndex("SoleID");
-
-                    b.HasIndex("TempID");
-
-                    b.HasIndex("TmareID");
+                    b.HasIndex("MeteoID");
 
                     b.HasIndex("VaccinatiID");
 
                     b.ToTable("Viaggio");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.Mare", b =>
+                {
+                    b.HasOne("HeyTravel.Models.Meteo", null)
+                        .WithMany("Mare")
+                        .HasForeignKey("MeteoID");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.OreSole", b =>
+                {
+                    b.HasOne("HeyTravel.Models.Meteo", null)
+                        .WithMany("OreSole")
+                        .HasForeignKey("MeteoID");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.Precipitazioni", b =>
+                {
+                    b.HasOne("HeyTravel.Models.Meteo", null)
+                        .WithMany("Precipitazioni")
+                        .HasForeignKey("MeteoID");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.Temperature", b =>
+                {
+                    b.HasOne("HeyTravel.Models.Meteo", null)
+                        .WithMany("Temperature")
+                        .HasForeignKey("MeteoID");
                 });
 
             modelBuilder.Entity("HeyTravel.Models.Viaggi", b =>
@@ -203,21 +273,9 @@ namespace HeyTravel.Migrations
                         .WithMany()
                         .HasForeignKey("CasiCovidID");
 
-                    b.HasOne("HeyTravel.Models.Precipitazioni", "Preci")
+                    b.HasOne("HeyTravel.Models.Meteo", "Meteo")
                         .WithMany()
-                        .HasForeignKey("PreciID");
-
-                    b.HasOne("HeyTravel.Models.OreSole", "Sole")
-                        .WithMany()
-                        .HasForeignKey("SoleID");
-
-                    b.HasOne("HeyTravel.Models.Temperature", "Temp")
-                        .WithMany()
-                        .HasForeignKey("TempID");
-
-                    b.HasOne("HeyTravel.Models.Mare", "Tmare")
-                        .WithMany()
-                        .HasForeignKey("TmareID");
+                        .HasForeignKey("MeteoID");
 
                     b.HasOne("HeyTravel.Models.Vaccini", "Vaccinati")
                         .WithMany()
@@ -225,15 +283,20 @@ namespace HeyTravel.Migrations
 
                     b.Navigation("CasiCovid");
 
-                    b.Navigation("Preci");
-
-                    b.Navigation("Sole");
-
-                    b.Navigation("Temp");
-
-                    b.Navigation("Tmare");
+                    b.Navigation("Meteo");
 
                     b.Navigation("Vaccinati");
+                });
+
+            modelBuilder.Entity("HeyTravel.Models.Meteo", b =>
+                {
+                    b.Navigation("Mare");
+
+                    b.Navigation("OreSole");
+
+                    b.Navigation("Precipitazioni");
+
+                    b.Navigation("Temperature");
                 });
 #pragma warning restore 612, 618
         }

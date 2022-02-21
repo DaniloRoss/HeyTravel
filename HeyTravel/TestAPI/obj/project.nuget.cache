@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "pfJ07dBsWb6do6uskkDE6UaLIggkkUe5sX7i8xqeQi2TZToR4wPp2v6qCamEiP50/NGv8bgd7hhyEiGytPbbkw==",
+  "dgSpecHash": "Ji57KojHODYO1YYlOGMoXrllpY7fKxWpLvMdoyowMa8PXq6jA3Vc0ut83K8KrIbGKC02bHnwi7hF4PumwArXYA==",
   "success": true,
   "projectFilePath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rossi.17217\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\fluentassertions\\6.3.0\\fluentassertions.6.3.0.nupkg.sha512",
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\htmlagilitypack\\1.11.40\\htmlagilitypack.1.11.40.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.13\\microsoft.aspnetcore.authentication.jwtbearer.5.0.13.nupkg.sha512",

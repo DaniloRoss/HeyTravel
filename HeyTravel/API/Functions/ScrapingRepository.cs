@@ -116,9 +116,9 @@ namespace API.Functions
         /// <param name="stato"></param>
         /// <param name="lingua"></param>
         /// <returns>Traduzione dello stato</returns>
-        public string CountryTranslate(string stato, string lingua)
+        public string CountryTranslate(string stato, string lingua, string percorso= "wwwroot/csv/stati.csv")
         {
-            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/stati.csv"))
+            using (TextFieldParser parser = new TextFieldParser($@"{percorso}"))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -449,7 +449,7 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public List<Casi> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato, string percorso = "wwwroot/csv/stati.csv")
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
@@ -459,7 +459,7 @@ namespace API.Functions
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            var statoen = CountryTranslate(stato, "en");
+            var statoen = CountryTranslate(stato, "en", percorso);
 
 
                 if (stato == "world")
@@ -543,9 +543,9 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati sulle vaccinazioni</returns>
-        public async Task<Vaccini> DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato, string percorso = "wwwroot/csv/stati.csv")
         {
-            var statoen = CountryTranslate(stato, "en");
+            var statoen = CountryTranslate(stato, "en", percorso);
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {

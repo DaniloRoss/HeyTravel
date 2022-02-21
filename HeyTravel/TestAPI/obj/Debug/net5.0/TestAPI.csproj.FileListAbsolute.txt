@@ -737,7 +737,6 @@ C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.pdb
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.csproj.CopyComplete
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.genruntimeconfig.cache
-C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\testa.17135\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\CoverletSourceRootsMapping
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\appsettings.Development.json
@@ -994,3 +993,18 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\re
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.pdb
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\obj\Debug\net5.0\TestAPI.genruntimeconfig.cache
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\GoogleMaps.LocationServices.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.Views.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.Views.pdb
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.deps.json
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.runtimeconfig.json
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.runtimeconfig.dev.json
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.exe
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Sqlite.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.pdb

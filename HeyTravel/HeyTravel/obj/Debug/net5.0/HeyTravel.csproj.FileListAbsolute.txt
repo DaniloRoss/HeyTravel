@@ -1215,7 +1215,6 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Shared\_CookieConsentPartial.cshtml.g.cs
-C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\HtmlAgilityPack.dll
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Humanizer.dll
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
@@ -1425,3 +1424,6 @@ C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4
 C:\Users\infol\Desktop\School\Informatica\GitHub\MILESTONE MS-4.1\MILESTONE-MS-4.1\MILESTONE MS-4.1\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Errori.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Errori.cshtml.g.cs
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\GoogleMaps.LocationServices.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\GoogleMaps.LocationServices.dll
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Razor\Pages\Errori.cshtml.g.cs
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml

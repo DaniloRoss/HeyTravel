@@ -33,6 +33,7 @@
     ".NETCoreApp,Version=v5.0": {
       "API/1.0.0": {
         "dependencies": {
+          "GoogleMaps.LocationServices": "1.2.0.5",
           "HtmlAgilityPack": "1.11.40",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "5.0.13",
           "Microsoft.AspNetCore.Http": "2.2.2",
@@ -327,6 +328,17 @@
         },
         "compile": {
           "API.dll": {}
+        }
+      },
+      "GoogleMaps.LocationServices/1.2.0.5": {
+        "runtime": {
+          "lib/netstandard2.0/GoogleMaps.LocationServices.dll": {
+            "assemblyVersion": "1.2.0.5",
+            "fileVersion": "1.2.0.5"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/GoogleMaps.LocationServices.dll": {}
         }
       },
       "HtmlAgilityPack/1.11.40": {
@@ -3907,6 +3919,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "GoogleMaps.LocationServices/1.2.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0j3RL5+acxYgQNz72JdXJ1nUKxMGaY+6UvrOIOxZfp0qpJOUmo/ivCAm53atbnuy0z3vrZK+j9mZifh35UBqag==",
+      "path": "googlemaps.locationservices/1.2.0.5",
+      "hashPath": "googlemaps.locationservices.1.2.0.5.nupkg.sha512"
     },
     "HtmlAgilityPack/1.11.40": {
       "type": "package",

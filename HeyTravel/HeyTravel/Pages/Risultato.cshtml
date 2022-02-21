@@ -39,19 +39,16 @@
 <br />
 <br />
 
-@if (Model.elefoto.Count != 0)
-{
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             @foreach (var item in Model.elefoto)
             {
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="@item" alt="First slide">
+                    <img class="d-block w-100" src="~/images/photo.png" alt="First slide">
                 </div>
             }
         </div>
     </div>
-}
 <br />
 <br />
 

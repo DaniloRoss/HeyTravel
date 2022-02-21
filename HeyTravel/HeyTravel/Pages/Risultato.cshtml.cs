@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models.DTO.Requests;
@@ -153,6 +155,21 @@ namespace HeyTravel.Pages
             _context.eleViaggi.Add(Viaggio);
 
             elefoto = await scrapingRepository.GetImages(cittarrivo);
+
+            var dir = Directory.GetCurrentDirectory();
+
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(elefoto[0]), @$"{dir}/wwwroot/images/photo.png");
+                }
+            }
+            catch
+            {
+
+            }
+            
 
             this.statoarrivo = statoarrivo;
             this.cittarrivo = cittarrivo;

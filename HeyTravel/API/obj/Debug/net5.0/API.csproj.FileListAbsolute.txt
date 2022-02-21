@@ -1322,3 +1322,4 @@ C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.dl
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\ref\API.dll
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.pdb
 C:\Users\utente\Documents\GitHub\HeyTravel\HeyTravel\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\API\bin\Debug\net5.0\GoogleMaps.LocationServices.dll

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "GBaWrlAlkUghS8BdCslKchA2Ec2/3BWdm8p/4MpsirZoa83Pc3jegvTaw4/wHyrj2w411H3/IMXPs7bD+2SPhg==",
+  "dgSpecHash": "i5y3HL7nazOg9+dg5LCASpONxIlh7EYmwPPvC5S6RFs3tYOCzb/pu//mtoZrpttypAhrlDVD4xL/vVS8ik0Yfw==",
   "success": true,
   "projectFilePath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rossi.17217\\.nuget\\packages\\bootstrap\\5.1.3\\bootstrap.5.1.3.nupkg.sha512",
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\htmlagilitypack\\1.11.40\\htmlagilitypack.1.11.40.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\5.0.14\\microsoft.aspnetcore.authentication.google.5.0.14.nupkg.sha512",

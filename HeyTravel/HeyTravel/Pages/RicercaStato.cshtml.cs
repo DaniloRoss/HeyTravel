@@ -61,7 +61,7 @@ namespace HeyTravel.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);
-            var xy = eleCittaArrivo.First(a => a.country == statoarrivo);
+            var xy = eleCittaArrivo.First(a => a.name == cittarrivo);
 
             Latitude = decimal.Round((decimal) xy.latitude);
             Longitude = decimal.Round((decimal) xy.longitude);

@@ -318,8 +318,16 @@ namespace API.Functions
             }
             if (link1 == false)
             {
-                string cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, cittaLower.Length - 1);
-                NodesTabelle = document.DocumentNode.SelectNodes($".//table[starts-with(@caption,'{cittaUtile}')]");
+                string cittaUtile = "";
+                int index = -1;
+                if (cittaLower.Contains(' '))
+                {
+                    index = cittaLower.IndexOf(' ');
+                    cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, index - 1);
+                }
+                else
+                    cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, cittaLower.Length - 1);
+                NodesTabelle = document.DocumentNode.SelectNodes($".//table//caption[starts-with(.,'{cittaUtile}')]/parent::table");
             }
             
 

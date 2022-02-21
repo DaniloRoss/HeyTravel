@@ -6,6 +6,7 @@ using Xunit;
 using FluentAssertions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace TestAPI
 {
@@ -120,6 +121,20 @@ namespace TestAPI
 
             //Assert
             result.Should().NotBe(null);
+        }
+
+        [Fact]
+        public async void TestMeteo()
+        {
+            //Arrange
+            ScrapingRepository scrapingRepository = new ScrapingRepository();
+
+            //Act
+            var result = scrapingRepository.ExtractMeteo("Italia", "Roma");
+
+
+            //Assert
+            result.Count().Should().NotBe(0);
         }
     }
 }

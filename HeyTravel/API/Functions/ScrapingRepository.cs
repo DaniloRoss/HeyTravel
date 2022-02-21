@@ -173,6 +173,28 @@ namespace API.Functions
         /// <returns></returns>
         public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
         {
+            string statoNuovo="";
+            if(stato.Contains(' '))
+            {
+                bool primo = true;
+                string[] split = stato.Split(' ');
+                foreach(var st in split)
+                {
+                    if(primo==true)
+                    {
+                        statoNuovo += $"{st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
+                        primo = false;
+                    }
+                    else
+                    {
+                        statoNuovo += $" {st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
+                    }                    
+                }
+            }   
+            else
+            {
+                statoNuovo = $"{stato.Substring(0, 1).ToUpper()}{stato.Substring(1, stato.Length - 1).ToLower()}";
+            }
             List<Citta> eleCitta = new List<Citta>();
             if(stato.Contains(' '))
             {
@@ -213,7 +235,7 @@ namespace API.Functions
                             citta.longitude = result[0].lon;
                             citta.country = ExtractCountryFromCode(result[0].country).Result;
                             if (citta.country.ToLower() != stato.ToLower())
-                                continue;
+                                citta.country = statoNuovo;
                         }
                         eleCitta.Add(citta);
                     }
@@ -243,12 +265,7 @@ namespace API.Functions
                         var request = new HttpRequestMessage
                         {
                             Method = HttpMethod.Get,
-                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9"),
-                            //Headers =
-                            //{
-                            //    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
-                            //    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-                            //},
+                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9")
                         };
                         using (var response = await client.SendAsync(request))
                         {
@@ -270,74 +287,41 @@ namespace API.Functions
                 }                
             }
             return eleCitta;
-            //string statotradotto, codicestato;
-
-            //stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
-
-            //statotradotto = CountryTranslate(stato, "en");
-            //if (statotradotto == null)
-            //{
-            //    return null;
-            //}
-
-            //codicestato = ExtractCountryCode(statotradotto);
-            //if (stato.Contains("avorio"))
-            //{
-            //    codicestato = "CI";
-            //}
-            //if(codicestato==null)
-            //{
-            //    return null;
-            //}
-            //var client = new HttpClient();
-            //var request = new HttpRequestMessage
-            //{
-            //    Method = HttpMethod.Get,
-            //    RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
-            //    Headers =
-            //    {
-            //        { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
-            //        { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-            //    },
-            //};
-            //using (var response = await client.SendAsync(request))
-            //{
-            //    response.EnsureSuccessStatusCode();
-            //    var body = await response.Content.ReadAsStringAsync();
-            //    var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-            //    return result;
-            //}
         }
         public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
         {
+            bool link1 = true;
             string link = default(string);
-            if (citta == "&")
+            string cittaLower = citta.ToLower();
+            if (cittaLower.Contains(" "))
             {
-                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
+                cittaLower.Replace(' ', '-');
             }
-            else
-            {
-                string cittaLower = citta.ToLower();
-                if (cittaLower.Contains(" "))
-                {
-                    cittaLower.Replace(' ', '-');
-                }
-                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";
-            }
-
-            HtmlNodeCollection NodesTabelle;
+            link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";            
 
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
+            HtmlNodeCollection NodesTabelle = new HtmlNodeCollection(document.DocumentNode);
 
             List<Meteo> eleMeteo = new List<Meteo>();
 
-            if (document == null)
+            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto."))
             {
-                return eleMeteo;
+                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
+                document = web?.Load(link);
+                link1 = false;
             }
 
-            NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+            if(link1==true)
+            {
+                NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+            }
+            if (link1 == false)
+            {
+                string cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, cittaLower.Length - 1);
+                NodesTabelle = document.DocumentNode.SelectNodes($".//table[starts-with(@caption,'{cittaUtile}')]");
+            }
+            
 
             if (NodesTabelle == null || document.DocumentNode.SelectSingleNode("//span").InnerText.StartsWith("Errore"))
             {

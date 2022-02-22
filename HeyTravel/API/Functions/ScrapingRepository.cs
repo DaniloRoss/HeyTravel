@@ -305,7 +305,8 @@ namespace API.Functions
 
             List<Meteo> eleMeteo = new List<Meteo>();
 
-            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto."))
+            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto.") ||
+                document.DocumentNode.InnerText.Contains("Nessuna riga alla posizione 0."))
             {
                 link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
                 document = web?.Load(link);

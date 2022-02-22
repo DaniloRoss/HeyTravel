@@ -1097,3 +1097,4 @@ C:\Users\cereda.17119\Desktop\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\Hey
 C:\Users\cereda.17119\Desktop\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\ref\HeyTravel.dll
 C:\Users\cereda.17119\Desktop\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.pdb
 C:\Users\cereda.17119\Desktop\HeyTravel\HeyTravel\HeyTravel\obj\Debug\net5.0\HeyTravel.genruntimeconfig.cache
+C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\HeyTravel\bin\Debug\net5.0\API.StaticWebAssets.xml

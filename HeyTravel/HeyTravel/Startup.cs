@@ -58,22 +58,31 @@ namespace HeyTravel
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<CookiePolicyOptions>(options => 
-            { 
-                /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/ 
+            {                
+                /*This lambda determines whether user consent for non-essential cookies is needed for a given request.*/
                 options.CheckConsentNeeded = context => true; 
 
                 /*requires using Microsoft.AspNetCore.Http;*/ 
                 options.MinimumSameSitePolicy = SameSiteMode.None; 
             });
-                services.AddRazorPages();
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IScrapingRepository repository)
         {
             if (env.IsDevelopment())
             {
@@ -96,6 +105,8 @@ namespace HeyTravel
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            repository.Mappa();
 
             app.UseEndpoints(endpoints =>
             {

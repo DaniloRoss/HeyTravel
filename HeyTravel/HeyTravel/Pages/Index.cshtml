@@ -12,7 +12,7 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-    }
+    }    
 </style>
 
 @*Google Auth*@
@@ -30,7 +30,7 @@
     <br />
     <br />
 </div>
-
+<br />
 <form method="post">
     <div class="row">
         <div class="col-lg-4"></div>
@@ -47,38 +47,32 @@
             </style>
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di partenza</i></h5>
             <select asp-for="@Model.statoPartenza" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                   @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
 
             <br />
             <h5 class="text-black-50" align="center"><i>Inserire lo stato di destinazione</i></h5>
-                <select asp-for="@Model.statoArrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    @foreach (var item in Model.EleNazioni)
-                    {
-                        <option>
-                          @item.ToString()
-                        </option>
-                    }
-                </select>
+            <select asp-for="@Model.statoArrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                @foreach (var item in Model.EleNazioni)
+                {
+                    <option>
+                        @item.ToString()
+                    </option>
+                }
+            </select>
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div class="center">
-                <button type="submit" class="btn btn-outline-light" style="background-color:gray">Cerca</button>
+            <div class="text-center">
+                <button type="submit" id="cerca" class="btn btn-info" style="width:100px">Cerca</button>
             </div>
+
         </div>
     </div>
 </form>
+
+

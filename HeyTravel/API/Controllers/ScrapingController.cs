@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -37,22 +37,29 @@ namespace API.Controllers
 
         
         [HttpGet("Covid/casi/{stato}")]
-        public async Task<List<Casi>> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato)
         {
-            List<Casi> covid = await scrapingRepository.DataCovid(stato);
+            List<Casi> covid = scrapingRepository.DataCovid(stato);
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]
-        public Vaccini DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato)
         {
-            Vaccini vaccini = scrapingRepository.DataVaccini(stato);
+            Vaccini vaccini = await scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
-        [HttpGet("Covid/map/")]
-        public async Task<IActionResult> CovidMap()
+        [HttpGet("Covid/map")]
+        public async Task<string> CovidMap()
         {
-            await scrapingRepository.CovidMap();
-            return Ok();
+            string mappa = await scrapingRepository.CovidMap();
+            return mappa;
+        }
+
+        [HttpGet("Photo/{stato}")]
+        public async Task<List<string>> GetPhoto(string stato)
+        {
+            List<string> elefoto = await scrapingRepository.GetImages(stato);
+            return elefoto;
         }
     }
 }

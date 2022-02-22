@@ -43,6 +43,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "GoogleMaps.LocationServices": {
+              "target": "Package",
+              "version": "[1.2.0.5, )"
+            },
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.11.40, )"

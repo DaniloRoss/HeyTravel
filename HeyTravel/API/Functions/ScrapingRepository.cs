@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
 using HtmlAgilityPack;
@@ -32,13 +31,13 @@ namespace API.Functions
 
             stato = stato.ToLower();
             statoInput = stato;
-            
+
             var lista = document.DocumentNode.SelectNodes(".//table");
             foreach (var tabella in lista)
             {
                 string idTab = tabella.GetAttributeValue("id", null);
                 string[] split = idTab.Split('-');
-                if(split.Length==3)
+                if (split.Length == 3)
                 {
                     if ((Encoding.Default.GetBytes(split[1].ToLower())[0] < Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]) && (Encoding.Default.GetBytes(split[2].ToLower())[0] > Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]))
                     {
@@ -75,7 +74,7 @@ namespace API.Functions
                             }
                         }
                     }
-                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0]|| Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
+                    if (Encoding.Default.GetBytes(split[2].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0] || Encoding.Default.GetBytes(split[3].ToLower())[0] == Encoding.Default.GetBytes(statoInput.Substring(0, 1))[0])
                     {
                         foreach (var riga in tabella.SelectNodes(".//tr"))
                         {
@@ -86,66 +85,77 @@ namespace API.Functions
                             }
                         }
                     }
-                }                
+                }
             }
             return null;
         }
-
+        public async Task<string> ExtractCountryFromCode(string codice)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://restcountries.com/v3.1/alpha/{codice}"),
+                //Headers =
+                //{
+                //    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
+                //    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                //},
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<RootCode>>(body);
+                return result[0].translations.ita.common;
+            }
+        }
         /// <summary>
         /// Traduce il nome di uno stato da una lingua all'altra
         /// </summary>
         /// <param name="stato"></param>
         /// <param name="lingua"></param>
         /// <returns>Traduzione dello stato</returns>
-        public string CountryTranslate(string stato, string lingua)
+        public string CountryTranslate(string stato, string lingua, string percorso= "wwwroot/csv/stati.csv")
         {
-            try
+            using (TextFieldParser parser = new TextFieldParser($@"{percorso}"))
             {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
                 string translation = default;
-                string dir = Directory.GetCurrentDirectory();
-                string parent = Directory.GetParent(dir).ToString();
-                string connstr = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={parent}\CountryDB\bin\Debug\CountryDB.mdf;Integrated Security=True;Connect Timeout=30";
+                stato = stato.ToLower();
+                stato[0].ToString().ToUpper();
+                var statoparsed = char.ToUpper(stato[0]) + stato.Substring(1);
 
-                if (lingua == "en")
+
+                while (!parser.EndOfData)
                 {
-                    using (SqlConnection sqlcon = new SqlConnection(connstr))
-                    {
-                        SqlDataReader rdr;
-                        sqlcon.Open();
-                        SqlCommand sqlCommand = new SqlCommand("GetIng", sqlcon);
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                    string[] fields = parser.ReadFields();
 
-                        sqlCommand.Parameters.AddWithValue("@Italiano", stato.ToString());
-                        rdr = sqlCommand.ExecuteReader();
-                        rdr.Read();
-                        translation = rdr.GetString(0);
-                        rdr.Close();
-                        sqlcon.Close();
+                    if (lingua == "it")
+                    {
+                        if (fields[1] == statoparsed)
+                        {
+                            translation = fields[0];
+                        }
                     }
-                }
-                if (lingua == "it")
-                {
-                    using (SqlConnection sqlcon = new SqlConnection(connstr))
+                    else
                     {
-                        SqlDataReader rdr;
-                        sqlcon.Open();
-                        SqlCommand sqlCommand = new SqlCommand("GetIta", sqlcon);
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
-
-                        sqlCommand.Parameters.AddWithValue("@Inglese", stato.ToString());
-                        rdr = sqlCommand.ExecuteReader();
-                        rdr.Read();
-                        translation = rdr.GetString(0);
-                        rdr.Close();
-                        sqlcon.Close();
+                        if (fields[0] == statoparsed)
+                        {
+                            if (lingua == "en")
+                            {
+                                translation = fields[1];
+                            }
+                            if (lingua == "fr")
+                            {
+                                translation = fields[2];
+                            }
+                        }
                     }
                 }
                 return translation;
             }
-            catch (Exception ex)
-            {
-                return null;
-            }            
         }
 
         /// <summary>
@@ -155,74 +165,165 @@ namespace API.Functions
         /// <returns></returns>
         public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
         {
-            string statotradotto, codicestato;
-
-            stato = char.ToUpper(stato[0]) + stato.Substring(1).ToLower();
-
-            statotradotto = CountryTranslate(stato, "en");
-            if (statotradotto == null)
+            string statoNuovo = "";
+            if (stato.Contains(' '))
             {
-                return null;
-            }
-
-            codicestato = ExtractCountryCode(statotradotto);
-            if (stato.Contains("avorio"))
-            {
-                codicestato = "CI";
-            }
-            if(codicestato==null)
-            {
-                return null;
-            }
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri($"https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=10&countryIds={codicestato}&sort=-population&languageCode=IT&types=CITY"),
-                Headers =
+                bool primo = true;
+                string[] split = stato.Split(' ');
+                foreach (var st in split)
                 {
-                    { "x-rapidapi-host", "wft-geo-db.p.rapidapi.com" },
-                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-                },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<RootCitta>(body).data;
-                return result;
-            }
-        }
-        public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
-        {
-            string link = default(string);
-            if (citta == "&")
-            {
-                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
+                    if (primo == true)
+                    {
+                        statoNuovo += $"{st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
+                        primo = false;
+                    }
+                    else
+                    {
+                        statoNuovo += $" {st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
+                    }
+                }
             }
             else
             {
-                string cittaLower = citta.ToLower();
-                if (cittaLower.Contains(" "))
-                {
-                    cittaLower.Replace(' ', '-');
-                }
-                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";
+                statoNuovo = $"{stato.Substring(0, 1).ToUpper()}{stato.Substring(1, stato.Length - 1).ToLower()}";
             }
-
-            HtmlNodeCollection NodesTabelle;
+            List<Citta> eleCitta = new List<Citta>();
+            if (stato.Contains(' '))
+            {
+                stato.Replace(' ', '-');
+            }
+            string link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
 
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
 
-            List<Meteo> eleMeteo = new List<Meteo>();
-
-            if (document == null)
-            {
-                return eleMeteo;
-            }
+            HtmlNodeCollection NodesTabelle;
 
             NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+            string ultima_citta = "";
+            foreach (var tabella in NodesTabelle)
+            {
+                try
+                {
+                    Citta citta = new Citta();
+
+                    string captionNome = tabella.SelectSingleNode(".//caption").InnerText.Trim();
+                    citta.name = captionNome.Substring(0, captionNome.IndexOf(" -"));
+
+                    if (citta.name != ultima_citta)
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage
+                        {
+                            Method = HttpMethod.Get,
+                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9"),
+                        };
+                        using (var response = await client.SendAsync(request))
+                        {
+                            response.EnsureSuccessStatusCode();
+                            var body = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<List<Root>>(body);
+                            citta.latitude = result[0].lat;
+                            citta.longitude = result[0].lon;
+                            citta.country = ExtractCountryFromCode(result[0].country).Result;
+                            if (citta.country.ToLower() != stato.ToLower())
+                                citta.country = statoNuovo;
+                        }
+                        eleCitta.Add(citta);
+                    }
+                    ultima_citta = citta.name;
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            document = web?.Load("https://www.climieviaggi.it/climi-nel-mondo/paesi");
+
+            HtmlNodeCollection NodesA;
+
+            NodesA = document.DocumentNode.SelectNodes($".//a[contains(@href,'{stato.ToLower()}')]");
+            foreach (var hr in NodesA)
+            {
+                string[] split = new string[4];
+                split = hr.GetAttributeValue("href", "default").ToLower().Split('/');
+                try
+                {
+                    if (split[2] == stato && split[3] != "" && !eleCitta.Select(p => p.name).Contains(hr.InnerText.Trim()))
+                    {
+                        Citta citta = new Citta();
+                        citta.name = hr.InnerText.Trim();
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage
+                        {
+                            Method = HttpMethod.Get,
+                            RequestUri = new Uri($"http://api.openweathermap.org/geo/1.0/direct?q={citta.name}&appid=f76f029755cc93c291728a69986969d9")
+                        };
+                        using (var response = await client.SendAsync(request))
+                        {
+                            response.EnsureSuccessStatusCode();
+                            var body = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<List<Root>>(body);
+                            citta.latitude = result[0].lat;
+                            citta.longitude = result[0].lon;
+                            citta.country = ExtractCountryFromCode(result[0].country).Result;
+                            if (citta.country.ToLower() != stato.ToLower())
+                                continue;
+                        }
+                        eleCitta.Add(citta);
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return eleCitta;
+        }
+
+        public IEnumerable<Meteo> ExtractMeteo(string stato, string citta)
+        {
+            bool link1 = true;
+            string link = default(string);
+            string cittaLower = citta.ToLower();
+            if (cittaLower.Contains(" "))
+            {
+                cittaLower.Replace(' ', '-');
+            }
+            link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";
+
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument document = web?.Load(link);
+            HtmlNodeCollection NodesTabelle = new HtmlNodeCollection(document.DocumentNode);
+
+            List<Meteo> eleMeteo = new List<Meteo>();
+
+            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto.") ||
+                document.DocumentNode.InnerText.Contains("Nessuna riga alla posizione 0."))
+            {
+                link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
+                document = web?.Load(link);
+                link1 = false;
+            }
+
+            if (link1 == true)
+            {
+                NodesTabelle = document.DocumentNode.SelectNodes(".//table");
+            }
+            if (link1 == false)
+            {
+                string cittaUtile = "";
+                int index = -1;
+                if (cittaLower.Contains(' '))
+                {
+                    index = cittaLower.IndexOf(' ');
+                    cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, index - 1);
+                }
+                else
+                    cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, cittaLower.Length - 1);
+                NodesTabelle = document.DocumentNode.SelectNodes($".//table//caption[starts-with(.,'{cittaUtile}')]/parent::table");
+            }
+
 
             if (NodesTabelle == null || document.DocumentNode.SelectSingleNode("//span").InnerText.StartsWith("Errore"))
             {
@@ -314,13 +415,34 @@ namespace API.Functions
             }
             return eleMeteo;
         }
-
+        public async Task<IEnumerable<Aeroporto>> ExtractAirports(double latitude, double longitude)
+        {
+            var client = new HttpClient();
+            Uri ur = new Uri($"https://aviation-reference-data.p.rapidapi.com/airports/search?lat={latitude.ToString().Replace(',', '.')}&lon={longitude.ToString().Replace(',', '.')}&radius=100");
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = ur,
+                Headers =
+                {
+                    { "x-rapidapi-host", "aviation-reference-data.p.rapidapi.com" },
+                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Aeroporto>>(body);
+                return result;
+            }
+        }
         /// <summary>
         /// Funzione he estrae i dati dei casi di Covid19 in base al paese
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public async Task<List<Casi>> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato, string percorso = "wwwroot/csv/stati.csv")
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
@@ -330,11 +452,9 @@ namespace API.Functions
             string UrlCovid = "https://www.worldometers.info/coronavirus/#nav-yesterday";
             var web = new HtmlWeb();
             var doc = web.Load(UrlCovid);
-            var statoen = CountryTranslate(stato, "en");
+            var statoen = CountryTranslate(stato, "en", percorso);
 
 
-            try
-            {
                 if (stato == "world")
                 {
                     var nodes = doc.DocumentNode.SelectNodes("//table[@id='main_table_countries_yesterday']//tr[@style='']");
@@ -357,20 +477,55 @@ namespace API.Functions
 
                         }
                     }
+                    var json = JsonConvert.SerializeObject(elecasi);
+                    File.WriteAllText(@"wwwroot/json/casi.json", json);
+                    var zz = elecasi.OrderBy(a => a.Stato);
+                    foreach (var item in zz)
+                    {
+                        var statot = item.Stato;
+                        var statoit = CountryTranslate(statot, "it");
+                        File.AppendAllText(@"wwwroot/csv/elecountry.txt", statoit + "\n");
+                    }
                     return elecasi;
                 }
 
+            try
+            {
                 casiattivi = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[8].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                casiattivi = 0;
+            }
+            try
+            {
                 giornalieri = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[3].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                giornalieri = 0;
+            }
+            try
+            {
                 popolazione = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@id='main_table_countries_yesterday']//tr[contains(., '{statoen}')]/td")[14].InnerText.Trim().Replace("/n", null).Replace(",", null));
+
+            }
+            catch
+            {
+                popolazione = 0;
+            }
+            try
+            {
                 percentuale = (casiattivi / popolazione) * 100;
             }
-            catch (NullReferenceException)
+            catch
             {
-                Casi error = new Casi();
-                elecasi.Add(error);
-                return elecasi;
+                percentuale = 0;
             }
+
+
             Casi casi = new Casi { Stato = stato, CasiAttivi = (int)casiattivi, CasiGiornalieri = (int)giornalieri, PercentualeContagi = percentuale, Popolazione = (int)popolazione };
             elecasi.Add(casi);
             return elecasi;
@@ -381,43 +536,87 @@ namespace API.Functions
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati sulle vaccinazioni</returns>
-        public Vaccini DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato, string percorso = "wwwroot/csv/stati.csv")
         {
-            int nuovedosi = default;
-            int vaccinati = default;
-            int dositot = default;
-            string UrlCovid = "https://news.google.com/covid19/map?hl=it&state=7&gl=IT&ceid=IT%3Ait";
-            var web = new HtmlWeb();
-            var doc = web.Load(UrlCovid);
+            var statoen = CountryTranslate(stato, "en", percorso);
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://covid-news-and-statistics.p.rapidapi.com/vaccinations/{statoen}"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "covid-news-and-statistics.p.rapidapi.com" },
+                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                },
+            };
             try
             {
-                vaccinati = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[3].InnerText.Trim().Replace("/n", null).Replace(".", null));
-                dositot = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[0].InnerText.Trim().Replace("/n", null).Replace(".", null));
-                try
+                using (var response = await client.SendAsync(request))
                 {
-                    nuovedosi = int.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]/td")[1].InnerText.Trim().Replace("/n", null).Replace(".", null));
-
-                }
-                catch
-                {
-                    nuovedosi = 0;
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    var a = JsonConvert.DeserializeObject<VacciniModel>(body.Replace("[", "").Replace("]", ""));
+                    Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.total_vaccinations, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
+                    return vaccini;
                 }
             }
-            catch (NullReferenceException)
+            catch
             {
-                Vaccini error = new Vaccini();
-                return error;
+                Vaccini elevaccini = new Vaccini();
+                return elevaccini;
             }
-            decimal perc = decimal.Parse(doc.DocumentNode.SelectNodes($"//table[@class='pH8O4c']//tr[contains(., '{stato}')]//td")[4].InnerText.Trim().Replace("/n", null).Replace("%", null));
-            Vaccini vaccini = new Vaccini { Stato = stato, Vaccinati = (int)vaccinati, DosiTotali = dositot, NuoveDosi = nuovedosi, PercentualeVaccini = perc };
-            return vaccini;
         }
 
         public async Task<string> CovidMap()
         {
-            var json = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
-            string mappa = default;
+            List<Casi> casi = DataCovid("world");
+            var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
+            File.WriteAllText(@"wwwroot/csv/world_new.csv", string.Empty);
+            string line = default;
+            line = "";
+
             using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world.csv"))
+            {
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                while (!parser.EndOfData)
+                {
+                    string[] fields = parser.ReadFields();
+
+                    if (fields[0] == "COVID")
+                    {
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var casiattivi = casi.First(a => a.Stato == fields[0]).CasiAttivi.ToString();
+                            fields[1] = casiattivi;
+                        }
+                        catch (Exception ex)
+                        {
+                            fields[1] = "";
+                        }
+                    }
+                    foreach (var field in fields)
+                    {
+                        if (line == "")
+                        {
+                            line = line + field;
+                        }
+                        else
+                        {
+                            line = line + "," + field;
+                        }
+                    }
+                    File.AppendAllText(@"wwwroot/csv/world_new.csv", line + "\n");
+                    line = "";
+                }
+            }
+
+
+            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world_new.csv"))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -435,16 +634,16 @@ namespace API.Functions
                         {
                             if (fields[0] == "San Marino" || fields[0] == "Vatican City" || fields[0] == "Monaco")
                             {
-                                json.features.FirstOrDefault(a => a.properties.name == "Italy").properties.casi = 0;
+
                             }
                             else
                             {
-                                json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = decimal.Parse(fields[1]);
+                                jsonmap.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = decimal.Parse(fields[1]);
                             }
                         }
                         catch (FormatException)
                         {
-                            json.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = 0;
+                            jsonmap.features.FirstOrDefault(a => a.properties.name == fields[3]).properties.casi = 0;
                         }
                         catch (NullReferenceException)
                         {
@@ -452,10 +651,37 @@ namespace API.Functions
                         }
                     }
                 }
-                mappa = JsonConvert.SerializeObject(json);
-                //File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
+                var mappa = JsonConvert.SerializeObject(jsonmap);
+                File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
+                return mappa;
             }
-            return mappa;
+        }
+
+        public async Task<List<string>> GetImages(string stato)
+        {
+            List<string> elefoto = new List<string>();
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri($"https://google-image-search1.p.rapidapi.com/?keyword={stato}&max=1"),
+                Headers =
+                {
+                    { "x-rapidapi-host", "google-image-search1.p.rapidapi.com" },
+                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                var json = JsonConvert.DeserializeObject<List<Foto>>(body);
+                foreach(var item in json)
+                {
+                    elefoto.Add(item.proxyImage);
+                }
+                return elefoto;
+            }
         }
     }
 }

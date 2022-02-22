@@ -19,10 +19,12 @@ namespace HeyTravel.Service
             this.httpClient = httpClient;
         }
 
-        public async Task<RegistrationResponse> Register(UserRegistrationDTO user)
+        public async Task<string> Login()
         {
-            var result = await httpClient.PostAsJsonAsync<UserRegistrationDTO>("JWT/Register", user);
-            return null;
+            var user = new UserLoginRequest { Username = "HeyTravel", Password = "HeyTravel2022!" };
+            var result = await httpClient.PostAsJsonAsync<UserLoginRequest>(@$"JWT/Login", user);
+            var b = await result.Content.ReadAsStringAsync();
+            return b;
         }
     }
 }

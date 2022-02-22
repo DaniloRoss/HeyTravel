@@ -1,12 +1,12 @@
-﻿@page
-@model HeyTravel.Pages.Home2Model
+﻿@page 
+@model HeyTravel.Pages.RicercaDataModel
 @{
     ViewData["Title"] = "Home";
 }
 <style>
     body, html {
         /* The image used */
-        background-image: url("../images/HeyTravel_Foto_Ricerca.jpeg");
+        background-image: url("../images/HeyTravel_Foto_RicercaData.jpeg");
         /* Full height */
         height: 100%;
         /* Center and scale the image nicely */
@@ -16,11 +16,11 @@
     }
 </style>
 
+
 <div class="text-center">
     <br />
     <br />
-    <br />
-    <h1 class="text-white-50"><i>Manca sempre meno per il completamento del tuo viaggio</i></h1>
+    <h1 class="text-black-50"><i>Manca poco per il completamento del tuo miglior viaggio</i></h1>
     <br />
     <br />
     <br />
@@ -40,25 +40,16 @@
                     transform: translate(-50%, -50%);
                 }
             </style>
-            <h5 class="text-white-50" align="center"><i>Inserire il mese di partenza</i></h5>
-            <input class="form-control me-2 text-black" type="month" name="month" min="2022-02" max="2022-12" />
+            <h5 class="text-black-50" align="center"><i>Inserire il mese di partenza</i></h5>
+            <input class="form-control me-2 text-black" asp-for="@Model.mesepartenza" type="month" min="2022-02" max="2022-12" />
             <br />
             <br />
-            <h5 class="text-white-50" align="center"><i>Inserire il mese di ritorno</i></h5>
-            <input class="form-control me-2 text-black" type="month" name="month" min="2022-02" max="2022-12" />
+            <h5 class="text-black-50" align="center"><i>Inserire il mese di ritorno</i></h5>
+            <input class="form-control me-2 text-black" asp-for="@Model.mesearrivo" type="month" min="2022-02" max="2022-12" />
             <br />
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div class="center">
-                <input type="button" onclick="location.href='Risultato'" class="btn btn-outline-light" style="background-color:gray" value="Cerca" />
+            <div class="text-center">
+                <button type="submit" class="btn btn-info" style="width:100px">Cerca</button>
             </div>
         </div>
     </div>

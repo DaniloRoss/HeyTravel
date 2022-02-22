@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Fg6MhEvDWK6aJR0useliMehtxxJNW2IaEqN0Y3suhNXE+tjVPjnDQswvYFWv1UkMr8BXbHsMneKMltr2ijSTcQ==",
+  "dgSpecHash": "btVmq42gbW1ahAH3iRthDNybuKGqiH7XJoI42VDe7A9ait/NNTM1UZLkYWz0VaUStdIXeKL6D3fQmA4YtoQeMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\htmlagilitypack\\1.11.40\\htmlagilitypack.1.11.40.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\rossi.17217\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.13\\microsoft.aspnetcore.authentication.jwtbearer.5.0.13.nupkg.sha512",

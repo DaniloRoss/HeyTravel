@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,14 +23,11 @@ namespace HeyTravel.Pages
         }
         public List<Citta> eleCittaPartenza = new List<Citta>();
         public List<Citta> eleCittaArrivo = new List<Citta>();
-        public Casi eleCasiArrivo = new Casi();
+        public List<Casi> eleCasiArrivo = new List<Casi>();
         public Vaccini eleVaccini = new Vaccini();
 
         [BindProperty]
-        public string cittaPartenza { get; set; }
-
-        [BindProperty]
-        public string cittaArrivo { get; set; }
+        public string cittarrivo { get; set; }
 
         [BindProperty]
         public string statopartenza { get; set; }
@@ -37,34 +35,48 @@ namespace HeyTravel.Pages
         [BindProperty]
         public string statoarrivo { get; set; }
 
+        [BindProperty]
+        public decimal Latitude { get; set; }
+
+        [BindProperty]
+        public decimal Longitude { get; set; }
+
         public async Task<IActionResult> OnGetAsync(string statopartenza, string statoarrivo)
         {
-            eleCittaPartenza =  await scrapingRepository.ExtractBestCitiesPerCountryAsync(statopartenza);
+            //eleCittaPartenza =  await scrapingRepository.ExtractBestCitiesPerCountryAsync(statopartenza);
 
             if (eleCittaPartenza != null)
             {
-                Thread.Sleep(800);
                 eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);             
             }
-       
-            if (eleCasiArrivo != null)
+
+            if (statopartenza == statoarrivo)
             {
-                Thread.Sleep(300);
-                eleCasiArrivo = await scrapingRepository.DataCovid(statoarrivo);
+                return RedirectToPage("/Errori");
             }
 
-            if (eleVaccini != null)
-            {
-                Thread.Sleep(300);
-                eleVaccini = await scrapingRepository.DataVaccini(statoarrivo);
-            }
-     
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            return Page();
+            eleCittaArrivo = await scrapingRepository.ExtractBestCitiesPerCountryAsync(statoarrivo);
+            var xy = eleCittaArrivo.First(a => a.name == cittarrivo);
+
+            Latitude = decimal.Round((decimal) xy.latitude);
+            Longitude = decimal.Round((decimal) xy.longitude);
+            return RedirectToPage("/RicercaData", new { statoPartenza = this.statopartenza, statoArrivo = this.statoarrivo, cittaArrivo = cittarrivo, latitude=Latitude, longitude=Longitude });
         }
     }
 }
+
+//double value = 1234567890;
+//Console.WriteLine(value.ToString("#,#", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,#}", value));
+//// Displays 1,234,567,890
+
+//Console.WriteLine(value.ToString("#,##0,,", CultureInfo.InvariantCulture));
+//Console.WriteLine(String.Format(CultureInfo.InvariantCulture,
+//                                "{0:#,##0,,}", value));
+//// Displays 1,235

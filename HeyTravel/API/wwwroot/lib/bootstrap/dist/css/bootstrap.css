@@ -1,4 +1,4 @@
-﻿/*!
+﻿421/*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
@@ -71,6 +71,10 @@ hr {
   box-sizing: content-box;
   height: 0;
   overflow: visible;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -188,6 +192,9 @@ pre {
   margin-top: 0;
   margin-bottom: 1rem;
   overflow: auto;
+  display: block;
+  font-size: 87.5%;
+  color: #212529;
 }
 
 figure {
@@ -418,13 +425,6 @@ h6, .h6 {
   line-height: 1.2;
 }
 
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
 small,
 .small {
   font-size: 80%;
@@ -525,12 +525,6 @@ kbd kbd {
   padding: 0;
   font-size: 100%;
   font-weight: 700;
-}
-
-pre {
-  display: block;
-  font-size: 87.5%;
-  color: #212529;
 }
 
 pre code {
@@ -3191,10 +3185,6 @@ input[type="button"].btn-block {
   content: "";
 }
 
-.dropleft .dropdown-toggle::after {
-  display: none;
-}
-
 .dropleft .dropdown-toggle::before {
   display: inline-block;
   margin-right: 0.255em;
@@ -3207,10 +3197,6 @@ input[type="button"].btn-block {
 
 .dropleft .dropdown-toggle:empty::after {
   margin-left: 0;
-}
-
-.dropleft .dropdown-toggle::before {
-  vertical-align: 0;
 }
 
 .dropdown-menu[x-placement^="top"], .dropdown-menu[x-placement^="right"], .dropdown-menu[x-placement^="bottom"], .dropdown-menu[x-placement^="left"] {
@@ -4419,6 +4405,8 @@ input[type="button"].btn-block {
 .navbar-expand > .container-fluid {
   padding-right: 0;
   padding-left: 0;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
 
 .navbar-expand .navbar-nav {
@@ -4433,12 +4421,6 @@ input[type="button"].btn-block {
 .navbar-expand .navbar-nav .nav-link {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-}
-
-.navbar-expand > .container,
-.navbar-expand > .container-fluid {
-  -ms-flex-wrap: nowrap;
-  flex-wrap: nowrap;
 }
 
 .navbar-expand .navbar-collapse {
@@ -4823,10 +4805,6 @@ input[type="button"].btn-block {
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
-}
-
-.breadcrumb-item + .breadcrumb-item:hover::before {
-  text-decoration: none;
 }
 
 .breadcrumb-item.active {

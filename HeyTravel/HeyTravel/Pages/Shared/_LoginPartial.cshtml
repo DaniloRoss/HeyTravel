@@ -2,6 +2,12 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+<style>
+    .text-dark{
+        color:white;
+    }
+</style>
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {

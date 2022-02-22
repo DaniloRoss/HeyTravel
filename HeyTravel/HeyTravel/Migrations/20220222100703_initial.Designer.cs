@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HeyTravel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220220101953_New")]
-    partial class New
+    [Migration("20220222100703_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

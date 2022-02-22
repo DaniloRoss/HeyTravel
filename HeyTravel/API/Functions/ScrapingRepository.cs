@@ -165,14 +165,14 @@ namespace API.Functions
         /// <returns></returns>
         public async Task<IEnumerable<Citta>> ExtractBestCitiesPerCountry(string stato)
         {
-            string statoNuovo="";
-            if(stato.Contains(' '))
+            string statoNuovo = "";
+            if (stato.Contains(' '))
             {
                 bool primo = true;
                 string[] split = stato.Split(' ');
-                foreach(var st in split)
+                foreach (var st in split)
                 {
-                    if(primo==true)
+                    if (primo == true)
                     {
                         statoNuovo += $"{st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
                         primo = false;
@@ -180,15 +180,15 @@ namespace API.Functions
                     else
                     {
                         statoNuovo += $" {st.Substring(0, 1).ToUpper()} {st.Substring(1, st.Length - 1).ToLower()}";
-                    }                    
+                    }
                 }
-            }   
+            }
             else
             {
                 statoNuovo = $"{stato.Substring(0, 1).ToUpper()}{stato.Substring(1, stato.Length - 1).ToLower()}";
             }
             List<Citta> eleCitta = new List<Citta>();
-            if(stato.Contains(' '))
+            if (stato.Contains(' '))
             {
                 stato.Replace(' ', '-');
             }
@@ -202,7 +202,7 @@ namespace API.Functions
             NodesTabelle = document.DocumentNode.SelectNodes(".//table");
             string ultima_citta = "";
             foreach (var tabella in NodesTabelle)
-            {             
+            {
                 try
                 {
                     Citta citta = new Citta();
@@ -236,7 +236,7 @@ namespace API.Functions
                 catch
                 {
                     continue;
-                }                
+                }
             }
             document = web?.Load("https://www.climieviaggi.it/climi-nel-mondo/paesi");
 
@@ -276,7 +276,7 @@ namespace API.Functions
                 catch
                 {
                     continue;
-                }                
+                }
             }
             return eleCitta;
         }
@@ -290,7 +290,7 @@ namespace API.Functions
             {
                 cittaLower.Replace(' ', '-');
             }
-            link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";            
+            link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}/{cittaLower}";
 
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web?.Load(link);
@@ -298,14 +298,15 @@ namespace API.Functions
 
             List<Meteo> eleMeteo = new List<Meteo>();
 
-            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto."))
+            if (document.DocumentNode.InnerText.Contains("Purtroppo, il server non ha trovato nulla che corrisponda all'URL richiesto.") ||
+                document.DocumentNode.InnerText.Contains("Nessuna riga alla posizione 0."))
             {
                 link = $"https://www.climieviaggi.it/clima/{stato.ToLower()}";
                 document = web?.Load(link);
                 link1 = false;
             }
 
-            if(link1==true)
+            if (link1 == true)
             {
                 NodesTabelle = document.DocumentNode.SelectNodes(".//table");
             }
@@ -322,7 +323,7 @@ namespace API.Functions
                     cittaUtile = cittaLower.Substring(0, 1).ToUpper() + cittaLower.Substring(1, cittaLower.Length - 1);
                 NodesTabelle = document.DocumentNode.SelectNodes($".//table//caption[starts-with(.,'{cittaUtile}')]/parent::table");
             }
-            
+
 
             if (NodesTabelle == null || document.DocumentNode.SelectSingleNode("//span").InnerText.StartsWith("Errore"))
             {
@@ -549,13 +550,21 @@ namespace API.Functions
                     { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
                 },
             };
-            using (var response = await client.SendAsync(request))
+            try
             {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var a = JsonConvert.DeserializeObject<VacciniModel>(body.Replace("[", "").Replace("]", ""));
-                Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.total_vaccinations, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
-                return vaccini;
+                using (var response = await client.SendAsync(request))
+                {
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    var a = JsonConvert.DeserializeObject<VacciniModel>(body.Replace("[", "").Replace("]", ""));
+                    Vaccini vaccini = new Vaccini { Stato = a.country, DosiTotali = a.total_vaccinations, Vaccinati = a.people_fully_vaccinated, NuoveDosi = 0, PercentualeVaccini = (decimal)a.people_vaccinated_per_hundred };
+                    return vaccini;
+                }
+            }
+            catch
+            {
+                Vaccini elevaccini = new Vaccini();
+                return elevaccini;
             }
         }
 

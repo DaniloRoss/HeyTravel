@@ -1,0 +1,257 @@
+﻿@page
+@model HeyTravel.Pages.RisultatoModel
+@{
+    ViewData["Title"] = "Risultato";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<style>
+    body, html {
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_Risultati.jpg");
+        background-attachment: fixed;
+        /* Full height */
+        height: 100%;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: darkgray;
+    }
+
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 70%;
+        margin: auto;
+    }
+
+</style>
+<br />
+<br />
+<div class="alert alert-light" role="alert">
+    <br />
+    <h1 class="text-black-50" style="text-align:center; font-size:74px"><i>@Model.statoarrivo - @Model.cittarrivo</i></h1>
+    <h4 class="text-black-50" style="text-align:center;"><i>Viaggio dal @Model.mesePartenza al @Model.meseArrivo</i></h4>
+    <br />
+</div>
+<br />
+<br />
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var item in Model.elefoto)
+            {
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="~/images/photo.png" alt="First slide">
+                </div>
+            }
+        </div>
+    </div>
+<br />
+<br />
+
+<form method="post" class="text-center">
+</form>
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <i>CASI COVID</i>
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                @foreach (var item in Model.eleCasiArrivo)
+                {
+                    <h5><i>Casi giornalieri: <span class="badge bg-danger">@((int)item.CasiGiornalieri)</span></i></h5>
+
+                    <h5><i>Popolazione Stato: <span class="badge bg-danger">@((int)item.Popolazione)</span></i></h5>
+
+                    <h5><i>Casi COVID attivi: <span class="badge bg-danger">@((int)item.CasiAttivi)</span></i></h5>
+
+                    <h5><i>Percentuale contagi: <span class="badge bg-danger">@((int)item.PercentualeContagi)%</span></i></h5>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                <i>VACCINAZIONI</i>
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+                <div class="accordion-body">
+                    <h5><i>Vaccinati: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.Vaccinati)</span></i></h5>
+
+                    <h5><i>Dosi totali: <span class="badge bg-info text-dark">@((int)Model.eleVaccini.DosiTotali)</span></i></h5>
+
+                    <h5><i>Percentuale vaccini:<span class="badge bg-info text-dark">@((int)Model.eleVaccini.PercentualeVaccini)%</span></i></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion accordion-flush">
+        <h2 class="accordion-header" id="accordionFlushExample">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                <i>METEO</i>
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    @if (Model.eletemp.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                    <i>TEMPERATURE</i>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingFour">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Minima</th>
+                                                <th>Massima</th>
+                                                <th>Media</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.eletemp)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Min C°</td>
+                                                    <td>@item.Max C°</td>
+                                                    <td>@item.Media C°</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.eleprec.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                    <i>PRECIPITAZIONI</i>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Quantità</th>
+                                                <th>Giorni</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.eleprec)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Quantità mm</td>
+                                                    <td>@item.Giorni</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.elesole.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                    <i>ORE DI SOLE</i>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Media giornaliera</th>
+                                                <th>Totale</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.elesole)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.MediaGiornaliera ore</td>
+                                                    <td>@item.TotaleMese ore</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.elemare.Count != 0)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                                    <i>TEMPERATURA DEL MARE</i>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSeven">
+                                <div class="accordion-body">
+                                    <table class="table text-black-50">
+                                        <thead>
+                                            <tr align="center">
+                                                <th>Mese</th>
+                                                <th>Temperatura</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.elemare)
+                                            {
+                                                <tr align="center">
+                                                    <td>@item.Mese</td>
+                                                    <td>@item.Temperatura C°</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<div id="map" style="width:1200px; height:600px; margin:auto; box-sizing:inherit; display:block; background-color:white;" class="container"></div>
+<script type="text/javascript" src="~/js/Mappa.js"></script>
+
+<br />
+<br />
+
+<form method="post" style="text-align:center;">
+    <div class="center">
+        <input type="submit" asp-route-id="@Model.Viaggio.ID" class="btn btn-danger" value="Aggiungi ai tuoi Preferiti" />
+    </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

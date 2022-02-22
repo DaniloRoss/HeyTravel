@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {}
+    "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+    "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\stroppa.17218\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stroppa.17218\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
+        "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\stroppa.17218\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -51,9 +51,39 @@
               "target": "Package",
               "version": "[1.11.40, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
             "Microsoft.AspNetCore.Http": {
               "target": "Package",
               "version": "[2.2.2, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -86,7 +116,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

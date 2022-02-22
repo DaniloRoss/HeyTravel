@@ -3,3 +3,34 @@
 @{
     ViewData["Title"] = "Preferiti";
 }
+
+<br />
+<h2 class="text-black-50" align="center">Ritrova qui le tue mete <i>Preferite</i></h2>
+<br />
+<form method="post">
+    <table class="table text-black-50">
+        <thead>
+            <tr align="center">
+                <th>Stato di Arrivo</th>
+                <th>Città di Arrivo</th>
+                <th>Mese di Partenza</th>
+                <th>Mese di Arrivo</th>
+                <th>Informazioni dettagliate</th>
+                <th>Rimuovi il preferito</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.eleViaggiUtente)
+            {
+                <tr align="center">
+                    <td>@item.StatoArrivo</td>
+                    <td>@item.CittaArrivo</td>
+                    <td>@item.MesePartenza</td>
+                    <td>@item.MeseArrivo</td>
+                    <td><button type="submit" class="btn btn-info" name="SubmitButton" asp-route-id="@item.ID" value="visualizza">Visualizza</button></td>
+                    <td><button type="submit" class="btn btn-danger" name="SubmitButton" asp-route-id="@item.ID" align="center" value="rimuovi"><i>Rimuovi</i></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

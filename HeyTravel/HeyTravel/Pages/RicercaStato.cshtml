@@ -1,0 +1,44 @@
+﻿@page
+@model HeyTravel.Pages.RicercaStatoModel
+@{
+    ViewData["Title"] = "Stato";
+}
+
+<style>
+    body, html {
+        height: 100%;
+        /* The image used */
+        background-image: url("../images/HeyTravel_Foto_RicercaStato.jpg");
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<div class="text-center">
+    <br />
+    <br />
+    <h1 class="text-black-50"><i>Risultati del tuo stato di destinazione</i></h1>
+    <br />
+    <br />
+</div>
+<br />
+<br />
+<h5 class="text-black-50" align="center"><i>Inserire la città di destinazione</i></h5>
+<br />
+<form method="post">
+    <select asp-for="@Model.cittarrivo" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        @foreach (var item in Model.eleCittaArrivo)
+        {
+            <option>
+                @item.name.ToString()
+            </option>
+        }
+    </select>
+    <br />
+    <br />
+    <div class="text-center">
+        <button type="submit" class="btn btn-info" style="width:100px">Cerca</button>
+    </div>
+</form>

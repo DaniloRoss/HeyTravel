@@ -6,9 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Functions;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace API.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ScrapingController : ControllerBase
@@ -31,29 +34,32 @@ namespace API.Controllers
             List<Meteo> listameteo = scrapingRepository.ExtractMeteo(stato, citta).ToList();
             return listameteo;
         }
-        [HttpGet("Aeroporti/{latitude}/{longitude}")]
-        public async Task<List<Aeroporto>> ExtractAirports(double latitude, double longitude)
-        {
-            List<Aeroporto> listaAeroporti = await scrapingRepository.ExtractAirports(latitude, longitude) as List<Aeroporto>;
-            return listaAeroporti;
-        }
+
+        
         [HttpGet("Covid/casi/{stato}")]
-        public async Task<Casi> DataCovid(string stato)
+        public List<Casi> DataCovid(string stato)
         {
-            Casi covid = await scrapingRepository.DataCovid(stato);
+            List<Casi> covid = scrapingRepository.DataCovid(stato);
             return covid;
         }
         [HttpGet("Covid/vaccini/{stato}")]
-        public Vaccini DataVaccini(string stato)
+        public async Task<Vaccini> DataVaccini(string stato)
         {
-            Vaccini vaccini = scrapingRepository.DataVaccini(stato);
+            Vaccini vaccini = await scrapingRepository.DataVaccini(stato);
             return vaccini;
         }
-        [HttpGet("Covid/map/")]
+        [HttpGet("Covid/map")]
         public async Task<string> CovidMap()
         {
-            var map = await scrapingRepository.CovidMap();
-            return map;
+            string mappa = await scrapingRepository.CovidMap();
+            return mappa;
+        }
+
+        [HttpGet("Photo/{stato}")]
+        public async Task<List<string>> GetPhoto(string stato)
+        {
+            List<string> elefoto = await scrapingRepository.GetImages(stato);
+            return elefoto;
         }
     }
 }

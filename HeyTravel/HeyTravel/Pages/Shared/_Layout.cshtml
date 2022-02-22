@@ -1,17 +1,20 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HeyTravel</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #17a2b8;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-page="/Index"><i class="text-primary">HeyTravel</i></a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><img src="~/images/logo.PNG"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -19,17 +22,45 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-page="/Preferiti"><i class="text-secondary">Preferiti</i></a>
-                        </li>                       
+                            <a class="nav-link active" aria-current="page" asp-page="/Preferiti"><b class="text-white"><i>Preferiti ☆</i></b></a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-            </ul>
-            <partial name="_LoginPartial" />
-        </div>
-       </nav>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <partial name="_LoginPartial" />
+
+                <!--<label id="NomeUtente"></label>-->
+                @*Google Auth che fa onSignIn*@
+                <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+                @*Log Out*@
+                <!--<a href="#" class="nav-link text-dark" onclick="signOut();">Log out</a>
+        <script>
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    document.getElementById("NomeUtente").innerHTML = '';
+                    console.log('User signed out.');
+                });
+            }
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                var id = profile.getId(); // Do not send to your backend! Use an ID token instead.
+                var Email = profile.getEmail(); // This is null if the 'email' scope is not present.
+
+                document.getElementById("NomeUtente").innerHTML = profile.getName();
+            }
+            function Confirm() {
+                var confirm_value = document.createElement("INPUT");
+                confirm_value.type = "hidden";
+                confirm_value.name = "confirm_value";
+                confirm_value.value = googleUser.getEmail();
+                //In confirm_value che è hidden, ci sta la mail dello user
+                document.forms[0].appendChild(confirm_value);
+            }
+        </script>-->
+            </div>
+        </nav>
     </header>
     <div class="container">
         <partial name="_CookieConsentPartial" />
@@ -38,17 +69,20 @@
         </main>
     </div>
 
-        <footer class="border-top footer text-muted" style="text-align: center; vertical-align: central">
-            <div class="bg-white">
-                <i>&copy; 2022 - HeyTravel - DISC S.P.A</i>
-            </div>
-        </footer>
-
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+    <br />
+    <br />
+    <br />
+    <br />
+    <footer class="border-top footer text-muted" style="text-align: center; vertical-align: central; position:fixed;">
+        <div style=" background-color: #17a2b8">
+            <b><i class="text-white">&copy; 2022 - HeyTravel - DISC S.P.A</i></b>
+        </div>
+    </footer>
 </body>
 </html>
+

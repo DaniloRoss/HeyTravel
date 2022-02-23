@@ -1038,3 +1038,5 @@ C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.dll
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.pdb
 C:\Users\rossi.17217\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.StaticWebAssets.xml
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\API.StaticWebAssets.xml
+C:\Users\danil\Documents\GitHub\HeyTravel\HeyTravel\TestAPI\bin\Debug\net5.0\HeyTravel.StaticWebAssets.xml

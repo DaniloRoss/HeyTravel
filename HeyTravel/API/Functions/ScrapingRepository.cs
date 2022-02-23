@@ -415,34 +415,12 @@ namespace API.Functions
             }
             return eleMeteo;
         }
-        public async Task<IEnumerable<Aeroporto>> ExtractAirports(double latitude, double longitude)
-        {
-            var client = new HttpClient();
-            Uri ur = new Uri($"https://aviation-reference-data.p.rapidapi.com/airports/search?lat={latitude.ToString().Replace(',', '.')}&lon={longitude.ToString().Replace(',', '.')}&radius=100");
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = ur,
-                Headers =
-                {
-                    { "x-rapidapi-host", "aviation-reference-data.p.rapidapi.com" },
-                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
-                },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<List<Aeroporto>>(body);
-                return result;
-            }
-        }
         /// <summary>
         /// Funzione he estrae i dati dei casi di Covid19 in base al paese
         /// </summary>
         /// <param name="stato"></param>
         /// <returns>Dati su contagi</returns>
-        public List<Casi> DataCovid(string stato, string percorso = "wwwroot/csv/stati.csv")
+        public List<Casi> DataCovid(string stato, string percorso = "wwwroot/csv/stati.csv", string percorsocasi = "wwwroot/json/casi.json", string percorsotesto = "wwwroot/csv/elecountry.txt")
         {
             decimal casiattivi = default;
             decimal giornalieri = default;
@@ -478,13 +456,13 @@ namespace API.Functions
                         }
                     }
                     var json = JsonConvert.SerializeObject(elecasi);
-                    File.WriteAllText(@"wwwroot/json/casi.json", json);
+                    File.WriteAllText($@"{percorsocasi}", json);
                     var zz = elecasi.OrderBy(a => a.Stato);
                     foreach (var item in zz)
                     {
                         var statot = item.Stato;
-                        var statoit = CountryTranslate(statot, "it");
-                        File.AppendAllText(@"wwwroot/csv/elecountry.txt", statoit + "\n");
+                        var statoit = CountryTranslate(statot, "it", percorso);
+                        File.AppendAllText($@"{percorsotesto}", statoit + "\n");
                     }
                     return elecasi;
                 }
@@ -568,15 +546,15 @@ namespace API.Functions
             }
         }
 
-        public async Task<string> CovidMap()
+        public async Task<string> CovidMap(string percorso = "wwwroot/csv/stati.csv", string percorsocasi = "wwwroot/json/casi.json", string percorsotesto = "wwwroot/csv/elecountry.txt", string percorsoworldok = "wwwroot/json/world_OK.json", string percorsoworld = "wwwroot/csv/world.csv", string percorsoworldnew = "wwwroot/csv/world_new.csv", string percorsojson = "wwwroot/json/mappa.json")
         {
-            List<Casi> casi = DataCovid("world");
-            var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(@"wwwroot/json/world_OK.json"));
-            File.WriteAllText(@"wwwroot/csv/world_new.csv", string.Empty);
+            List<Casi> casi = DataCovid("world", percorso, percorsocasi, percorsotesto);
+            var jsonmap = JsonConvert.DeserializeObject<GeoJson>(File.ReadAllText(percorsoworldok));
+            File.WriteAllText(percorsoworldnew, string.Empty);
             string line = default;
             line = "";
 
-            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world.csv"))
+            using (TextFieldParser parser = new TextFieldParser(percorsoworld))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -610,13 +588,13 @@ namespace API.Functions
                             line = line + "," + field;
                         }
                     }
-                    File.AppendAllText(@"wwwroot/csv/world_new.csv", line + "\n");
+                    File.AppendAllText($@"{percorsoworldnew}", line + "\n");
                     line = "";
                 }
             }
 
 
-            using (TextFieldParser parser = new TextFieldParser(@"wwwroot/csv/world_new.csv"))
+            using (TextFieldParser parser = new TextFieldParser($@"{percorsoworldnew}"))
             {
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
@@ -652,7 +630,7 @@ namespace API.Functions
                     }
                 }
                 var mappa = JsonConvert.SerializeObject(jsonmap);
-                File.WriteAllText(@"wwwroot/json/mappa.json", mappa);
+                File.WriteAllText($@"{percorsojson}", mappa);
                 return mappa;
             }
         }

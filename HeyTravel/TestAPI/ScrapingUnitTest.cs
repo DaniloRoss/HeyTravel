@@ -23,8 +23,13 @@ namespace TestAPI
             var b = Directory.GetParent(a.ToString());
             var c = Directory.GetParent(b.ToString());
             var d = Directory.GetParent(c.ToString());
-            List<Casi> result = scrapingRepository.DataCovid("Italia", $"{d}/API/wwwroot/csv/stati.csv");
-            List<Casi> error = scrapingRepository.DataCovid("paeseinesistene", $"{d}/API/wwwroot/csv/stati.csv");
+            string percorso = $"{d}/API/wwwroot/csv/stati.csv";
+            string percorsocasi = $"{d}/API/wwwroot/json/casi.json";
+            string percorsotesto = $"{d}/API/wwwroot/csv/elecountry.txt";
+
+            List<Casi> result = scrapingRepository.DataCovid("Italia", percorso, percorsocasi, percorsotesto);
+            List<Casi> error = scrapingRepository.DataCovid("paeseinesistene", percorso, percorsocasi, percorsotesto);
+            List<Casi> world = scrapingRepository.DataCovid("world", percorso, percorsocasi, percorsotesto);
 
             //Assert
             result[0].Stato.Should().Be("Italia");
@@ -36,6 +41,8 @@ namespace TestAPI
             error[0].Stato.Should().Be("paeseinesistene");
             error[0].Popolazione.Should().Be(0);
             error[0].PercentualeContagi.Should().Be(0);
+
+            world.Count.Should().NotBe(0);
         }
 
         [Fact]
@@ -117,10 +124,12 @@ namespace TestAPI
 
             //Act
             var result = scrapingRepository.ExtractBestCitiesPerCountry("Italia");
+            var resultspace = scrapingRepository.ExtractBestCitiesPerCountry("Paesi Bassi");
 
 
             //Assert
             result.Should().NotBe(null);
+            resultspace.Should().NotBe(null);
         }
 
         [Fact]
@@ -135,6 +144,47 @@ namespace TestAPI
 
             //Assert
             result.Count().Should().NotBe(0);
+        }
+
+        [Fact]
+        public async void TestMappa()
+        {
+            //Arrange
+            ScrapingRepository scrapingRepository = new ScrapingRepository();
+            var a = Directory.GetParent(Directory.GetCurrentDirectory());
+            var b = Directory.GetParent(a.ToString());
+            var c = Directory.GetParent(b.ToString());
+            var d = Directory.GetParent(c.ToString());
+            string percorsoworldok = $"{d}/API/wwwroot/json/world_OK.json";
+            string percorsoworld = $"{d}/API/wwwroot/csv/world.csv";
+            string percorsoworldnew = $"{d}/API/wwwroot/csv/world_new.csv";
+            string percorsojson = $"{d}/API/wwwroot/json/mappa.json";
+            string percorso = $"{d}/API/wwwroot/csv/stati.csv";
+            string percorsocasi = $"{d}/API/wwwroot/json/casi.json";
+            string percorsotesto = $"{d}/API/wwwroot/csv/elecountry.txt";
+
+
+            //Act
+            var result = await scrapingRepository.CovidMap(percorso, percorsocasi, percorsotesto, percorsoworldok, percorsoworld, percorsoworldnew, percorsojson);
+
+
+            //Assert
+            result.Count().Should().NotBe(null);
+        }
+
+        [Fact]
+        public async void TestFoto()
+        {
+            //Arrange
+            ScrapingRepository scrapingRepository = new ScrapingRepository();
+
+
+            //Act
+            var result = await scrapingRepository.GetImages("Parigi");
+
+
+            //Assert
+            result.Count().Should().NotBe(null);
         }
     }
 }

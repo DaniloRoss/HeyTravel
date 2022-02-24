@@ -646,7 +646,7 @@ namespace API.Functions
                 Headers =
                 {
                     { "x-rapidapi-host", "google-image-search1.p.rapidapi.com" },
-                    { "x-rapidapi-key", "2275f60bb4mshd29911f7bec225ap148c2ajsn123bc8b10225" },
+                    { "x-rapidapi-key", "3d0684d35amsh068100b881d194cp1cd704jsn90bc3c996d91" },
                 },
             };
             using (var response = await client.SendAsync(request))

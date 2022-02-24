@@ -37,7 +37,6 @@ map.on('load', function () {
 
 map.on('click', 'covidcases', function (e) {
     const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
     var HTML = '<b>' + e.features[0].properties.name + '</b>' + ' ' + e.features[0].properties.casi + ' cases';
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)

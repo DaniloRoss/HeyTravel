@@ -11335,19 +11335,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danil\\.nuget\\packages\\": {}
+    "C:\\Users\\rossi.17217\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+      "projectUniqueName": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
       "projectName": "TestAPI",
-      "projectPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
-      "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
+      "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\TestAPI.csproj",
+      "packagesPath": "C:\\Users\\rossi.17217\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\TestAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\rossi.17217\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11361,11 +11365,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
-              "projectPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
+            "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj": {
+              "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\API\\API.csproj"
             },
-            "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
-              "projectPath": "C:\\Users\\danil\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj"
+            "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj": {
+              "projectPath": "C:\\Users\\rossi.17217\\Documents\\GitHub\\HeyTravel\\HeyTravel\\HeyTravel\\HeyTravel.csproj"
             }
           }
         }
@@ -11416,11 +11420,14 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
       }
     }
   }
